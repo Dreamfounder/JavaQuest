@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1118">
+<title>JavaQuest 网页版 · iPhone / iPad / Android 使用手册</title>
+<style>
+:root{--bg:#0b1118;--surface:#131c26;--surface2:#182432;--border:#2c3d4f;--text:#e7eef6;--muted:#96a7b8;--dim:#65788b;--accent:#58c4a0;--blue:#6fb8ff;--purple:#c792ea;--yellow:#ffd166;--red:#ef8f8f}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(1000px 500px at 10% -10%,#153b32 0,transparent 55%),radial-gradient(900px 500px at 95% 0,#16283d 0,transparent 50%),var(--bg);color:var(--text);font:15px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif}
+a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+.wrap{max-width:980px;margin:0 auto;padding:0 22px 70px}
+.top{display:flex;align-items:center;gap:16px;min-height:62px;border-bottom:1px solid #263746;margin-bottom:24px}
+.brand{font-weight:900;font-size:20px;color:var(--text)}.brand b{color:var(--accent)}
+.top .back{margin-left:auto;font-size:12px;color:var(--muted)}
+.hero{border:1px solid #2d5148;background:linear-gradient(135deg,#15372d,#11202a 60%,#0d1720);border-radius:20px;padding:26px 28px;margin:22px 0}
+.kicker{font-size:10px;letter-spacing:2px;color:#9ed7c4}.hero h1{font-size:clamp(26px,4vw,40px);line-height:1.2;margin:8px 0 8px;letter-spacing:-.7px}.hero p{margin:0;color:#a9bcb7;font-size:14px;max-width:760px}
+.quick{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0 0}.quick div{background:rgba(9,20,17,.5);border:1px solid #2c4b41;border-radius:11px;padding:12px}.quick b{display:block;color:var(--accent);font-size:11px;letter-spacing:1px}.quick span{display:block;color:var(--muted);font-size:12px;margin-top:3px}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}.btn{display:inline-flex;align-items:center;gap:6px;border:0;border-radius:9px;padding:8px 12px;background:var(--accent);color:#07130f;font-weight:800;font-size:12px;cursor:pointer}.btn.ghost{background:transparent;border:1px solid var(--border);color:var(--muted);font-weight:600}.btn:hover{filter:brightness(1.08)}
+h2{font-size:21px;margin:34px 0 12px;letter-spacing:-.2px}h3{font-size:15px;margin:20px 0 7px;color:var(--text)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px 18px;margin:10px 0}.card p{margin:0 0 8px;color:var(--muted);font-size:13px}.card p:last-child{margin-bottom:0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.device{border:1px solid #35485a;background:linear-gradient(145deg,#17222e,#111820);border-radius:14px;padding:15px 17px}.device h3{margin-top:0}.device .tag{font-size:9px;color:var(--dim);letter-spacing:1px}
+ol,ul{margin:6px 0 0;padding-left:20px;color:var(--muted);font-size:13px}li{margin:5px 0}li b,li strong{color:var(--text)}
+.step{display:flex;gap:10px;margin:9px 0}.step .n{width:22px;height:22px;border-radius:50%;background:#173b2f;color:var(--accent);font-size:11px;display:grid;place-items:center;flex:none;margin-top:2px}.step div{font-size:13px;color:var(--muted)}.step b{color:var(--text)}
+.note{border-left:3px solid var(--yellow);background:#211d13;padding:10px 13px;border-radius:0 9px 9px 0;font-size:12px;color:#d9cfa9}.warn{border-left-color:var(--red);background:#241618;color:#f0c2c2}
+.tabs{display:flex;gap:6px;margin:14px 0 8px;flex-wrap:wrap}.tabs button{border:1px solid var(--border);background:var(--surface);color:var(--muted);border-radius:999px;padding:6px 13px;font-size:12px;cursor:pointer}.tabs button.active{background:var(--blue);color:#07130f;border-color:var(--blue);font-weight:800}
+.tab{display:none}.tab.active{display:block}
+table{width:100%;border-collapse:collapse;font-size:12px;margin:8px 0}th,td{text-align:left;vertical-align:top;border-bottom:1px solid #263746;padding:9px 8px}th{color:var(--dim);font-weight:600;font-size:10px;letter-spacing:1px}td{color:var(--muted)}td b{color:var(--text)}
+code{background:#0a1219;border:1px solid #223646;border-radius:5px;padding:1px 5px;color:#b7d7ea;font-size:11px}
+.faq details{border-bottom:1px solid #263746;padding:9px 0}.faq summary{cursor:pointer;font-size:13px;color:var(--text)}.faq p{font-size:12px;color:var(--muted);margin:6px 0 0}
+.footer{border-top:1px solid #263746;margin-top:34px;padding-top:14px;color:var(--dim);font-size:11px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.copy{font-size:11px;color:var(--dim)}
+@media(max-width:760px){.wrap{padding:0 14px 50px}.top{min-height:54px}.hero{padding:20px 18px}.quick{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.hero h1{font-size:27px}}
+@media print{body{background:#fff;color:#111;font-size:11pt}.top,.toolbar,.tabs{display:none}.hero{background:#f2f7f5;border-color:#9cc;color:#111}.hero p,.kicker{color:#333}.quick div{background:#f7faf9;border-color:#ccd}.card,.device{border-color:#ccc;background:#fff}.tab{display:block!important}.tab::before{content:attr(data-print);display:block;font-weight:800;color:#111;margin-top:12px}.tabs{display:none}h2{page-break-after:avoid}.footer{color:#555}a{color:#155}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><div class="brand">Java<b>Quest</b> <span style="font-size:10px;color:var(--dim);letter-spacing:2px">WEB GUIDE</span></div><a class="back" href="index.html">← 回到 JavaQuest</a></div>
+
+  <section class="hero">
+    <div class="kicker">IPHONE · IPAD · ANDROID</div>
+    <h1>网页版使用手册</h1>
+    <p>不用安装 APK。用手机浏览器打开 JavaQuest，像网页一样学习、写 Java、走剧情。这份手册分别说明 iPhone/iPad 和 Android 的打开方式、添加到桌面、键盘操作、进度保存和常见问题。</p>
+    <div class="quick">
+      <div><b>01 · 打开</b><span>用 Safari 或 Chrome 访问本站</span></div>
+      <div><b>02 · 添加</b><span>添加到主屏幕，像 App 一样进入</span></div>
+      <div><b>03 · 开始</b><span>先跑 Hello World，再选模式</span></div>
+    </div>
+    <div class="toolbar">
+      <button class="btn" onclick="window.print()">保存为 PDF / 打印</button>
+      <a class="btn ghost" href="guide.png" download="JavaQuest-Web-Guide.png">下载长图</a>
+      <button class="btn ghost" id="copy-link">复制本站链接</button>
+      <span class="copy" id="site-url"></span>
+    </div>
+  </section>
+
+  <div class="note">网页版的进度保存在<b>当前浏览器</b>里，不会自动同步到其他手机或电脑。换设备、换浏览器或清除网站数据，进度会重新开始。</div>
+
+  <h2>1. 先选你的设备</h2>
+  <div class="tabs">
+    <button class="active" data-tab="ios">iPhone / iPad</button>
+    <button data-tab="android">Android 手机 / 平板</button>
+    <button data-tab="both">两者通用</button>
+  </div>
+
+  <section class="tab active" id="tab-ios" data-print="iPhone / iPad">
+    <div class="grid">
+      <div class="device">
+        <div class="tag">SAFARI · IOS 15+</div>
+        <h3>第一次打开</h3>
+        <div class="step"><span class="n">1</span><div>打开 <b>Safari</b>。iPhone 上的 Chrome、Edge 也使用 WebKit，但进度和 Safari 分开保存，建议固定用一个浏览器。</div></div>
+        <div class="step"><span class="n">2</span><div>在地址栏输入本站地址，或从聊天里点开链接。</div></div>
+        <div class="step"><span class="n">3</span><div>等待首页出现“选择模式”。第一次运行代码会下载 Java 运行时，可能需要十几秒。</div></div>
+      </div>
+      <div class="device">
+        <div class="tag">HOME SCREEN</div>
+        <h3>添加到主屏幕</h3>
+        <div class="step"><span class="n">1</span><div>点 Safari 底部的<b>分享</b>按钮（方框向上箭头）。</div></div>
+        <div class="step"><span class="n">2</span><div>向下找到<b>“添加到主屏幕”</b>，改名为 JavaQuest，点“添加”。</div></div>
+        <div class="step"><span class="n">3</span><div>以后从桌面图标进入，界面更接近全屏。它不是 App Store 安装包，仍然是一个网页快捷方式。</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>iPhone / iPad 操作要点</h3>
+      <ul>
+        <li>编辑器里有<b>“补全”按钮</b>；iPhone 键盘没有 Ctrl+Space，点按钮即可弹出补全。</li>
+        <li>键盘挡住代码时，点键盘右上角<b>“完成”</b>收起，或上下滑动页面。</li>
+        <li>横屏或 iPad 分屏时布局会自动变宽；代码区变高，适合长代码。</li>
+        <li>不要用<b>无痕浏览</b>长期学习：关闭无痕窗口后，localStorage 里的进度可能丢失。</li>
+        <li>如果更新后仍是旧页面，关闭标签页重新打开，或到 Safari 设置里清除该网站数据。</li>
+      </ul>
+    </div>
+    <div class="note warn">iOS 的“清除历史记录与网站数据”会删除本站在本机的进度。清除前请确认不需要保留。</div>
+  </section>
+
+  <section class="tab" id="tab-android" data-print="Android">
+    <div class="grid">
+      <div class="device">
+        <div class="tag">CHROME · ANDROID 10+</div>
+        <h3>第一次打开</h3>
+        <div class="step"><span class="n">1</span><div>用 <b>Chrome</b> 或 Edge 打开本站。建议固定用一个浏览器，避免进度分散。</div></div>
+        <div class="step"><span class="n">2</span><div>等待首页加载。若只看到加载页，先检查网络，再刷新一次。</div></div>
+        <div class="step"><span class="n">3</span><div>进入“闯关”或“自由编程”，运行第一个 Hello World。</div></div>
+      </div>
+      <div class="device">
+        <div class="tag">HOME SCREEN / INSTALL</div>
+        <h3>添加到主屏幕</h3>
+        <div class="step"><span class="n">1</span><div>点 Chrome 右上角<b>三个点</b>。</div></div>
+        <div class="step"><span class="n">2</span><div>选择<b>“添加到主屏幕”</b>或<b>“安装应用”</b>（不同版本文字不同）。</div></div>
+        <div class="step"><span class="n">3</span><div>确认名称后添加。以后从桌面图标打开，仍然是同一个网页站点。</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Android 操作要点</h3>
+      <ul>
+        <li>编辑器有行号、语法高亮和<b>“补全”按钮</b>；外接键盘可以用 Ctrl+Space 或 Cmd+Space。</li>
+        <li>系统返回键可能直接退出网页，而不是返回上一关；优先使用页面里的<b>“← 返回”</b>。</li>
+        <li>分屏、折叠屏展开时布局会重排；如果代码区太窄，横屏或全屏浏览器。</li>
+        <li>Chrome 的“清除浏览数据”会删除本站进度；只清缓存通常不会，但清“网站数据”会。</li>
+        <li>省电模式或后台限制可能导致首次 Java 运行时下载变慢，建议在 Wi-Fi 下第一次运行。</li>
+      </ul>
+    </div>
+    <div class="note warn">Android 的“无痕模式”不适合长期学习：关闭标签页后，本站保存的进度不会保留。</div>
+  </section>
+
+  <section class="tab" id="tab-both" data-print="iPhone / iPad / Android 通用">
+    <div class="card">
+      <h3>网页版里有什么</h3>
+      <ul>
+        <li><b>闯关模式：</b>100 个教程关卡，运行代码后自动测试。</li>
+        <li><b>剧情模式：</b>30 个故事，1–3 段限时编程，8–9 个结局；故事树只显示你走到过的节点。</li>
+        <li><b>Java 8 主线：</b>84 关单线剧情，按课程顺序推进。</li>
+        <li><b>自由编程：</b>自己写 Java，支持标准输入和错误输出。</li>
+        <li><b>冒险手册：</b>每日挑战、Boss Rush、错题本、知识卡牌、成就墙和代码宠物。</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>代码运行说明</h3>
+      <p>Java 代码在浏览器内执行，不上传服务器。第一次运行需要从 CheerpJ CDN 下载 Java 运行时，因此<b>首次会慢</b>，之后通常更快。页面本身可以打开，但“运行代码”需要能访问 <code>cjrtnc.leaningtech.com</code>。</p>
+      <p>如果运行按钮一直转圈，先换 Wi-Fi/移动网络，关闭广告拦截或内容拦截器，再刷新重试。</p>
+    </div>
+    <div class="card">
+      <h3>进度和隐私</h3>
+      <ul>
+        <li>进度、代码、结局、成就保存在当前浏览器的 <code>localStorage</code>。</li>
+        <li>没有账号系统，不上传代码，不收集统计。</li>
+        <li>换手机、换浏览器、清除网站数据都会丢失进度，且无法自动恢复。</li>
+        <li>首页底部的“清空本地进度”会删除全部本地记录，操作不可撤销。</li>
+      </ul>
+    </div>
+  </section>
+
+  <h2>2. 三分钟上手</h2>
+  <div class="card">
+    <div class="step"><span class="n">1</span><div><b>先跑 Hello World。</b>进入“闯关”第一关，点“运行并测试”，确认代码能跑通。</div></div>
+    <div class="step"><span class="n">2</span><div><b>再看一眼 Java 8 主线。</b>主线是单线剧情；如果只想补 Java 8，优先走没有版本标签的关卡。</div></div>
+    <div class="step"><span class="n">3</span><div><b>去冒险手册领每日挑战。</b>完成关卡后解锁支线、错题本、Boss Rush 和知识卡牌。</div></div>
+    <div class="step"><span class="n">4</span><div><b>把网站加到主屏幕。</b>以后从桌面直接进入，减少找链接的麻烦。</div></div>
+  </div>
+
+  <h2>3. 常见问题</h2>
+  <div class="faq">
+    <details open><summary>页面显示“课程数据加载失败”</summary><p>通常是 <code>data.js</code> 没有和 <code>index.html</code> 一起部署。网页端已经优先从 <code>data.js</code> 读取课程，不再依赖 JSON 请求；请确认部署目录里有 <code>data.js</code>。然后强制刷新。</p></details>
+    <details><summary>报错 “Unexpected token '<'”</summary><p>这是把 404 HTML 当成 JSON 解析的旧问题。新版应加载 <code>data.js</code>；如果仍出现，说明线上还是旧文件，重新部署并清缓存。</p></details>
+    <details><summary>页面能打开，但运行代码失败</summary><p>先确认网络能访问 <code>cjrtnc.leaningtech.com</code>；关闭内容拦截器；换 Wi-Fi 或移动网络；刷新后再试。首次加载 Java 运行时需要时间。</p></details>
+    <details><summary>代码编辑器没有补全</summary><p>点编辑器右上角的“补全”按钮；外接键盘可用 Ctrl+Space 或 Cmd+Space。若按钮提示组件未加载，检查网络后刷新。</p></details>
+    <details><summary>进度突然没了</summary><p>可能是清除了浏览器网站数据、使用了无痕模式，或换了浏览器/设备。本站没有账号同步，无法从服务器恢复。</p></details>
+    <details><summary>手机横屏/折叠屏显示不正常</summary><p>先旋转屏幕或重新进入页面；代码区会随宽度变化。若仍异常，请反馈机型、系统版本和浏览器版本。</p></details>
+  </div>
+
+  <h2>4. 给家长/老师的一句话</h2>
+  <div class="card"><p>本站不需要注册，不上传代码，不包含广告 SDK；学生的代码和进度只保存在这台设备的浏览器里。清理浏览器数据会清空进度，建议固定设备、固定浏览器使用。</p></div>
+
+  <div class="footer"><span>JavaQuest 网页版 · iPhone / iPad / Android 使用手册</span><span>Java 执行：Built with CheerpJ</span></div>
+</div>
+<script>
+  const site = location.origin + location.pathname.replace(/[^/]*$/, '');
+  document.getElementById('site-url').textContent = site;
+  document.getElementById('copy-link').onclick = async () => {
+    try { await navigator.clipboard.writeText(site); document.getElementById('copy-link').textContent = '已复制'; }
+    catch { prompt('复制本站链接', site); }
+  };
+  document.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => {
+    document.querySelectorAll('[data-tab]').forEach(x => x.classList.toggle('active', x === b));
+    document.querySelectorAll('.tab').forEach(x => x.classList.toggle('active', x.id === 'tab-' + b.dataset.tab));
+  });
+</script>
+</body>
+</html>
