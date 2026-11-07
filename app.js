@@ -170,6 +170,12 @@ function loadEditor(textarea, value, key) {
     cm.setSize(null, 350);
     cm.setValue(value || '');
     cm.on('change', () => { P.code[key] = cm.getValue(); save(); });
+    cm.on('focus', () => {
+      if (window.innerWidth > 900) return;
+      setTimeout(() => {
+        try { cm.getWrapperElement().scrollIntoView({block: 'center', behavior: 'smooth'}); } catch (e) {}
+      }, 280);
+    });
     setupCompletion(cm);
     activeCM = cm;
     return cm;
@@ -202,6 +208,19 @@ function resultHTML(res) {
   return html;
 }
 
+async function jarUrl() {
+  if (window.JavaQuestJarBase64) {
+    if (!window.__jqJarBlobUrl) {
+      const bin = atob(window.JavaQuestJarBase64);
+      const bytes = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+      window.__jqJarBlobUrl = URL.createObjectURL(new Blob([bytes], {type: 'application/java-archive'}));
+    }
+    return window.__jqJarBlobUrl;
+  }
+  const base = location.pathname.replace(/[^/]*$/, '');
+  return '/app' + base + 'javaquest-runtime.jar';
+}
 async function runTask(task, code, stdin = '') {
   if (!runner.api) {
     if (runner.failed) throw new Error('Java 运行时加载失败，请查看浏览器控制台');
@@ -210,9 +229,7 @@ async function runTask(task, code, stdin = '') {
         if (!window.cheerpjInit || !window.cheerpjRunLibrary) throw new Error('CheerpJ 未加载');
         setStatus('正在加载 Java 运行时…');
         await window.cheerpjInit({version: 17});
-        const base = location.pathname.replace(/[^/]*$/, '');
-        const jar = '/app' + base + 'javaquest-runtime.jar';
-        const lib = await window.cheerpjRunLibrary(jar);
+        const lib = await window.cheerpjRunLibrary(await jarUrl());
         runner.api = await lib.com.javaquest.web.WebApi;
         setStatus('Java 运行时已就绪', true);
       })().catch(e => { runner.failed = true; runner.loading = null; setStatus('Java 运行时加载失败'); throw e; });
@@ -276,6 +293,7 @@ function renderHome() {
       <div class="hero-stat"><strong>${storyEndings}</strong><span>已收集结局</span></div>
       <div class="hero-stat"><strong>${Math.min(P.java8, 84)} / 84</strong><span>Java 8 主线 · 连续 ${P.streak} 天</span></div>
     </div>
+    <div class="btn-row" style="margin-top:14px"><a class="btn ghost" href="guide.html">手机使用指南 →</a></div>
   </section>
   <div class="section-head"><div><h2>选择模式</h2><p>今天的 Java，从哪一扇门进去？</p></div></div>
   <div class="mode-grid">
@@ -569,11 +587,12 @@ function renderStories() {
   };
 }
 
-function openStory(id) {
+function openStory(id, startNodeId) {
   const story = storyMap.get(id);
   if (!story) return;
+  const start = startNodeId && story.nodes.some(n => n.id === startNodeId) ? startNodeId : story.start;
   state.storyId = id;
-  state.storyCtx = { story, nodeId: story.start, st: {outcome: '', remaining: 0, attempts: 0, flags: new Set(), choices: 0}, timer: null };
+  state.storyCtx = { story, nodeId: start, st: {outcome: '', remaining: 0, attempts: 0, flags: new Set(), choices: 0}, timer: null };
   navigate('story');
 }
 
@@ -836,9 +855,14 @@ function showStoryTree(story) {
     const n = t.node;
     const kind = n.type === 'ending' ? '结局' : n.type === 'code' ? '代码' : n.type === 'check' ? '判定' : '剧情';
     const cls = n.type === 'ending' ? `ending ${n.outcome || ''}` : n.type === 'code' ? 'code' : n.type === 'check' ? 'check' : '';
-    return `${t.edge ? `<div class="tree-edge">↳ ${esc(t.edge)}</div>` : ''}<div class="tree-node ${cls}"><div class="kind">${kind} · #${esc(n.id)}</div><div class="name">${esc(n.title || n.id)}</div></div>${t.children.map(c => `<div class="tree-branch">${html(c)}</div>`).join('')}`;
+    return `${t.edge ? `<div class="tree-edge">↳ ${esc(t.edge)}</div>` : ''}<div class="tree-node ${cls}" data-jump="${esc(n.id)}" role="button" tabindex="0" title="点击跳转到这个剧情节点"><div class="kind">${kind} · #${esc(n.id)}</div><div class="name">${esc(n.title || n.id)}</div></div>${t.children.map(c => `<div class="tree-branch">${html(c)}</div>`).join('')}`;
   }
-  openModal(`<h2>${esc(story.title)} · 故事树</h2><p class="small dim">已探索 ${visited.size} 个节点 · 未走到的分支不会显示</p><div class="tree">${root ? `<div class="tree-root">${html(root)}</div>` : '<div class="empty">故事树还没有发芽。进入故事后，树会从起点生长。</div>'}</div>`);
+  openModal(`<h2>${esc(story.title)} · 故事树</h2><p class="small dim">已探索 ${visited.size} 个节点 · 点击任意节点可直接跳转到对应剧情</p><div class="tree">${root ? `<div class="tree-root">${html(root)}</div>` : '<div class="empty">故事树还没有发芽。进入故事后，树会从起点生长。</div>'}</div>`);
+  modalBody.querySelectorAll('[data-jump]').forEach(el => {
+    const jump = () => { closeModal(); openStory(story.id, el.dataset.jump); };
+    el.onclick = jump;
+    el.onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); jump(); } };
+  });
 }
 
 /* ---------------- Java 8 mainline ---------------- */

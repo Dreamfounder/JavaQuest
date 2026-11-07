@@ -2,6 +2,10 @@
 
 这是 JavaQuest 的纯静态网页版，可部署到 **GitHub Pages**。
 
+## 使用手册
+
+打开 [`guide.html`](guide.html)，或在网站顶部/底部点击“使用指南”。手册分别覆盖 iPhone/iPad（Safari）和 Android（Chrome/Edge）的打开、添加到主屏幕、键盘、补全、进度保存和常见故障排查。
+
 ## 功能
 
 - 100 个教程关卡

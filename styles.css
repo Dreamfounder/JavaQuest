@@ -231,6 +231,9 @@ textarea.editor {
 .tree-root { margin-left: 0; padding-left: 0; border-left: 0; }
 .tree-edge { color: var(--dim); font-size: 9.5px; margin: 3px 0 3px; }
 .tree-node { border: 1px solid #31475a; border-radius: 9px; background: #131e29; padding: 7px 9px; margin: 4px 0; }
+.tree-node[data-jump] { cursor: pointer; transition: border-color .15s, transform .1s, background .15s; }
+.tree-node[data-jump]:hover, .tree-node[data-jump]:focus { border-color: var(--accent); background: #172a25; outline: none; }
+.tree-node[data-jump]:active { transform: scale(.99); }
 .tree-node.code { border-color: #64502e; background: #211a13; }
 .tree-node.check { border-color: #2f5570; background: #12222e; }
 .tree-node.ending { border-color: #355d4c; background: #11251e; }

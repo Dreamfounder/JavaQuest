@@ -19590,5 +19590,4 @@ window.JavaQuestData = {"lessons":{
       ]
     }
   ]
-}
-};
+}};
