@@ -32,7 +32,8 @@ npx http-server -p 8080
 2. Settings → Pages → Build and deployment → Source 选择 **GitHub Actions**。
 3. push 到 `main` 后，工作流会把 `web/` 发布为 Pages。
 
-网页不依赖后端；Java 代码在浏览器内通过 CheerpJ 执行，JAR 是 `javaquest-runtime.jar`。
+网页不依赖后端；Java 代码在浏览器内通过 CheerpJ 执行，JAR 是 `javaquest-runtime.jar`。  
+课程数据同时提供 `data.js` 和 `data/*.json`：页面优先使用内嵌的 `data.js`，这样 GitHub Pages 不会因为 JSON 路径 404 把 HTML 当成 JSON。
 
 ## 重新生成执行 JAR / 数据
 
@@ -47,6 +48,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\web\build-web.ps1
 - 编译 `app/src/.../runtime`、`app/src/.../data` 和 `web/java/.../WebApi.java`
 - 生成 `web/javaquest-runtime.jar`
 - 把三份 JSON 复制到 `web/data/`
+- 生成 `web/data.js`：页面直接加载的数据包，不依赖 JSON fetch
 
 ## 技术说明
 

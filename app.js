@@ -140,26 +140,37 @@ async function runTask(task, code, stdin = '') {
 }
 
 /* ---------------- data ---------------- */
+function initData(l, s, j) {
+  state.data = {lessons: l, stories: s, java8: j};
+  chapters = l.chapters;
+  lessons = [];
+  let lessonNo = 0;
+  for (const ch of chapters) for (const les of ch.lessons) {
+    const item = Object.assign({}, les, {_chapter: ch, number: ++lessonNo});
+    lessons.push(item); lessonMap.set(les.id, item);
+  }
+  for (const st of s.stories) storyMap.set(st.id, st);
+}
+
 async function bootApp() {
   try {
-    const [l, s, j] = await Promise.all([
-      fetch('data/lessons.json').then(r => r.json()),
-      fetch('data/stories.json').then(r => r.json()),
-      fetch('data/java8_story.json').then(r => r.json())
-    ]);
-    state.data = {lessons: l, stories: s, java8: j};
-    chapters = l.chapters;
-    lessons = [];
-    let lessonNo = 0;
-    for (const ch of chapters) for (const les of ch.lessons) {
-      const item = Object.assign({}, les, {_chapter: ch, number: ++lessonNo});
-      lessons.push(item); lessonMap.set(les.id, item);
+    let l, s, j;
+    if (window.JavaQuestData && window.JavaQuestData.lessons) {
+      l = window.JavaQuestData.lessons;
+      s = window.JavaQuestData.stories;
+      j = window.JavaQuestData.java8;
+    } else {
+      [l, s, j] = await Promise.all([
+        fetch('data/lessons.json').then(r => r.json()),
+        fetch('data/stories.json').then(r => r.json()),
+        fetch('data/java8_story.json').then(r => r.json())
+      ]);
     }
-    for (const st of s.stories) storyMap.set(st.id, st);
+    initData(l, s, j);
     boot.hidden = true;
     render();
   } catch (e) {
-    boot.innerHTML = `<div class="boot-mark">!</div><div>课程数据加载失败</div><div class="small">${esc(e.message)}</div>`;
+    boot.innerHTML = `<div class="boot-mark">!</div><div>课程数据加载失败</div><div class="small">${esc(e.message)}</div><div class="small">请确认 web/data.js 或 web/data/*.json 已上传到 Pages 根目录，并且路径大小写一致。</div>`;
     setStatus('加载失败');
   }
 }

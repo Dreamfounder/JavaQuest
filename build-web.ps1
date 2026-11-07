@@ -22,5 +22,10 @@ New-Item -ItemType Directory -Force -Path (Join-Path $Web 'data') | Out-Null
 Copy-Item (Join-Path $Root 'app\assets\lessons.json') (Join-Path $Web 'data\lessons.json') -Force
 Copy-Item (Join-Path $Root 'app\assets\stories.json') (Join-Path $Web 'data\stories.json') -Force
 Copy-Item (Join-Path $Root 'app\assets\java8_story.json') (Join-Path $Web 'data\java8_story.json') -Force
+$lessons = Get-Content (Join-Path $Web 'data\lessons.json') -Raw -Encoding UTF8
+$stories = Get-Content (Join-Path $Web 'data\stories.json') -Raw -Encoding UTF8
+$java8 = Get-Content (Join-Path $Web 'data\java8_story.json') -Raw -Encoding UTF8
+$bundle = "window.JavaQuestData = {`"lessons`":$lessons,`"stories`":$stories,`"java8`":$java8};`n"
+[System.IO.File]::WriteAllText((Join-Path $Web 'data.js'), $bundle, (New-Object System.Text.UTF8Encoding($false)))
 Write-Output "Built $Jar"
-Write-Output "Data copied to $Web\data"
+Write-Output "Bundled web/data.js"
