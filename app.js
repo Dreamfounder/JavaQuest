@@ -12,7 +12,10 @@ const FREE_STARTER = ['public class Main {', '    public static void main(String
   '        System.out.println("Hello, World!");', '    }', '}'].join('\n');
 const P = Object.assign({
   completed: [], code: {}, storyEndings: {}, visited: {}, java8: 0,
-  java8Done: false, java8Prologue: false, xp: 0
+  java8Done: false, java8Prologue: false, xp: 0,
+  extensions: [], mistakes: [], combo: 0, bestCombo: 0,
+  streak: 0, lastStudy: '', dailyDate: '', dailyDone: false,
+  bestRush: 0, rushRuns: 0
 }, JSON.parse(localStorage.getItem(STORE_KEY) || '{}'));
 
 const state = {
@@ -45,8 +48,44 @@ function setStatus(text, ready = false) {
   topStatus.classList.toggle('ready', ready);
 }
 function complete(id) {
-  if (!P.completed.includes(id)) { P.completed.push(id); P.xp += 10; save(); }
+  if (!P.completed.includes(id)) { P.completed.push(id); addXP(10); save(); }
 }
+function addXP(n) {
+  P.xp = Math.max(0, P.xp + n);
+  save();
+}
+function level() { return 1 + Math.floor(P.xp / 100); }
+function todayKey() {
+  const d = new Date();
+  return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+}
+function touchStudy() {
+  const key = todayKey();
+  if (P.lastStudy === key) return;
+  if (P.lastStudy) {
+    const prev = new Date(P.lastStudy + 'T00:00:00');
+    const now = new Date(key + 'T00:00:00');
+    const days = Math.round((now - prev) / 86400000);
+    P.streak = days === 1 ? (P.streak || 0) + 1 : 1;
+  } else {
+    P.streak = 1;
+  }
+  P.lastStudy = key;
+  save();
+}
+function isJava8(l) { return !l.since; }
+function java8Remaining() {
+  return lessons.filter(l => isJava8(l) && !P.completed.includes(l.id)).length;
+}
+function nextJava8() {
+  return lessons.find(l => isJava8(l) && !P.completed.includes(l.id)) || null;
+}
+function extensionDone(id) { return P.extensions.includes(id); }
+function addMistake(id) { if (!P.mistakes.includes(id)) { P.mistakes.push(id); save(); } }
+function removeMistake(id) { const i = P.mistakes.indexOf(id); if (i >= 0) { P.mistakes.splice(i, 1); save(); } }
+function stars(n) { return '★'.repeat(Math.max(1, n || 1)); }
+touchStudy();
+if (P.dailyDate !== todayKey()) { P.dailyDate = todayKey(); P.dailyDone = false; save(); }
 function storyDoneCount(story) { return (P.storyEndings[story.id] || []).length; }
 function visitedCount(story) { return (P.visited[story.id] || []).length; }
 function endingCount(story) { return (story.nodes || []).filter(n => n.type === 'ending').length; }
@@ -66,7 +105,7 @@ function cleanupEditor() {
 function detach() {
   clearTimers();
   cleanupEditor();
-  modal.hidden = true;
+  closeModal();
 }
 function navigate(view, params = {}) {
   detach();
@@ -76,6 +115,51 @@ function navigate(view, params = {}) {
   window.scrollTo({top: 0, behavior: 'instant'});
 }
 
+let completionReady = false;
+const JAVA_WORDS = ('public private protected static final class interface enum extends implements new return if else for while do switch case default break continue ' +
+  'try catch finally throw throws import package void int long double float boolean char byte short String Integer Double Boolean Character ' +
+  'System.out.println System.out.print System.out.printf System.in Scanner ArrayList List Map HashMap Set HashSet Collections Arrays ' +
+  'Math.abs Math.max Math.min Math.sqrt length size add get put remove contains equals toString valueOf parseInt parseDouble ' +
+  'Stream Collectors Optional StringBuilder Objects').split(/\s+/);
+function setupCompletion(cm) {
+  if (!window.CodeMirror) return;
+  if (!completionReady && CodeMirror.registerHelper) {
+    CodeMirror.registerHelper('hint', 'java', function (editor) {
+      const cur = editor.getCursor();
+      const token = editor.getTokenAt(cur);
+      if (token.type && (token.type.includes('comment') || token.type.includes('string'))) return;
+      const prefix = /[A-Za-z_$][\w$]*$/.test(token.string) ? token.string : '';
+      const source = editor.getValue();
+      const ids = new Set(JAVA_WORDS);
+      const re = /\b[A-Za-z_$][\w$]*\b/g;
+      let m;
+      while ((m = re.exec(source)) && ids.size < 220) if (m[0].length > 1) ids.add(m[0]);
+      const list = [...ids].filter(w => w.startsWith(prefix) && w !== prefix).sort((a, b) => a.localeCompare(b)).slice(0, 80);
+      if (!list.length) return null;
+      return {list, from: CodeMirror.Pos(cur.line, cur.ch - prefix.length), to: cur};
+    });
+    completionReady = true;
+  }
+  cm.setOption('extraKeys', {'Ctrl-Space': 'autocomplete', 'Cmd-Space': 'autocomplete'});
+  cm.on('inputRead', (editor, change) => {
+    if (change.origin !== '+input' || typeof editor.showHint !== 'function') return;
+    const text = change.text.join('');
+    if (/^[A-Za-z_$]$/.test(text)) editor.showHint({hint: CodeMirror.hint.java, completeSingle: false});
+  });
+  const card = cm.getWrapperElement().closest('.editor-card');
+  const head = card && card.querySelector('.editor-head');
+  if (head && !head.querySelector('.hint-btn')) {
+    const b = document.createElement('button');
+    b.className = 'hint-btn';
+    b.type = 'button';
+    b.textContent = '补全 ⌃Space';
+    b.onclick = () => {
+      if (typeof cm.showHint === 'function') cm.showHint({hint: CodeMirror.hint.java, completeSingle: false});
+      else toast('补全组件未加载，请检查网络后刷新');
+    };
+    head.appendChild(b);
+  }
+}
 function loadEditor(textarea, value, key) {
   if (window.CodeMirror) {
     const cm = CodeMirror.fromTextArea(textarea, {
@@ -86,6 +170,7 @@ function loadEditor(textarea, value, key) {
     cm.setSize(null, 350);
     cm.setValue(value || '');
     cm.on('change', () => { P.code[key] = cm.getValue(); save(); });
+    setupCompletion(cm);
     activeCM = cm;
     return cm;
   }
@@ -187,9 +272,9 @@ function renderHome() {
     <p>100 个教程关卡、30 个分支故事、84 关 Java 8 主线，外加一个自由编程工作台。代码在浏览器里运行，不依赖后端。</p>
     <div class="hero-stats">
       <div class="hero-stat"><strong>${done}</strong><span>已完成关卡</span></div>
-      <div class="hero-stat"><strong>${P.xp}</strong><span>XP</span></div>
+      <div class="hero-stat"><strong>Lv.${level()}</strong><span>${P.xp} XP · 连击 x${P.combo}</span></div>
       <div class="hero-stat"><strong>${storyEndings}</strong><span>已收集结局</span></div>
-      <div class="hero-stat"><strong>${Math.min(P.java8, 84)} / 84</strong><span>Java 8 主线</span></div>
+      <div class="hero-stat"><strong>${Math.min(P.java8, 84)} / 84</strong><span>Java 8 主线 · 连续 ${P.streak} 天</span></div>
     </div>
   </section>
   <div class="section-head"><div><h2>选择模式</h2><p>今天的 Java，从哪一扇门进去？</p></div></div>
@@ -223,6 +308,9 @@ function renderHome() {
       <div class="btn-row"><button class="btn blue" data-go="free">打开工作台 →</button></div>
     </article>
   </div>
+  ${petHTML()}
+  <div class="section-head"><div><h2>冒险手册</h2><p>每日挑战、Boss Rush、收集和复习</p></div></div>
+  ${gameHubHTML()}
   <div class="section-head"><div><h2>旅程记录</h2><p>所有进度只保存在当前浏览器</p></div></div>
   <div class="card">
     <div class="game-box">
@@ -230,7 +318,54 @@ function renderHome() {
       <div class="game-row"><div class="ico">✓</div><div class="grow"><b>完成进度</b><span>${done} / ${lessons.length} 个教程关卡</span></div><span class="pill green">${lessons.length ? Math.round(done / lessons.length * 100) : 0}%</span></div>
       <div class="game-row"><div class="ico">◈</div><div class="grow"><b>Java 8 主线</b><span>${P.java8} / 84 枚记忆碎片</span></div><span class="pill blue">${P.java8Done ? '完成' : '进行中'}</span></div>
     </div>
+    <div class="btn-row mt"><button class="btn ghost small" id="reset-progress">清空本地进度</button><span class="small dim">只清除当前浏览器的进度和代码，不会影响课程文件。</span></div>
   </div>`;
+}
+
+function petHTML() {
+  const msg = P.combo >= 3 ? `连击 x${P.combo}！我快跟不上了，继续！`
+    : P.streak >= 3 ? `连续学习 ${P.streak} 天了，搭档，保持住。`
+    : P.extensions.length ? `已经点亮 ${P.extensions.length} 张知识卡牌，去冒险手册看看？`
+    : '今天写一行 Java 就算赢。我会在旁边看着你的。';
+  return `<div class="pet-card card">
+    <div class="pet-face" aria-hidden="true"><span class="pet-eye"></span><span class="pet-eye"></span><span class="pet-mouth"></span><span class="pet-antenna"></span></div>
+    <div class="pet-text"><b>Byte · 你的代码搭档</b><span>${esc(msg)}</span></div>
+    <div class="pill gold">Lv.${level()}</div>
+  </div>`;
+}
+function gameHubHTML() {
+  const doneExt = P.extensions.length;
+  const ach = achievements().filter(a => a.ok).length;
+  const rows = [
+    ['daily', '☀', '每日挑战', P.dailyDone ? '今日已完成 · 明天再来' : '一道复习题 · +25 XP'],
+    ['boss', '⚔', '限时 Boss Rush', `120 秒 5 题 · 最高 ${P.bestRush} / 5`],
+    ['mistakes', '✎', '错题本', P.mistakes.length ? `有 ${P.mistakes.length} 道题等你复习` : '没有错题，继续保持'],
+    ['cards', '✦', '知识卡牌', `${doneExt} / ${lessons.length} 张已点亮`],
+    ['achievements', '★', '成就墙', `${ach} / ${achievements().length} 个成就已解锁`]
+  ];
+  return `<div class="game-hub card">${rows.map(([id, ico, title, sub]) => `
+    <button class="game-line" data-game="${id}"><span class="ico">${ico}</span><span class="grow"><b>${title}</b><span>${sub}</span></span><span class="chev">›</span></button>`).join('')}
+  </div>`;
+}
+function achievements() {
+  const cleared = P.completed.length;
+  const java8Total = lessons.filter(isJava8).length;
+  const java8Done = lessons.filter(l => isJava8(l) && P.completed.includes(l.id)).length;
+  const bosses = lessons.filter(l => l.extension && l.extension.boss && extensionDone(l.id)).length;
+  const chaptersDone = chapters.filter(ch => ch.lessons.every(l => P.completed.includes(l.id))).length;
+  return [
+    {name: '第一行代码', desc: '完成任意一个关卡', ok: cleared >= 1, prog: `${cleared}/1`},
+    {name: 'Java 8 科班', desc: '完成全部 Java 8 主线', ok: java8Done >= java8Total, prog: `${java8Done}/${java8Total}`},
+    {name: '支线新手', desc: '完成 10 个游戏化支线', ok: P.extensions.length >= 10, prog: `${P.extensions.length}/10`},
+    {name: '支线达人', desc: '完成 50 个游戏化支线', ok: P.extensions.length >= 50, prog: `${P.extensions.length}/50`},
+    {name: '连击五连', desc: '最高连击达到 5', ok: P.bestCombo >= 5, prog: `${P.bestCombo}/5`},
+    {name: '巨龙猎人', desc: '击败 3 个 Boss 知识巨龙', ok: bosses >= 3, prog: `${bosses}/3`},
+    {name: '冒险家 Lv.5', desc: '冒险等级达到 5', ok: level() >= 5, prog: `Lv.${level()}/5`},
+    {name: '连续三天', desc: '连续学习 3 天', ok: P.streak >= 3, prog: `${P.streak}/3`},
+    {name: '章节收藏家', desc: '集齐全部章节徽章', ok: chaptersDone >= chapters.length, prog: `${chaptersDone}/${chapters.length}`},
+    {name: '全部通关', desc: '完成全部 100 个关卡', ok: cleared >= lessons.length, prog: `${cleared}/${lessons.length}`},
+    {name: '支线收藏家', desc: '完成全部 100 个支线', ok: P.extensions.length >= lessons.length, prog: `${P.extensions.length}/${lessons.length}`}
+  ];
 }
 
 /* ---------------- challenge ---------------- */
@@ -247,7 +382,7 @@ function renderChallenge() {
       <button class="btn small ${only8 ? '' : 'ghost'}" data-filter="java8">只看 Java 8</button>
     </div>
   </div>
-  ${only8 ? '' : `<div class="card" style="padding:13px 16px;border-color:#2d5142;background:#12231d"><div class="split"><span class="pill green">推荐路线</span><span class="small muted">优先完成没有版本标签的 Java 8 关；带版本标签的关卡会在学完后解锁更顺。</span></div></div>`}
+  ${only8 ? '' : `<div class="card" style="padding:13px 16px;border-color:#2d5142;background:#12231d"><div class="split"><span class="pill green">推荐路线</span><span class="small muted">优先完成没有版本标签的 Java 8 关；带版本标签的关卡会在学完后解锁更顺。</span><span class="spacer"></span>${java8Remaining() ? `<button class="btn small" id="route-java8">继续 Java 8 · 还剩 ${java8Remaining()} 关</button>` : '<span class="pill green">Java 8 已完成</span>'}</div></div>`}
   <div id="chapters"></div>`;
   const wrap = document.getElementById('chapters');
   for (const ch of chapters) {
@@ -256,7 +391,8 @@ function renderChallenge() {
     const done = ch.lessons.filter(l => P.completed.includes(l.id)).length;
     const section = document.createElement('section');
     section.className = 'chapter';
-    section.innerHTML = `<div class="chapter-head"><h3>${esc(ch.title)}</h3><span class="count">${done}/${ch.lessons.length}</span></div><div class="lesson-list"></div>`;
+    const badge = done === ch.lessons.length ? '<span class="pill gold">★ 章节徽章</span>' : '';
+    section.innerHTML = `<div class="chapter-head"><h3>${esc(ch.title)}</h3>${badge}<span class="count">${done}/${ch.lessons.length}</span></div><div class="lesson-list"></div>`;
     const list = section.querySelector('.lesson-list');
     for (const l of visible) {
       const b = document.createElement('button');
@@ -270,10 +406,20 @@ function renderChallenge() {
   app.querySelectorAll('[data-filter]').forEach(el => {
     el.onclick = () => { state.chapterFilter = el.dataset.filter; renderChallenge(); };
   });
+  const route = document.getElementById('route-java8');
+  if (route) route.onclick = () => { const n = nextJava8(); if (n) openLesson(n.id); };
 }
 function openLesson(id) {
   const lesson = lessonMap.get(id);
   if (!lesson) return;
+  if (lesson.since && java8Remaining() > 0) {
+    const ok = window.confirm(`这是 ${lesson.since} 内容。你还有 ${java8Remaining()} 个 Java 8 关卡没完成，确定现在打开吗？`);
+    if (!ok) {
+      const n = nextJava8();
+      if (n) openLesson(n.id);
+      return;
+    }
+  }
   state.lessonId = id;
   navigate('lesson');
 }
@@ -296,6 +442,7 @@ function renderLesson() {
         ${l.example ? `<div class="block example"><h3>示例代码</h3><pre>${esc(l.example)}</pre>${l.exampleOutput ? `<p class="small dim" style="margin-top:8px">输出：${esc(l.exampleOutput)}</p>` : ''}</div>` : ''}
         <div class="block"><h3>知识点</h3><ul class="points">${(l.points || []).map(p => `<li>${esc(p)}</li>`).join('')}</ul></div>
         <div class="block task"><h3>本关任务</h3><div>${nl(l.task)}</div></div>
+        ${l.extension ? `<div class="block extension"><h3>支线任务 · ${esc(l.extension.title || '')}</h3><p>${nl(l.extension.flavor || '')}</p><p><b>${nl(l.extension.prompt || '')}</b></p><div class="choices" id="ext-options">${l.extension.options.map((o, i) => `<button class="choice" data-ext="${i}">${String.fromCharCode(65 + i)}　${esc(o)}</button>`).join('')}</div><div id="ext-result" class="small muted mt"></div></div>` : ''}
         ${(l.hints || []).length ? `<div class="block"><h3>提示（点一次显示一条）</h3><div id="hints"></div><button class="btn ghost small mt-s" id="hint-btn">显示一条提示</button></div>` : ''}
       </div>
       <div class="lesson-side">
@@ -303,8 +450,8 @@ function renderLesson() {
         <div class="editor-card"><div class="editor-head"><span class="dots"><i></i><i></i><i></i></span><span>Main.java</span></div>
           <textarea class="editor" id="code" spellcheck="false">${esc(P.code[l.id] || l.starter || '')}</textarea>
         </div>
-        <div class="btn-row mt-s"><button class="btn" id="run">▶ 运行并测试</button><button class="btn ghost" id="reset">重置代码</button></div>
-        <div id="result"></div>`}
+        <div class="btn-row mt-s"><button class="btn" id="run">▶ 运行并测试</button><button class="btn ghost" id="reset">重置代码</button>${l.solution ? '<button class="btn ghost" id="answer-btn">看答案</button>' : ''}</div>
+        <div id="result"></div><div id="answer"></div>`}
         <div class="btn-row mt">
           ${prev ? `<button class="btn ghost small" data-lesson="${prev.id}">← 上一关</button>` : ''}
           ${next ? `<button class="btn ghost small" data-lesson="${next.id}">下一关 →</button>` : ''}
@@ -314,6 +461,7 @@ function renderLesson() {
     </div>
   </article>`;
   app.querySelectorAll('[data-lesson]').forEach(b => b.onclick = () => openLesson(b.dataset.lesson));
+  bindExtension(l);
   if (l.reading) {
     document.getElementById('read-done').onclick = () => { complete(l.id); toast('已读完'); navigate('challenge'); };
     return;
@@ -332,6 +480,12 @@ function renderLesson() {
   document.getElementById('reset').onclick = () => {
     if (activeCM) activeCM.setValue(l.starter || '');
     delete P.code[l.id]; save(); toast('已重置');
+  };
+  const answerBtn = document.getElementById('answer-btn');
+  if (answerBtn) answerBtn.onclick = () => {
+    const box = document.getElementById('answer');
+    box.innerHTML = `<div class="block example mt"><h3>参考答案</h3><pre>${esc(l.solution)}</pre><button class="btn ghost small mt-s" id="copy-answer">复制到编辑器</button></div>`;
+    document.getElementById('copy-answer').onclick = () => { if (activeCM) activeCM.setValue(l.solution); toast('已填入参考答案'); };
   };
   const run = document.getElementById('run');
   run.onclick = async () => {
@@ -353,6 +507,35 @@ function renderLesson() {
       run.disabled = false; run.textContent = '▶ 运行并测试';
     }
   };
+}
+
+function bindExtension(l) {
+  const ex = l.extension;
+  if (!ex) return;
+  const result = document.getElementById('ext-result');
+  const buttons = app.querySelectorAll('[data-ext]');
+  const done = extensionDone(l.id);
+  if (done && result) result.innerHTML = `<span style="color:var(--accent)">✓ 已完成 · ${esc(ex.badge || '支线徽章')}</span><br>${esc(ex.explanation || '')}`;
+  if (done) buttons.forEach(b => b.disabled = true);
+  buttons.forEach(b => b.onclick = () => {
+    if (extensionDone(l.id)) return;
+    const i = Number(b.dataset.ext);
+    if (i === ex.answer) {
+      P.extensions.push(l.id);
+      P.combo++; P.bestCombo = Math.max(P.bestCombo, P.combo);
+      const bonus = Math.min(10, (P.combo - 1) * 2);
+      addXP((ex.xp || 15) + bonus);
+      removeMistake(l.id);
+      save();
+      buttons.forEach(x => x.disabled = true);
+      b.style.borderColor = 'var(--accent)'; b.style.background = '#123027';
+      result.innerHTML = `<span style="color:var(--accent)">✓ 正确 · +${(ex.xp || 15) + bonus} XP · 连击 x${P.combo}</span><br>${esc(ex.explanation || '')}<br><span class="dim">${esc(ex.badge || '')}</span>`;
+    } else {
+      addMistake(l.id); P.combo = 0; save();
+      b.style.borderColor = 'var(--red)'; b.style.background = '#30171c';
+      result.innerHTML = '<span style="color:var(--red)">✕ 不对，再想想。连击中断，已加入错题本。</span>';
+    }
+  });
 }
 
 /* ---------------- stories ---------------- */
@@ -608,7 +791,11 @@ function renderStoryEnding(node) {
   clearTimers();
   const story = state.storyCtx.story;
   if (!P.storyEndings[story.id]) P.storyEndings[story.id] = [];
-  if (!P.storyEndings[story.id].includes(node.id)) { P.storyEndings[story.id].push(node.id); save(); }
+  if (!P.storyEndings[story.id].includes(node.id)) {
+    P.storyEndings[story.id].push(node.id);
+    addXP(20);
+    save();
+  }
   markVisited(story, node.id);
   const color = node.outcome === 'good' ? 'green' : node.outcome === 'bad' ? 'red' : node.outcome === 'hidden' ? 'purple' : 'blue';
   document.getElementById('story-main').innerHTML = `<div class="card" style="padding:28px"><span class="pill ${color}">${esc(node.outcome || 'ending')} ending</span>
@@ -706,7 +893,9 @@ function renderJava8Task(stage) {
 }
 function java8Pass() {
   const data = state.data.java8;
-  P.java8 = Math.min(data.stages.length, P.java8 + 1); save();
+  P.java8 = Math.min(data.stages.length, P.java8 + 1);
+  addXP(10);
+  save();
   if (P.java8 >= data.stages.length) { P.java8Done = true; save(); renderJava8Ending(); return; }
   toast('记忆碎片已修复 · 星核亮度提升');
   renderJava8();
@@ -743,15 +932,140 @@ function renderFree() {
   };
 }
 
+/* ---------------- game hub ---------------- */
+let modalTimer = null;
+function closeModal() {
+  if (modalTimer) { clearInterval(modalTimer); modalTimer = null; }
+  modal.hidden = true;
+}
+function openGame(name) {
+  if (name === 'daily') showDaily();
+  else if (name === 'boss') showBossRush();
+  else if (name === 'mistakes') showMistakes();
+  else if (name === 'cards') showCards();
+  else if (name === 'achievements') showAchievements();
+}
+function dailyPool() {
+  return lessons.filter(l => l.extension && P.completed.includes(l.id));
+}
+function showDaily() {
+  if (P.dailyDate !== todayKey()) { P.dailyDate = todayKey(); P.dailyDone = false; save(); }
+  const pool = dailyPool();
+  if (!pool.length) {
+    openModal('<h2>每日挑战还没解锁</h2><p class="muted">先完成至少一个关卡，再来领取今天的复习题。每日挑战只会从你学过的内容中出题。</p><button class="btn mt" data-close-modal>知道了</button>');
+    return;
+  }
+  let h = 0;
+  for (const c of todayKey()) h = (h * 31 + c.charCodeAt(0)) % 997;
+  const lesson = pool[h % pool.length];
+  const ex = lesson.extension;
+  const done = P.dailyDone;
+  openModal(`<h2>每日挑战</h2><p class="small dim">${todayKey()} · +25 XP · 来自「${esc(lesson.title)}」</p>
+    <div class="dialogue mt"><div class="speaker">${esc(ex.title || '每日挑战')}</div><div class="line">${esc(ex.prompt)}</div></div>
+    <div class="choices mt" id="daily-options">${ex.options.map((o, i) => `<button class="choice" data-daily="${i}">${String.fromCharCode(65 + i)}　${esc(o)}</button>`).join('')}</div>
+    <div id="daily-result" class="small muted mt"></div>`);
+  const result = document.getElementById('daily-result');
+  document.querySelectorAll('[data-daily]').forEach(b => b.onclick = () => {
+    if (P.dailyDone) return;
+    const i = Number(b.dataset.daily);
+    if (i === ex.answer) {
+      P.dailyDone = true;
+      P.combo++; P.bestCombo = Math.max(P.bestCombo, P.combo);
+      addXP(25); save();
+      document.querySelectorAll('[data-daily]').forEach(x => x.disabled = true);
+      b.style.borderColor = 'var(--accent)'; b.style.background = '#123027';
+      result.innerHTML = `<span style="color:var(--accent)">✓ 今日挑战完成，获得 25 XP。</span><br>${esc(ex.explanation)}`;
+    } else {
+      addMistake(lesson.id); P.combo = 0; save();
+      b.style.borderColor = 'var(--red)'; b.style.background = '#30171c';
+      result.innerHTML = '<span style="color:var(--red)">✕ 不对，再试一次。连击中断。</span>';
+    }
+  });
+  if (done) {
+    document.querySelectorAll('[data-daily]').forEach(x => x.disabled = true);
+    result.innerHTML = `<span style="color:var(--accent)">✓ 今天已经完成过了，明天再来。</span><br>${esc(ex.explanation)}`;
+  }
+}
+function shuffle(a) {
+  const b = a.slice();
+  for (let i = b.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [b[i], b[j]] = [b[j], b[i]]; }
+  return b;
+}
+function showBossRush() {
+  const pool = lessons.filter(l => l.extension && l.extension.boss && P.completed.includes(l.id));
+  if (!pool.length) {
+    openModal('<h2>Boss Rush 还没解锁</h2><p class="muted">只会从你已经完成的 Boss 关中出题。先完成至少一个带 Boss 支线的关卡。</p><button class="btn mt" data-close-modal>知道了</button>');
+    return;
+  }
+  const qs = shuffle(pool).slice(0, Math.min(5, pool.length));
+  let idx = 0, score = 0, remaining = 120, ended = false;
+  const card = () => {
+    if (ended) return;
+    if (idx >= qs.length) { finish(false); return; }
+    const l = qs[idx], ex = l.extension;
+    openModal(`<div class="split"><h2>Boss Rush</h2><span class="timer ${remaining <= 20 ? 'danger' : ''}" id="rush-timer">${remaining}s</span></div>
+      <p class="small dim">第 ${idx + 1} / ${qs.length} 题 · 答对 ${score} · 来自「${esc(l.title)}」</p>
+      <div class="dialogue mt"><div class="speaker">${esc(ex.title)}</div><div class="line">${esc(ex.prompt)}</div></div>
+      <div class="choices mt" id="rush-options">${ex.options.map((o, i) => `<button class="choice" data-rush="${i}">${String.fromCharCode(65 + i)}　${esc(o)}</button>`).join('')}</div>
+      <div id="rush-result" class="small muted mt"></div>`, true);
+    document.querySelectorAll('[data-rush]').forEach(b => b.onclick = () => {
+      if (ended) return;
+      const i = Number(b.dataset.rush);
+      document.querySelectorAll('[data-rush]').forEach(x => x.disabled = true);
+      if (i === ex.answer) { score++; b.style.borderColor = 'var(--accent)'; b.style.background = '#123027'; }
+      else { addMistake(l.id); b.style.borderColor = 'var(--red)'; b.style.background = '#30171c'; }
+      idx++;
+      setTimeout(() => { if (!ended) card(); }, 450);
+    });
+  };
+  function finish(timeout) {
+    if (ended) return;
+    ended = true;
+    if (modalTimer) { clearInterval(modalTimer); modalTimer = null; }
+    const reward = score * 15 + (score === qs.length ? 15 : 0);
+    addXP(reward); P.rushRuns++; P.bestRush = Math.max(P.bestRush, score);
+    if (score >= 3) { P.combo++; P.bestCombo = Math.max(P.bestCombo, P.combo); } else P.combo = 0;
+    save();
+    openModal(`<h2>${score >= 4 ? '漂亮的胜利！' : '挑战结束'}</h2><p class="muted">${timeout ? '时间到。' : ''}答对 ${score} / ${qs.length} · 获得 ${reward} XP</p>
+      <p class="small dim">最高纪录：${P.bestRush} / 5 · 连击 x${P.combo}</p>
+      <button class="btn mt" data-close-modal>收下奖励</button>`);
+  }
+  card();
+  modalTimer = setInterval(() => {
+    if (ended) return;
+    remaining--;
+    const el = document.getElementById('rush-timer');
+    if (el) { el.textContent = remaining + 's'; el.classList.toggle('danger', remaining <= 20); }
+    if (remaining <= 0) finish(true);
+  }, 1000);
+}
+function showCards() {
+  const got = lessons.filter(l => l.extension && extensionDone(l.id));
+  openModal(`<h2>知识卡牌</h2><p class="small dim">${got.length} / ${lessons.length} 张已点亮 · 完成关卡支线后解锁</p>
+    <div class="mt">${got.length ? got.map(l => `<div class="game-row"><div class="ico">✦</div><div class="grow"><b>${esc(l.title)}</b><span>${esc((l.points && l.points[0]) || l.extension.explanation || '')}</span></div><span class="pill purple">${l.extension.boss ? 'BOSS' : '卡牌'}</span></div>`).join('') : '<div class="empty">还没有卡牌。去完成关卡的支线任务。</div>'}</div>`);
+}
+function showMistakes() {
+  const wrong = lessons.filter(l => P.mistakes.includes(l.id));
+  openModal(`<h2>错题本</h2><p class="small dim">${wrong.length ? `${wrong.length} 道题待复习` : '错题本是空的，继续保持'}</p>
+    <div class="mt">${wrong.length ? wrong.map(l => `<div class="game-row"><div class="ico">✎</div><div class="grow"><b>${esc(l.title)}</b><span>${esc(l.task || '')}</span></div><button class="btn ghost small" data-review="${l.id}">去复习</button></div>`).join('') : '<div class="empty">没有错题。去首页找一条支线挑战吧。</div>'}</div>`);
+  document.querySelectorAll('[data-review]').forEach(b => b.onclick = () => { closeModal(); openLesson(b.dataset.review); });
+}
+function showAchievements() {
+  const list = achievements();
+  openModal(`<h2>成就墙</h2><p class="small dim">${list.filter(a => a.ok).length} / ${list.length} 已解锁 · Lv.${level()} · ${P.xp} XP</p>
+    <div class="mt">${list.map(a => `<div class="game-row" style="${a.ok ? '' : 'opacity:.55'}"><div class="ico">${a.ok ? '★' : '☆'}</div><div class="grow"><b>${esc(a.name)}</b><span>${esc(a.desc)} · ${esc(a.prog)}</span></div><span class="pill ${a.ok ? 'gold' : ''}">${a.ok ? '已解锁' : '未解锁'}</span></div>`).join('')}</div>`);
+}
+
 /* ---------------- modal ---------------- */
-function openModal(html) {
+function openModal(html, keepTimer = false) {
+  if (!keepTimer && modalTimer) { clearInterval(modalTimer); modalTimer = null; }
   modalBody.innerHTML = html;
   modal.hidden = false;
-  modal.querySelectorAll('[data-close-modal]').forEach(x => x.onclick = () => modal.hidden = true);
+  modal.querySelectorAll('[data-close-modal]').forEach(x => x.onclick = () => closeModal());
   const x = modal.querySelector('.modal-x');
-  if (x) x.onclick = () => modal.hidden = true;
+  if (x) x.onclick = () => closeModal();
 }
-document.querySelectorAll('[data-close-modal]').forEach(x => x.onclick = () => modal.hidden = true);
+document.querySelectorAll('[data-close-modal]').forEach(x => x.onclick = () => closeModal());
 
 /* ---------------- nav / boot ---------------- */
 function render() {
@@ -777,10 +1091,20 @@ function render() {
     el.classList.toggle('active', map[el.dataset.nav] === state.view || (state.view === 'lesson' && el.dataset.nav === 'challenge'));
     el.onclick = e => { e.preventDefault(); navigate(map[el.dataset.nav]); };
   });
+  document.querySelectorAll('[data-game]').forEach(el => {
+    el.onclick = () => openGame(el.dataset.game);
+  });
+  const reset = document.getElementById('reset-progress');
+  if (reset) reset.onclick = () => {
+    if (window.confirm('清空本地进度、代码、结局和成就？此操作不可撤销。')) {
+      localStorage.removeItem(STORE_KEY);
+      location.reload();
+    }
+  };
 }
 
 document.getElementById('brand').onclick = e => { e.preventDefault(); navigate('home'); };
 window.addEventListener('beforeunload', () => { clearTimers(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') modal.hidden = true; });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
 bootApp();
