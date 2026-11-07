@@ -5383,6 +5383,828 @@
           }
         }
       ]
+    },
+    {
+      "id": "classics",
+      "title": "经典题单 · Java 面试与算法",
+      "subtitle": "单独成章：20 道经典题，练循环、数组、字符串、递归和常见算法",
+      "color": "#FFB86B",
+      "lessons": [
+        {
+          "id": "classic-1",
+          "title": "FizzBuzz",
+          "subtitle": "最经典的循环与条件题",
+          "difficulty": 1,
+          "minutes": 12,
+          "normal": "FizzBuzz 考察循环、取模和条件分支。先判断同时被 3 和 5 整除的情况，再判断单独被 3 或 5 整除。",
+          "plain": "从 1 数到 15，每个数都检查一遍，按规则喊出对应的词。",
+          "task": "输出 1 到 15。3 的倍数输出 Fizz，5 的倍数输出 Buzz，15 的倍数输出 FizzBuzz，其余输出数字。",
+          "example": "",
+          "exampleOutput": "",
+          "starter": "public class Main {\n    public static void main(String[] args) {\n        // TODO: 循环 1 到 15，按 FizzBuzz 规则输出\n\n    }\n}",
+          "solution": "public class Main {\n    public static void main(String[] args) {\n        for (int i = 1; i <= 15; i++) {\n            if (i % 15 == 0) System.out.println(\"FizzBuzz\");\n            else if (i % 3 == 0) System.out.println(\"Fizz\");\n            else if (i % 5 == 0) System.out.println(\"Buzz\");\n            else System.out.println(i);\n        }\n    }\n}",
+          "mode": "output",
+          "stdin": "",
+          "expected": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz",
+          "className": "",
+          "points": [
+            "for 循环",
+            "取模 %",
+            "if / else if 顺序"
+          ],
+          "hints": [
+            "先判断 i % 15 == 0。",
+            "15 的倍数要输出完整的 FizzBuzz。"
+          ],
+          "calls": [],
+          "reading": false,
+          "classic": true
+        },
+        {
+          "id": "classic-2",
+          "title": "判断素数",
+          "subtitle": "从 2 试到平方根",
+          "difficulty": 2,
+          "minutes": 12,
+          "normal": "素数是大于 1 且只能被 1 和自身整除的数。只需要试除到 i * i <= n，就能覆盖所有因数。",
+          "plain": "如果 n 能被 2 到根号 n 之间的任何数整除，它就不是素数。",
+          "task": "实现 isPrime(int n)，判断 n 是否为素数。",
+          "example": "isPrime(13)  // true",
+          "exampleOutput": "true",
+          "starter": "public class Main {\n    static boolean isPrime(int n) {\n        // TODO: 返回 n 是否为素数\n        return false;\n    }\n}",
+          "solution": "public class Main {\n    static boolean isPrime(int n) {\n        if (n < 2) return false;\n        for (int i = 2; i * i <= n; i++) {\n            if (n % i == 0) return false;\n        }\n        return true;\n    }\n}",
+          "mode": "calls",
+          "stdin": "",
+          "expected": "",
+          "className": "",
+          "points": [
+            "n < 2",
+            "i * i <= n",
+            "提前 return false"
+          ],
+          "hints": [
+            "1 不是素数。",
+            "循环条件可以写 i * i <= n。"
+          ],
+          "calls": [
+            {
+              "name": "2",
+              "invoke": "isPrime(2)",
+              "expect": "true"
+            },
+            {
+              "name": "9",
+              "invoke": "isPrime(9)",
+              "expect": "false"
+            },
+            {
+              "name": "13",
+              "invoke": "isPrime(13)",
+              "expect": "true"
+            },
+            {
+              "name": "1",
+              "invoke": "isPrime(1)",
+              "expect": "false"
+            }
+          ],
+          "reading": false,
+          "classic": true
+        },
+        {
+          "id": "classic-3",
+          "title": "阶乘",
+          "subtitle": "递归与循环都能做",
+          "difficulty": 2,
+          "minutes": 12,
+          "normal": "阶乘是所有小于等于 n 的正整数相乘。可以用循环累乘，也可以用递归 n * factorial(n - 1)。",
+          "plain": "从 1 乘到 n；如果 n 是 0，直接返回 1。",
+          "task": "实现 factorial(int n)，返回 n!。0! 等于 1。",
+          "example": "factorial(5)  // 120",
+          "exampleOutput": "120",
+          "starter": "public class Main {\n    static int factorial(int n) {\n        // TODO: 计算 n!\n        return 0;\n    }\n}",
+          "solution": "public class Main {\n    static int factorial(int n) {\n        int result = 1;\n        for (int i = 2; i <= n; i++) result *= i;\n        return result;\n    }\n}",
+          "mode": "calls",
+          "stdin": "",
+          "expected": "",
+          "className": "",
+          "points": [
+            "累乘",
+            "0 的边界",
+            "int 范围"
+          ],
+          "hints": [
+            "result 初始值要是 1。",
+            "循环从 2 开始即可。"
+          ],
+          "calls": [
+            {
+              "name": "5!",
+              "invoke": "factorial(5)",
+              "expect": "120"
+            },
+            {
+              "name": "0!",
+              "invoke": "factorial(0)",
+              "expect": "1"
+            },
+            {
+              "name": "3!",
+              "invoke": "factorial(3)",
+              "expect": "6"
+            }
+          ],
+          "reading": false,
+          "classic": true
+        },
+        {
+          "id": "classic-4",
+          "title": "斐波那契数列",
+          "subtitle": "从递归到迭代",
+          "difficulty": 2,
+          "minutes": 12,
+          "normal": "斐波那契数列满足 F(n) = F(n-1) + F(n-2)。递归直观但会重复计算，迭代只需要保存前两项。",
+          "plain": "用 a、b 两个变量滚动，每次把 a+b 赋给下一项。",
+          "task": "实现 fib(int n)，返回第 n 个斐波那契数。fib(0)=0，fib(1)=1。",
+          "example": "fib(10)  // 55",
+          "exampleOutput": "55",
+          "starter": "public class Main {\n    static int fib(int n) {\n        // TODO: 返回第 n 个斐波那契数\n        return 0;\n    }\n}",
+          "solution": "public class Main {\n    static int fib(int n) {\n        if (n < 2) return n;\n        int a = 0, b = 1;\n        for (int i = 2; i <= n; i++) {\n            int c = a + b;\n            a = b;\n            b = c;\n        }\n        return b;\n    }\n}",
+          "mode": "calls",
+          "stdin": "",
+          "expected": "",
+          "className": "",
+          "points": [
+            "前两项",
+            "滚动变量",
+            "边界 0 和 1"
+          ],
+          "hints": [
+            "n 为 0 或 1 时直接返回 n。",
+            "每次更新 a 和 b，不要同时覆盖。"
+          ],
+          "calls": [
+            {
+              "name": "fib(6)",
+              "invoke": "fib(6)",
+              "expect": "8"
+            },
+            {
+              "name": "fib(10)",
+              "invoke": "fib(10)",
+              "expect": "55"
+            },
+            {
+              "name": "fib(0)",
+              "invoke": "fib(0)",
+              "expect": "0"
+            }
+          ],
+          "reading": false,
+          "classic": true
+        },
+        {
+          "id": "classic-5",
+          "title": "回文字符串",
+          "subtitle": "双指针从两端靠近",
+          "difficulty": 2,
+          "minutes": 12,
+          "normal": "双指针分别指向首尾，字符相同就往中间走；任意一对不同就返回 false。",
+          "plain": "左指针 i 从头，右指针 j 从尾，向中间夹。",
+          "task": "实现 isPalindrome(String s)，判断字符串是否正着读和反着读都一样。",
+          "example": "isPalindrome(\"level\")  // true",
+          "exampleOutput": "true",
+          "starter": "public class Main {\n    static boolean isPalindrome(String s) {\n        // TODO: 判断回文\n        return false;\n    }\n}",
+          "solution": "public class Main {\n    static boolean isPalindrome(String s) {\n        int i = 0, j = s.length() - 1;\n        while (i < j) {\n            if (s.charAt(i) != s.charAt(j)) return false;\n            i++;\n            j--;\n        }\n        return true;\n    }\n}",
+          "mode": "calls",
+          "stdin": "",
+          "expected": "",
+          "className": "",
+          "points": [
+            "charAt",
+            "双指针",
+            "i < j"
+          ],
+          "hints": [
+            "比较 s.charAt(i) 和 s.charAt(j)。",
+            "while 条件是 i < j。"
+          ],
+          "calls": [
+            {
+              "name": "level",
+              "invoke": "isPalindrome(\"level\")",
+              "expect": "true"
+            },
+            {
+              "name": "java",
+              "invoke": "isPalindrome(\"java\")",
+              "expect": "false"
+            },
+            {
+              "name": "abba",
+              "invoke": "isPalindrome(\"abba\")",
+              "expect": "true"
+            }
+          ],
+          "reading": false,
+          "classic": true
+        },
+        {
+          "id": "classic-6",
+          "title": "反转字符串",
+          "subtitle": "从后往前拼",
+          "difficulty": 1,
+          "minutes": 12,
+          "normal": "可以从后往前取字符拼成新字符串，也可以把字符数组首尾交换。",
+          "plain": "新建一个空结果，从最后一个字符开始逐个 append。",
+          "task": "实现 reverse(String s)，返回反转后的字符串。",
+          "example": "reverse(\"Java\")  // avaJ",
+          "exampleOutput": "avaJ",
+          "starter": "public class Main {\n    static String reverse(String s) {\n        // TODO: 返回反转字符串\n        return \"\";\n    }\n}",
+          "solution": "public class Main {\n    static String reverse(String s) {\n        StringBuilder sb = new StringBuilder();\n        for (int i = s.length() - 1; i >= 0; i--) sb.append(s.charAt(i));\n        return sb.toString();\n    }\n}",
+          "mode": "calls",
+          "stdin": "",
+          "expected": "",
+          "className": "",
+          "points": [
+            "StringBuilder",
+            "倒序循环",
+            "toString"
+          ],
+          "hints": [
+            "循环从 s.length() - 1 开始。",
+            "空字符串也要能返回空字符串。"
+          ],
+          "calls": [
+            {
+              "name": "hello",
+              "invoke": "reverse(\"hello\")",
+              "expect": "olleh"
+            },
+            {
+              "name": "Java",
+              "invoke": "reverse(\"Java\")",
+              "expect": "avaJ"
+            },
+            {
+              "name": "empty",
+              "invoke": "reverse(\"\")",
+              "expect": ""
+            }
+          ],
+          "reading": false,
+          "classic": true
+        },
+        {
+          "id": "classic-7",
+          "title": "最大公约数",
+          "subtitle": "欧几里得算法",
+          "difficulty": 2,
+          "minutes": 12,
+          "normal": "欧几里得算法：gcd(a, b) = gcd(b, a % b)，直到 b 为 0，此时 a 就是答案。",
+          "plain": "不断用 b 替换 a，用 a % b 替换 b。",
+          "task": "实现 gcd(int a, int b)，返回 a 和 b 的最大公约数。",
+          "example": "gcd(12, 18)  // 6",
+          "exampleOutput": "6",
+          "starter": "public class Main {\n    static int gcd(int a, int b) {\n        // TODO: 求最大公约数\n        return 0;\n    }\n}",
+          "solution": "public class Main {\n    static int gcd(int a, int b) {\n        while (b != 0) {\n            int t = a % b;\n            a = b;\n            b = t;\n        }\n        return a;\n    }\n}",
+          "mode": "calls",
+          "stdin": "",
+          "expected": "",
+          "className": "",
+          "points": [
+            "% 取余",
+            "循环替换",
+            "b == 0"
+          ],
+          "hints": [
+            "循环条件是 b != 0。",
+            "先用临时变量保存 a % b，再更新 a、b。"
+          ],
+          "calls": [
+            {
+              "name": "12,18",
+              "invoke": "gcd(12, 18)",
+              "expect": "6"
+            },
+            {
+              "name": "7,13",
+              "invoke": "gcd(7, 13)",
+              "expect": "1"
+            },
+            {
+              "name": "20,8",
+              "invoke": "gcd(20, 8)",
+              "expect": "4"
+            }
+          ],
+          "reading": false,
+          "classic": true
+        },
+        {
+          "id": "classic-8",
+          "title": "二分查找",
+          "subtitle": "有序数组里的折半搜索",
+          "difficulty": 2,
+          "minutes": 12,
+          "normal": "二分查找每次比较中间元素，排除一半区间，因此是 O(log n)。",
+          "plain": "维护 left 和 right，取 mid；目标在右边就移动 left，否则移动 right。",
+          "task": "实现 binarySearch(int[] a, int target)，返回 target 的下标；不存在返回 -1。数组升序。",
+          "example": "binarySearch(new int[]{1,3,5,7,9}, 7)  // 3",
+          "exampleOutput": "3",
+          "starter": "public class Main {\n    static int binarySearch(int[] a, int target) {\n        // TODO: 二分查找\n        return -1;\n    }\n}",
+          "solution": "public class Main {\n    static int binarySearch(int[] a, int target) {\n        int left = 0, right = a.length - 1;\n        while (left <= right) {\n            int mid = (left + right) / 2;\n            if (a[mid] == target) return mid;\n            if (a[mid] < target) left = mid + 1;\n            else right = mid - 1;\n        }\n        return -1;\n    }\n}",
+          "mode": "calls",
+          "stdin": "",
+          "expected": "",
+          "className": "",
+          "points": [
+            "left <= right",
+            "mid",
+            "缩小区间"
+          ],
+          "hints": [
+            "数组必须有序。",
+            "mid 可以用 (left + right) / 2。"
+          ],
+          "calls": [
+            {
+              "name": "find 7",
+              "invoke": "binarySearch(new int[]{1,3,5,7,9}, 7)",
+              "expect": "3"
+            },
+            {
+              "name": "missing 4",
+              "invoke": "binarySearch(new int[]{1,3,5,7,9}, 4)",
+              "expect": "-1"
+            },
+            {
+              "name": "first",
+              "invoke": "binarySearch(new int[]{2,4,6}, 2)",
+              "expect": "0"
+            }
+          ],
+          "reading": false,
+          "classic": true
+        },
+        {
+          "id": "classic-9",
+          "title": "冒泡排序",
+          "subtitle": "相邻交换，把大数冒上去",
+          "difficulty": 2,
+          "minutes": 12,
+          "normal": "每一轮比较相邻两个元素，逆序就交换。一轮结束，最大的元素会浮到末尾。",
+          "plain": "两层循环；外层控制轮数，内层做相邻交换。",
+          "task": "实现冒泡排序，把数组按升序排列并输出。",
+          "example": "",
+          "exampleOutput": "",
+          "starter": "public class Main {\n    public static void main(String[] args) {\n        int[] a = {5, 2, 9, 1};\n        // TODO: 冒泡排序并输出\n    }\n}",
+          "solution": "public class Main {\n    static void print(int[] a) {\n        for (int i = 0; i < a.length; i++) {\n            if (i > 0) System.out.print(\" \");\n            System.out.print(a[i]);\n        }\n        System.out.println();\n    }\n    public static void main(String[] args) {\n        int[] a = {5, 2, 9, 1};\n        for (int i = 0; i < a.length - 1; i++) {\n            for (int j = 0; j < a.length - 1 - i; j++) {\n                if (a[j] > a[j + 1]) {\n                    int t = a[j]; a[j] = a[j + 1]; a[j + 1] = t;\n                }\n            }\n        }\n        print(a);\n    }\n}",
+          "mode": "output",
+          "stdin": "",
+          "expected": "1 2 5 9",
+          "className": "",
+          "points": [
+            "相邻比较",
+            "交换",
+            "每轮缩小范围"
+          ],
+          "hints": [
+            "外层循环执行 n - 1 轮。",
+            "内层循环到 n - 1 - i。"
+          ],
+          "calls": [],
+          "reading": false,
+          "classic": true
+        },
+        {
+          "id": "classic-10",
+          "title": "两数之和",
+          "subtitle": "哈希表的经典入门",
+          "difficulty": 2,
+          "minutes": 12,
+          "normal": "暴力枚举是 O(n^2)。更经典的做法是用 HashMap 记录“还差多少”，一次遍历完成。",
+          "plain": "遍历数组，先查 target - 当前值 是否出现过；没有就把当前值和下标放进 Map。",
+          "task": "给定数组和目标值，输出两个下标，使它们对应的元素之和等于目标。假设只有一个答案。",
+          "example": "",
+          "exampleOutput": "",
+          "starter": "public class Main {\n    public static void main(String[] args) {\n        int[] nums = {2, 7, 11, 15};\n        int target = 9;\n        // TODO: 输出两个下标\n    }\n}",
+          "solution": "import java.util.HashMap;\n\npublic class Main {\n    public static void main(String[] args) {\n        int[] nums = {2, 7, 11, 15};\n        int target = 9;\n        HashMap<Integer, Integer> map = new HashMap<>();\n        for (int i = 0; i < nums.length; i++) {\n            int need = target - nums[i];\n            if (map.containsKey(need)) {\n                System.out.println(map.get(need) + \" \" + i);\n                return;\n            }\n            map.put(nums[i], i);\n        }\n    }\n}",
+          "mode": "output",
+          "stdin": "",
+          "expected": "0 1",
+          "className": "",
+          "points": [
+            "HashMap",
+            "target - x",
+            "一次遍历"
+          ],
+          "hints": [
+            "先判断 need 是否已经存在。",
+            "输出顺序是较小下标在前。"
+          ],
+          "calls": [],
+          "reading": false,
+          "classic": true
+        },
+        {
+          "id": "classic-11",
+          "title": "合并两个有序数组",
+          "subtitle": "双指针归并",
+          "difficulty": 2,
+          "minutes": 12,
+          "normal": "两个指针分别指向两个数组，每次取较小的元素放入结果，最后补上剩余部分。",
+          "plain": "像合并两摞已排好的牌，每次比较牌面。",
+          "task": "把两个升序数组合并成一个升序数组并输出。",
+          "example": "",
+          "exampleOutput": "",
+          "starter": "public class Main {\n    public static void main(String[] args) {\n        int[] a = {1, 3, 5};\n        int[] b = {2, 4, 6};\n        // TODO: 合并并输出\n    }\n}",
+          "solution": "public class Main {\n    static void print(int[] a) {\n        for (int i = 0; i < a.length; i++) {\n            if (i > 0) System.out.print(\" \");\n            System.out.print(a[i]);\n        }\n        System.out.println();\n    }\n    public static void main(String[] args) {\n        int[] a = {1, 3, 5};\n        int[] b = {2, 4, 6};\n        int[] c = new int[a.length + b.length];\n        int i = 0, j = 0, k = 0;\n        while (i < a.length && j < b.length) c[k++] = a[i] <= b[j] ? a[i++] : b[j++];\n        while (i < a.length) c[k++] = a[i++];\n        while (j < b.length) c[k++] = b[j++];\n        print(c);\n    }\n}",
+          "mode": "output",
+          "stdin": "",
+          "expected": "1 2 3 4 5 6",
+          "className": "",
+          "points": [
+            "双指针",
+            "剩余元素",
+            "结果数组"
+          ],
+          "hints": [
+            "两个数组都还有元素时比较。",
+            "一个数组走完后，把另一个剩余部分全部复制。"
+          ],
+          "calls": [],
+          "reading": false,
+          "classic": true
+        },
+        {
+          "id": "classic-12",
+          "title": "杨辉三角",
+          "subtitle": "二维数组的入门题",
+          "difficulty": 2,
+          "minutes": 12,
+          "normal": "杨辉三角每行首尾是 1，中间每个数等于上一行左上方和右上方之和。",
+          "plain": "用二维数组保存，逐行计算并输出。",
+          "task": "输出杨辉三角的前 5 行。每行数字之间用一个空格分隔。",
+          "example": "",
+          "exampleOutput": "",
+          "starter": "public class Main {\n    public static void main(String[] args) {\n        // TODO: 输出 5 行杨辉三角\n    }\n}",
+          "solution": "public class Main {\n    public static void main(String[] args) {\n        int n = 5;\n        int[][] a = new int[n][n];\n        for (int i = 0; i < n; i++) {\n            a[i][0] = 1;\n            a[i][i] = 1;\n            for (int j = 1; j < i; j++) a[i][j] = a[i - 1][j - 1] + a[i - 1][j];\n            for (int j = 0; j <= i; j++) {\n                if (j > 0) System.out.print(\" \");\n                System.out.print(a[i][j]);\n            }\n            System.out.println();\n        }\n    }\n}",
+          "mode": "output",
+          "stdin": "",
+          "expected": "1\n1 1\n1 2 1\n1 3 3 1\n1 4 6 4 1",
+          "className": "",
+          "points": [
+            "二维数组",
+            "边界 1",
+            "上一行递推"
+          ],
+          "hints": [
+            "每行第一个和最后一个都是 1。",
+            "中间元素是左上和右上相加。"
+          ],
+          "calls": [],
+          "reading": false,
+          "classic": true
+        },
+        {
+          "id": "classic-13",
+          "title": "有效的括号",
+          "subtitle": "栈的经典应用",
+          "difficulty": 3,
+          "minutes": 16,
+          "normal": "遇到左括号入栈；遇到右括号时，栈顶必须是同类型的左括号，最后栈必须为空。",
+          "plain": "用字符数组模拟栈，记录栈顶位置。",
+          "task": "实现 valid(String s)，判断只含 ()[]{} 的字符串是否有效。",
+          "example": "valid(\"()[]{}\")  // true",
+          "exampleOutput": "true",
+          "starter": "public class Main {\n    static boolean valid(String s) {\n        // TODO: 判断括号是否有效\n        return false;\n    }\n}",
+          "solution": "public class Main {\n    static boolean valid(String s) {\n        char[] stack = new char[s.length()];\n        int top = 0;\n        for (int i = 0; i < s.length(); i++) {\n            char c = s.charAt(i);\n            if (c == '(' || c == '[' || c == '{') stack[top++] = c;\n            else {\n                if (top == 0) return false;\n                char open = stack[--top];\n                if ((c == ')' && open != '(') || (c == ']' && open != '[') || (c == '}' && open != '{')) return false;\n            }\n        }\n        return top == 0;\n    }\n}",
+          "mode": "calls",
+          "stdin": "",
+          "expected": "",
+          "className": "",
+          "points": [
+            "栈",
+            "左括号入栈",
+            "右括号匹配"
+          ],
+          "hints": [
+            "右括号出现时栈不能为空。",
+            "最后 top 必须回到 0。"
+          ],
+          "calls": [
+            {
+              "name": "()[]{}",
+              "invoke": "valid(\"()[]{}\")",
+              "expect": "true"
+            },
+            {
+              "name": "([)]",
+              "invoke": "valid(\"([)]\")",
+              "expect": "false"
+            },
+            {
+              "name": "{[]}",
+              "invoke": "valid(\"{[]}\")",
+              "expect": "true"
+            }
+          ],
+          "reading": false,
+          "classic": true
+        },
+        {
+          "id": "classic-14",
+          "title": "罗马数字转整数",
+          "subtitle": "从字符到数值",
+          "difficulty": 3,
+          "minutes": 16,
+          "normal": "通常从左往右加；如果左边的数比右边小，就减去左边，例如 IV = 5 - 1。",
+          "plain": "把字符映射成数值，遍历并用“当前值 < 下一个值”判断加减。",
+          "task": "实现 romanToInt(String s)，把罗马数字转换成整数。",
+          "example": "romanToInt(\"IV\")  // 4",
+          "exampleOutput": "4",
+          "starter": "public class Main {\n    static int romanToInt(String s) {\n        // TODO: 罗马数字转整数\n        return 0;\n    }\n}",
+          "solution": "public class Main {\n    static int value(char c) {\n        if (c == 'I') return 1;\n        if (c == 'V') return 5;\n        if (c == 'X') return 10;\n        if (c == 'L') return 50;\n        if (c == 'C') return 100;\n        if (c == 'D') return 500;\n        return 1000;\n    }\n    static int romanToInt(String s) {\n        int sum = 0;\n        for (int i = 0; i < s.length(); i++) {\n            int v = value(s.charAt(i));\n            if (i + 1 < s.length() && v < value(s.charAt(i + 1))) sum -= v;\n            else sum += v;\n        }\n        return sum;\n    }\n}",
+          "mode": "calls",
+          "stdin": "",
+          "expected": "",
+          "className": "",
+          "points": [
+            "字符映射",
+            "小值在左要减",
+            "遍历"
+          ],
+          "hints": [
+            "先写 value(char) 映射。",
+            "判断当前值是否小于下一个值。"
+          ],
+          "calls": [
+            {
+              "name": "III",
+              "invoke": "romanToInt(\"III\")",
+              "expect": "3"
+            },
+            {
+              "name": "IV",
+              "invoke": "romanToInt(\"IV\")",
+              "expect": "4"
+            },
+            {
+              "name": "MCMXCIV",
+              "invoke": "romanToInt(\"MCMXCIV\")",
+              "expect": "1994"
+            }
+          ],
+          "reading": false,
+          "classic": true
+        },
+        {
+          "id": "classic-15",
+          "title": "最长公共前缀",
+          "subtitle": "字符串数组的纵向扫描",
+          "difficulty": 3,
+          "minutes": 16,
+          "normal": "拿第一个字符串当基准，逐列检查其他字符串是否在同一列有相同字符。",
+          "plain": "如果某个字符串长度不够，或字符不同，就返回当前前缀。",
+          "task": "实现 longestCommonPrefix(String[] strs)，返回字符串数组的最长公共前缀。",
+          "example": "longestCommonPrefix(new String[]{\"flower\",\"flow\",\"flight\"})  // fl",
+          "exampleOutput": "fl",
+          "starter": "public class Main {\n    static String longestCommonPrefix(String[] strs) {\n        // TODO: 最长公共前缀\n        return \"\";\n    }\n}",
+          "solution": "public class Main {\n    static String longestCommonPrefix(String[] strs) {\n        if (strs.length == 0) return \"\";\n        for (int i = 0; i < strs[0].length(); i++) {\n            char c = strs[0].charAt(i);\n            for (int j = 1; j < strs.length; j++) {\n                if (i >= strs[j].length() || strs[j].charAt(i) != c) {\n                    return strs[0].substring(0, i);\n                }\n            }\n        }\n        return strs[0];\n    }\n}",
+          "mode": "calls",
+          "stdin": "",
+          "expected": "",
+          "className": "",
+          "points": [
+            "纵向扫描",
+            "长度边界",
+            "substring"
+          ],
+          "hints": [
+            "以第一个字符串为基准。",
+            "i 超出某个字符串长度时立即返回。"
+          ],
+          "calls": [
+            {
+              "name": "flower",
+              "invoke": "longestCommonPrefix(new String[]{\"flower\",\"flow\",\"flight\"})",
+              "expect": "fl"
+            },
+            {
+              "name": "none",
+              "invoke": "longestCommonPrefix(new String[]{\"dog\",\"racecar\",\"car\"})",
+              "expect": ""
+            },
+            {
+              "name": "single",
+              "invoke": "longestCommonPrefix(new String[]{\"abc\"})",
+              "expect": "abc"
+            }
+          ],
+          "reading": false,
+          "classic": true
+        },
+        {
+          "id": "classic-16",
+          "title": "爬楼梯",
+          "subtitle": "动态规划的第一课",
+          "difficulty": 2,
+          "minutes": 12,
+          "normal": "到第 n 级的方法数等于到 n-1 级和 n-2 级的方法数之和，和斐波那契相同。",
+          "plain": "用两个变量保存前两级的方法数，逐步推到 n。",
+          "task": "实现 climbStairs(int n)，每次可以爬 1 或 2 级，返回爬到第 n 级的方法数。",
+          "example": "climbStairs(5)  // 8",
+          "exampleOutput": "8",
+          "starter": "public class Main {\n    static int climbStairs(int n) {\n        // TODO: 返回爬楼梯方法数\n        return 0;\n    }\n}",
+          "solution": "public class Main {\n    static int climbStairs(int n) {\n        if (n <= 2) return n;\n        int a = 1, b = 2;\n        for (int i = 3; i <= n; i++) {\n            int c = a + b;\n            a = b;\n            b = c;\n        }\n        return b;\n    }\n}",
+          "mode": "calls",
+          "stdin": "",
+          "expected": "",
+          "className": "",
+          "points": [
+            "状态转移",
+            "前两项",
+            "边界"
+          ],
+          "hints": [
+            "n=1 返回 1，n=2 返回 2。",
+            "从 3 开始递推。"
+          ],
+          "calls": [
+            {
+              "name": "n=2",
+              "invoke": "climbStairs(2)",
+              "expect": "2"
+            },
+            {
+              "name": "n=3",
+              "invoke": "climbStairs(3)",
+              "expect": "3"
+            },
+            {
+              "name": "n=5",
+              "invoke": "climbStairs(5)",
+              "expect": "8"
+            }
+          ],
+          "reading": false,
+          "classic": true
+        },
+        {
+          "id": "classic-17",
+          "title": "只出现一次的数字",
+          "subtitle": "异或的巧用",
+          "difficulty": 3,
+          "minutes": 16,
+          "normal": "异或运算满足 a ^ a = 0、a ^ 0 = a，把所有数异或起来，成对的会抵消。",
+          "plain": "用一个 result 从头异或到尾。",
+          "task": "实现 singleNumber(int[] nums)，数组中只有一个数出现一次，其余都出现两次，找出它。",
+          "example": "1 ^ 2 ^ 1 ^ 2 ^ 4  // 4",
+          "exampleOutput": "4",
+          "starter": "public class Main {\n    static int singleNumber(int[] nums) {\n        // TODO: 找出只出现一次的数字\n        return 0;\n    }\n}",
+          "solution": "public class Main {\n    static int singleNumber(int[] nums) {\n        int result = 0;\n        for (int n : nums) result ^= n;\n        return result;\n    }\n}",
+          "mode": "calls",
+          "stdin": "",
+          "expected": "",
+          "className": "",
+          "points": [
+            "异或",
+            "成对抵消",
+            "O(n)"
+          ],
+          "hints": [
+            "异或同一个数两次会抵消。",
+            "result 初始值是 0。"
+          ],
+          "calls": [
+            {
+              "name": "4,1,2,1,2",
+              "invoke": "singleNumber(new int[]{4,1,2,1,2})",
+              "expect": "4"
+            },
+            {
+              "name": "2,2,1",
+              "invoke": "singleNumber(new int[]{2,2,1})",
+              "expect": "1"
+            },
+            {
+              "name": "7",
+              "invoke": "singleNumber(new int[]{7})",
+              "expect": "7"
+            }
+          ],
+          "reading": false,
+          "classic": true
+        },
+        {
+          "id": "classic-18",
+          "title": "买卖股票的最佳时机",
+          "subtitle": "一次遍历找最小价格",
+          "difficulty": 2,
+          "minutes": 12,
+          "normal": "遍历价格，维护历史最低买入价；当前价格减最低价就是今天卖出的利润。",
+          "plain": "先记录最低价，再不断更新最大利润。",
+          "task": "实现 maxProfit(int[] prices)，只能买一次卖一次，返回最大利润；不能获利返回 0。",
+          "example": "prices = [7,1,5,3,6,4]  // 5",
+          "exampleOutput": "5",
+          "starter": "public class Main {\n    static int maxProfit(int[] prices) {\n        // TODO: 最大利润\n        return 0;\n    }\n}",
+          "solution": "public class Main {\n    static int maxProfit(int[] prices) {\n        int min = Integer.MAX_VALUE;\n        int best = 0;\n        for (int p : prices) {\n            if (p < min) min = p;\n            else if (p - min > best) best = p - min;\n        }\n        return best;\n    }\n}",
+          "mode": "calls",
+          "stdin": "",
+          "expected": "",
+          "className": "",
+          "points": [
+            "最低买入价",
+            "当前利润",
+            "一次遍历"
+          ],
+          "hints": [
+            "先买后卖，不能反过来。",
+            "价格一直下跌时利润是 0。"
+          ],
+          "calls": [
+            {
+              "name": "7,1,5,3,6,4",
+              "invoke": "maxProfit(new int[]{7,1,5,3,6,4})",
+              "expect": "5"
+            },
+            {
+              "name": "7,6,4,3,1",
+              "invoke": "maxProfit(new int[]{7,6,4,3,1})",
+              "expect": "0"
+            },
+            {
+              "name": "1,2,3,4",
+              "invoke": "maxProfit(new int[]{1,2,3,4})",
+              "expect": "3"
+            }
+          ],
+          "reading": false,
+          "classic": true
+        },
+        {
+          "id": "classic-19",
+          "title": "移动零",
+          "subtitle": "保持顺序的双指针",
+          "difficulty": 2,
+          "minutes": 12,
+          "normal": "用一个 write 指针记录下一个非零元素应该放的位置，遍历时把非零元素往前写，最后补 0。",
+          "plain": "先搬非零，再把剩余位置全部填 0。",
+          "task": "把数组中的所有 0 移到末尾，同时保持非零元素的相对顺序，并输出结果。",
+          "example": "",
+          "exampleOutput": "",
+          "starter": "public class Main {\n    public static void main(String[] args) {\n        int[] a = {0, 1, 0, 3, 12};\n        // TODO: 移动零并输出\n    }\n}",
+          "solution": "public class Main {\n    static void print(int[] a) {\n        for (int i = 0; i < a.length; i++) {\n            if (i > 0) System.out.print(\" \");\n            System.out.print(a[i]);\n        }\n        System.out.println();\n    }\n    public static void main(String[] args) {\n        int[] a = {0, 1, 0, 3, 12};\n        int write = 0;\n        for (int i = 0; i < a.length; i++) {\n            if (a[i] != 0) a[write++] = a[i];\n        }\n        while (write < a.length) a[write++] = 0;\n        print(a);\n    }\n}",
+          "mode": "output",
+          "stdin": "",
+          "expected": "1 3 12 0 0",
+          "className": "",
+          "points": [
+            "write 指针",
+            "保持顺序",
+            "补零"
+          ],
+          "hints": [
+            "非零元素依次写到前面。",
+            "最后把 write 到末尾的位置设成 0。"
+          ],
+          "calls": [],
+          "reading": false,
+          "classic": true
+        },
+        {
+          "id": "classic-20",
+          "title": "汉诺塔",
+          "subtitle": "递归的经典代表",
+          "difficulty": 3,
+          "minutes": 16,
+          "normal": "要把 n 个盘从 from 移到 to：先移 n-1 个到 helper，再移最大的盘，最后移 n-1 个到 to。",
+          "plain": "递归函数 hanoi(n, from, to, helper)。",
+          "task": "输出把 3 个圆盘从 A 柱移动到 C 柱的每一步。格式如：move 1 A->C。",
+          "example": "",
+          "exampleOutput": "",
+          "starter": "public class Main {\n    public static void main(String[] args) {\n        // TODO: 输出 3 层汉诺塔步骤\n    }\n}",
+          "solution": "public class Main {\n    static void hanoi(int n, char from, char to, char helper) {\n        if (n == 0) return;\n        hanoi(n - 1, from, helper, to);\n        System.out.println(\"move \" + n + \" \" + from + \"->\" + to);\n        hanoi(n - 1, helper, to, from);\n    }\n    public static void main(String[] args) {\n        hanoi(3, 'A', 'C', 'B');\n    }\n}",
+          "mode": "output",
+          "stdin": "",
+          "expected": "move 1 A->C\nmove 2 A->B\nmove 1 C->B\nmove 3 A->C\nmove 1 B->A\nmove 2 B->C\nmove 1 A->C",
+          "className": "",
+          "points": [
+            "递归",
+            "n-1",
+            "三步移动"
+          ],
+          "hints": [
+            "先把上面 n-1 个移到辅助柱。",
+            "再移动最大的盘。",
+            "最后把 n-1 个移到目标柱。"
+          ],
+          "calls": [],
+          "reading": false,
+          "classic": true
+        }
+      ]
     }
   ]
 }

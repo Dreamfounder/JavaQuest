@@ -73,7 +73,7 @@ function touchStudy() {
   P.lastStudy = key;
   save();
 }
-function isJava8(l) { return !l.since; }
+function isJava8(l) { return !l.since && !l.classic; }
 function java8Remaining() {
   return lessons.filter(l => isJava8(l) && !P.completed.includes(l.id)).length;
 }
@@ -281,6 +281,8 @@ async function bootApp() {
 function renderHome() {
   const done = P.completed.length;
   const storyEndings = Object.values(P.storyEndings).reduce((n, a) => n + a.length, 0);
+  const classicLessons = lessons.filter(l => l.classic);
+  const classicDone = classicLessons.filter(l => P.completed.includes(l.id)).length;
   setStatus('离线课程 · 本地进度', false);
   app.innerHTML = `
   <section class="hero">
@@ -299,9 +301,9 @@ function renderHome() {
   <div class="mode-grid">
     <article class="card mode-card">
       <span class="pill green">闯关模式</span>
-      <h3>100 关，从 Hello World 到综合项目</h3>
-      <p>逐关讲解、示例、提示、自动测试；不提供 IDE 自动补全，练独立编码。建议先走完 Java 8 主线。</p>
-      <div class="stat">${done} / ${lessons.length} 已完成 · 14 章</div>
+      <h3>${lessons.length} 关，从 Hello World 到经典算法</h3>
+      <p>逐关讲解、示例、提示、自动测试；新增单独的“经典题单”章节。建议先走完 Java 8 主线。</p>
+      <div class="stat">${done} / ${lessons.length} 已完成 · ${chapters.length} 章</div>
       <div class="btn-row"><button class="btn" data-go="challenge">进入闯关 →</button></div>
     </article>
     <article class="card mode-card java8">
@@ -310,6 +312,13 @@ function renderHome() {
       <p>从 Hello, World! 开始，按教程顺序走完 84 关 Java 8 内容。没有分支、没有坏结局，失败只会让你重试。</p>
       <div class="stat">${P.java8} / 84 枚记忆碎片 · ${P.java8Done ? '星核已重启' : '等待修复'}</div>
       <div class="btn-row"><button class="btn" data-go="java8">${P.java8Done ? '查看结局' : '进入星火协议'} →</button></div>
+    </article>
+    <article class="card mode-card">
+      <span class="pill orange">经典题单</span>
+      <h3>20 道 Java 面试与算法题</h3>
+      <p>FizzBuzz、二分查找、两数之和、有效括号、汉诺塔……单独成章，不混进 Java 8 主线。</p>
+      <div class="stat">${classicDone} / ${classicLessons.length} 已完成 · 第 15 章</div>
+      <div class="btn-row"><button class="btn orange" data-classic>进入经典题单 →</button></div>
     </article>
     <article class="card mode-card story">
       <span class="pill purple">剧情模式</span>
@@ -390,32 +399,39 @@ function achievements() {
 function renderChallenge() {
   setStatus('闯关模式 · 自动测试', false);
   const only8 = state.chapterFilter === 'java8';
-  const java8Total = lessons.filter(l => !l.since).length;
-  const java8Done = lessons.filter(l => !l.since && P.completed.includes(l.id)).length;
+  const onlyClassic = state.chapterFilter === 'classic';
+  const java8Total = lessons.filter(isJava8).length;
+  const java8Done = lessons.filter(l => isJava8(l) && P.completed.includes(l.id)).length;
+  const classicLessons = lessons.filter(l => l.classic);
+  const classicDone = classicLessons.filter(l => P.completed.includes(l.id)).length;
   app.innerHTML = `
   <div class="section-head">
     <div><h2>闯关模式</h2><p>严格按课程顺序；Java 8 主线 ${java8Done} / ${java8Total}</p></div>
     <div class="btn-row">
       <button class="btn small ${state.chapterFilter === 'all' ? '' : 'ghost'}" data-filter="all">全部</button>
       <button class="btn small ${only8 ? '' : 'ghost'}" data-filter="java8">只看 Java 8</button>
+      <button class="btn small ${onlyClassic ? '' : 'ghost'}" data-filter="classic">经典题单 ${classicDone}/${classicLessons.length}</button>
     </div>
   </div>
-  ${only8 ? '' : `<div class="card" style="padding:13px 16px;border-color:#2d5142;background:#12231d"><div class="split"><span class="pill green">推荐路线</span><span class="small muted">优先完成没有版本标签的 Java 8 关；带版本标签的关卡会在学完后解锁更顺。</span><span class="spacer"></span>${java8Remaining() ? `<button class="btn small" id="route-java8">继续 Java 8 · 还剩 ${java8Remaining()} 关</button>` : '<span class="pill green">Java 8 已完成</span>'}</div></div>`}
+  ${only8 || onlyClassic ? '' : `<div class="card" style="padding:13px 16px;border-color:#2d5142;background:#12231d"><div class="split"><span class="pill green">推荐路线</span><span class="small muted">优先完成没有版本标签的 Java 8 关；带版本标签的关卡会在学完后解锁更顺。</span><span class="spacer"></span>${java8Remaining() ? `<button class="btn small" id="route-java8">继续 Java 8 · 还剩 ${java8Remaining()} 关</button>` : '<span class="pill green">Java 8 已完成</span>'}</div></div>`}
+  ${onlyClassic ? '<div class="card" style="padding:13px 16px;border-color:#5c4a2e;background:#211c13"><div class="split"><span class="pill orange">经典题单</span><span class="small muted">20 道面试与算法经典题，单独成章；不影响 Java 8 主线进度。</span></div></div>' : ''}
   <div id="chapters"></div>`;
   const wrap = document.getElementById('chapters');
   for (const ch of chapters) {
-    const visible = ch.lessons.filter(l => !only8 || !l.since);
+    if (onlyClassic && ch.id !== 'classics') continue;
+    const visible = only8 ? ch.lessons.filter(isJava8) : ch.lessons;
     if (!visible.length) continue;
     const done = ch.lessons.filter(l => P.completed.includes(l.id)).length;
     const section = document.createElement('section');
-    section.className = 'chapter';
+    section.className = 'chapter' + (ch.id === 'classics' ? ' classic-chapter' : '');
     const badge = done === ch.lessons.length ? '<span class="pill gold">★ 章节徽章</span>' : '';
-    section.innerHTML = `<div class="chapter-head"><h3>${esc(ch.title)}</h3>${badge}<span class="count">${done}/${ch.lessons.length}</span></div><div class="lesson-list"></div>`;
+    const sub = ch.id === 'classics' ? `<div class="small muted" style="margin:-2px 0 8px">${esc(ch.subtitle || '')}</div>` : '';
+    section.innerHTML = `<div class="chapter-head"><h3>${esc(ch.title)}</h3>${badge}<span class="count">${done}/${ch.lessons.length}</span></div>${sub}<div class="lesson-list"></div>`;
     const list = section.querySelector('.lesson-list');
     for (const l of visible) {
       const b = document.createElement('button');
       b.className = 'lesson-row' + (P.completed.includes(l.id) ? ' done' : '');
-      b.innerHTML = `<span class="num">${l.number || ''}</span><span class="dot"></span><span class="title">${esc(l.title)}<br><span class="small dim">${esc(l.subtitle || '')}</span></span><span class="meta">${l.since ? esc(l.since) : 'Java 8'} · ${'★'.repeat(Math.max(1, l.difficulty || 1))}</span>`;
+      b.innerHTML = `<span class="num">${l.number || ''}</span><span class="dot"></span><span class="title">${esc(l.title)}<br><span class="small dim">${esc(l.subtitle || '')}</span></span><span class="meta">${l.classic ? '经典' : l.since ? esc(l.since) : 'Java 8'} · ${'★'.repeat(Math.max(1, l.difficulty || 1))}</span>`;
       b.onclick = () => openLesson(l.id);
       list.appendChild(b);
     }
@@ -634,10 +650,12 @@ function renderStoryNode() {
   side.innerHTML = `<div class="small dim">故事状态</div>
     <div class="mt-s"><span class="pill">${esc(node.type)}</span> <span class="pill ${ctx.st.outcome === 'success' ? 'green' : ctx.st.outcome === 'bad' ? 'red' : 'blue'}">${esc(ctx.st.outcome || '进行中')}</span></div>
     <div class="small muted mt">已探索 ${visitedCount(story)} 个节点 · 结局 ${storyDoneCount(story)} / ${endingCount(story)}</div>
-    <div class="btn-row mt"><button class="btn ghost small" id="tree-btn">打开故事树</button><button class="btn ghost small" id="lib-btn">返回剧情库</button></div>
+    <div class="btn-row mt"><button class="btn ghost small" id="tree-btn">打开故事树</button>${story.hiddenHint ? '<button class="btn ghost small" id="hint-btn">隐藏线索</button>' : ''}<button class="btn ghost small" id="lib-btn">返回剧情库</button></div>
     <div class="small dim mt">故事树只显示你实际到达过的节点。</div>`;
   document.getElementById('tree-btn').onclick = () => showStoryTree(story);
   document.getElementById('lib-btn').onclick = () => navigate('stories');
+  const hintBtn = document.getElementById('hint-btn');
+  if (hintBtn) hintBtn.onclick = () => openModal(`<h2>隐藏结局线索</h2><p class="small dim">${esc(story.title)}</p><div class="hidden-hint mt"><b>达成条件</b><span>${esc(story.hiddenHint)}</span></div><p class="small dim mt">先正常完成一次，再按线索重玩；隐藏选项会在最后出现。</p>`);
 
   if (node.type === 'check') { resolveCheck(node); return; }
   if (node.type === 'ending') { renderStoryEnding(node); return; }
@@ -819,6 +837,7 @@ function renderStoryEnding(node) {
   const color = node.outcome === 'good' ? 'green' : node.outcome === 'bad' ? 'red' : node.outcome === 'hidden' ? 'purple' : 'blue';
   document.getElementById('story-main').innerHTML = `<div class="card" style="padding:28px"><span class="pill ${color}">${esc(node.outcome || 'ending')} ending</span>
     <h2 style="margin:12px 0 8px">${esc(node.title)}</h2><p style="color:var(--text);font-size:14px">${nl(node.text)}</p>
+    ${node.outcome !== 'hidden' && story.hiddenHint ? `<div class="hidden-hint mt"><b>隐藏结局线索</b><span>${esc(story.hiddenHint)}</span></div>` : ''}
     <div class="small dim mt">已收集本故事结局 ${storyDoneCount(story)} / ${endingCount(story)}</div>
     <div class="btn-row mt"><button class="btn blue" id="replay">再玩一次</button><button class="btn ghost" id="to-lib">回到剧情库</button></div></div>`;
   document.getElementById('replay').onclick = () => openStory(story.id);
@@ -1117,6 +1136,9 @@ function render() {
   });
   document.querySelectorAll('[data-game]').forEach(el => {
     el.onclick = () => openGame(el.dataset.game);
+  });
+  document.querySelectorAll('[data-classic]').forEach(el => {
+    el.onclick = () => { state.chapterFilter = 'classic'; navigate('challenge'); };
   });
   const reset = document.getElementById('reset-progress');
   if (reset) reset.onclick = () => {
