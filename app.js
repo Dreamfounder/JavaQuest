@@ -1,5 +1,6 @@
 /* JavaQuest Web — static GitHub Pages client.
-   Java execution is provided by CheerpJ loading the bundled teaching runtime. */
+   Java execution is provided by the bundled JavaWasm runtime.
+   The CheerpJ path below is a legacy fallback only. */
 const app = document.getElementById('app');
 const boot = document.getElementById('boot');
 const topStatus = document.getElementById('top-status');
@@ -208,6 +209,94 @@ function resultHTML(res) {
   return html;
 }
 
+let javaWasmRuntime = null;
+let javaWasmLoading = null;
+function normalizeOutput(s) {
+  if (s == null) return '';
+  const lines = String(s).replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
+  while (lines.length && !lines[lines.length - 1].trim()) lines.pop();
+  return lines.map(line => line.replace(/[ \t]+$/, '')).join('\n');
+}
+function outputMatches(expected, actual) {
+  if (expected == null) return true;
+  const e = normalizeOutput(expected), a = normalizeOutput(actual);
+  if (e === a) return true;
+  const relax = s => s.replace(/[ \t]*([,;:!?，；：！？])[ \t]*/g, '$1');
+  return relax(a) === relax(e);
+}
+function callExpression(invoke) {
+  const e = String(invoke || '').trim();
+  if (/^new\s/.test(e) || /^[A-Z][A-Za-z0-9_$]*\./.test(e) || /^Main\./.test(e)) return e;
+  return 'Main.' + e;
+}
+function callHarness(code, calls) {
+  const body = (calls || []).map((c, i) =>
+    `        System.out.println("__JQ${i}__" + show(${callExpression(c.invoke)}));`).join('\n');
+  return `import java.util.*;
+
+${code}
+
+class __JQHarness {
+    static String show(Object o) {
+        if (o == null) return "null";
+        if (o instanceof int[]) return Arrays.toString((int[]) o);
+        if (o instanceof long[]) return Arrays.toString((long[]) o);
+        if (o instanceof double[]) return Arrays.toString((double[]) o);
+        if (o instanceof boolean[]) return Arrays.toString((boolean[]) o);
+        if (o instanceof char[]) return Arrays.toString((char[]) o);
+        if (o instanceof Object[]) return Arrays.deepToString((Object[]) o);
+        return String.valueOf(o);
+    }
+    public static void main(String[] args) {
+${body}
+    }
+}
+`;
+}
+async function ensureJavaWasm() {
+  if (!window.JavaWasm) throw new Error('内置 Java 编译器没有加载（vendor/java-wasm 缺失）');
+  if (javaWasmRuntime) return javaWasmRuntime;
+  if (!javaWasmLoading) {
+    setStatus('正在启动内置 Java 编译器…');
+    const base = new URL('vendor/java-wasm/', document.baseURI).href;
+    javaWasmLoading = window.JavaWasm.createRuntime({baseUrl: base})
+      .then(rt => { javaWasmRuntime = rt; setStatus('内置 Java 编译器已就绪', true); return rt; })
+      .catch(e => { javaWasmLoading = null; setStatus('内置 Java 编译器加载失败'); throw e; });
+  }
+  return javaWasmLoading;
+}
+async function runJavaWasmTask(task, code, stdin) {
+  const rt = await ensureJavaWasm();
+  const calls = task.calls || [];
+  const source = 'calls' === (task.mode || 'output') ? callHarness(code, calls) : code;
+  const mainClass = 'calls' === (task.mode || 'output') ? '__JQHarness' : 'Main';
+  const res = await rt.run(source, {input: stdin || task.stdin || '', mainClass});
+  const stderr = res.stderr || res.error || '';
+  if (res.ok === false) {
+    return {compiled: false, passed: false, output: res.stdout || '', error: stderr,
+      compileMessage: stderr || '编译失败', tests: []};
+  }
+  if (task.mode === 'calls') {
+    const values = {};
+    String(res.stdout || '').split('\n').forEach(line => {
+      const m = /^__JQ(\d+)__(.*)$/.exec(line);
+      if (m) values[Number(m[1])] = m[2];
+    });
+    const tests = calls.map((c, i) => {
+      const actual = values[i] == null ? '' : values[i];
+      return {name: c.name || ('调用 ' + c.invoke), passed: outputMatches(c.expect, actual),
+        expected: c.expect || '', actual, message: '', note: ''};
+    });
+    return {compiled: true, passed: tests.every(t => t.passed), output: res.stdout || '',
+      error: stderr, compileMessage: '', tests};
+  }
+  const actual = res.stdout || '';
+  const expected = task.expected == null ? null : task.expected;
+  const passed = outputMatches(expected, actual);
+  return {compiled: true, passed, output: actual, error: stderr, compileMessage: '',
+    tests: [{name: '输出测试', passed, expected: expected == null ? '' : normalizeOutput(expected),
+      actual: normalizeOutput(actual), message: passed ? '' : '输出与预期不一致', note: ''}]};
+}
 async function jarUrl() {
   if (window.JavaQuestJarBase64) {
     if (!window.__jqJarBlobUrl) {
@@ -222,6 +311,7 @@ async function jarUrl() {
   return '/app' + base + 'javaquest-runtime.jar';
 }
 async function runTask(task, code, stdin = '') {
+  if (window.JavaWasm) return runJavaWasmTask(task, code, stdin);
   if (!runner.api) {
     if (runner.failed) throw new Error(runner.error || 'Java 运行时加载失败');
     if (!runner.loading) {

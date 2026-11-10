@@ -31,7 +31,7 @@ npx http-server -p 8080
 ```
 
 打开 `http://localhost:8080`。  
-本地服务需要支持 Range 请求；CheerpJ 首次运行会下载 Java 运行时，可能需要几秒钟。`python -m http.server` 不保证支持 Range，建议用 `http-server` 或 `serve`。
+Java 执行使用内置的 JavaWasm（浏览器内 javac + TeaVM），不再请求 CheerpJ CDN；首次编译会加载本地 `vendor/java-wasm` 资源，可能需要几秒钟。
 
 ## 部署到 GitHub Pages
 
@@ -41,7 +41,7 @@ npx http-server -p 8080
 2. Settings → Pages → Build and deployment → Source 选择 **GitHub Actions**。
 3. push 到 `main` 后，工作流会把 `web/` 发布为 Pages。
 
-网页不依赖后端；Java 代码在浏览器内通过 CheerpJ 执行，JAR 是 `javaquest-runtime.jar`。  
+网页不依赖后端；Java 代码在浏览器内通过本地 `vendor/java-wasm` 执行，不访问 CheerpJ CDN。  
 课程数据同时提供 `data.js` 和 `data/*.json`：页面优先使用内嵌的 `data.js`，这样 GitHub Pages 不会因为 JSON 路径 404 把 HTML 当成 JSON。
 
 ## 重新生成执行 JAR / 数据
@@ -55,15 +55,15 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .\web\build-web.ps1
 它会：
 
 - 编译 `app/src/.../runtime`、`app/src/.../data` 和 `web/java/.../WebApi.java`
-- 生成 `web/javaquest-runtime.jar`
+- 生成 `web/javaquest-runtime.jar`（保留作旧版备用，不再是网页执行主路径）
 - 把三份 JSON 复制到 `web/data/`
 - 生成 `web/data.js`：页面直接加载的数据包，不依赖 JSON fetch
 
 ## 技术说明
 
-- 编辑器：CodeMirror 5（CDN）
-- Java 执行：CheerpJ 5 的 library mode
-- CheerpJ 由 Leaning Technologies 提供；本项目为个人/教育用途，页面保留 “Built with CheerpJ” 标识。商业部署请查看 CheerpJ 授权条款。
+- 编辑器：CodeMirror 5（CDN；加载失败时回退到原生 textarea）
+- Java 执行：本地 `vendor/java-wasm`，浏览器内 javac + TeaVM，不需要 CheerpJ CDN
+- JavaWasm/TeaVM/OpenJDK 的许可证文件在 `vendor/java-wasm/` 内
 
 ## 已知限制
 
