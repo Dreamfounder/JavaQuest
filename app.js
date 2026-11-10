@@ -223,16 +223,37 @@ async function jarUrl() {
 }
 async function runTask(task, code, stdin = '') {
   if (!runner.api) {
-    if (runner.failed) throw new Error('Java 运行时加载失败，请查看浏览器控制台');
+    if (runner.failed) throw new Error(runner.error || 'Java 运行时加载失败');
     if (!runner.loading) {
       runner.loading = (async () => {
-        if (!window.cheerpjInit || !window.cheerpjRunLibrary) throw new Error('CheerpJ 未加载');
+        if (location.protocol === 'file:') {
+          throw new Error('当前是 file:// 直接打开。Java 运行时必须通过 HTTP(S) 访问，请用 GitHub Pages 或本地 HTTP 服务打开。');
+        }
+        if (window.__cheerpjLoaderFailed || !window.cheerpjInit || !window.cheerpjRunLibrary) {
+          throw new Error('CheerpJ 加载失败：无法访问 cjrtnc.leaningtech.com，或浏览器拦截了第三方脚本。');
+        }
         setStatus('正在加载 Java 运行时…');
         await window.cheerpjInit({version: 17});
-        const lib = await window.cheerpjRunLibrary(await jarUrl());
+        const jar = await jarUrl();
+        if (!jar.startsWith('blob:')) {
+          let head;
+          try {
+            head = await fetch(jar, {method: 'HEAD'});
+          } catch (e) {
+            throw new Error('无法读取 javaquest-runtime.jar：' + jar);
+          }
+          if (!head.ok) throw new Error('找不到 javaquest-runtime.jar（HTTP ' + head.status + '）：' + jar);
+        }
+        const lib = await window.cheerpjRunLibrary(jar);
         runner.api = await lib.com.javaquest.web.WebApi;
         setStatus('Java 运行时已就绪', true);
-      })().catch(e => { runner.failed = true; runner.loading = null; setStatus('Java 运行时加载失败'); throw e; });
+      })().catch(e => {
+        runner.failed = true;
+        runner.loading = null;
+        runner.error = e.message || String(e);
+        setStatus('Java 运行时加载失败');
+        throw e;
+      });
     }
     await runner.loading;
   }
