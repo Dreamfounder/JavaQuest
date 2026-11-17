@@ -1,0 +1,72 @@
+# JavaQuest Web
+
+这是 JavaQuest 的纯静态网页版，可部署到 **GitHub Pages**。
+
+## 使用手册
+
+打开 [`guide.html`](guide.html)，或在网站顶部/底部点击“使用指南”。手册分别覆盖 iPhone/iPad（Safari）和 Android（Chrome/Edge）的打开、添加到主屏幕、键盘、补全、进度保存和常见故障排查。
+
+## 功能
+
+- 120 个教程关卡（含第 15 章“经典题单”20 题）
+- 30 个分支剧情（1–3 段编程挑战、复合条件结局）
+- Java 8 主线 84 关（单线、唯一好结局）
+- 自由编程工作台
+- 对话：自动、加速、跳过、回看
+- 代码编辑器：Java 语法高亮、行号、括号匹配、自动补全（Ctrl/Cmd+Space 或“补全”按钮）
+- 故事树：只显示玩家实际到达过的节点
+- XP / 等级 / 连击 / 连续学习天数
+- 每日挑战、限时 Boss Rush、错题本
+- 关卡支线、知识卡牌、章节徽章、成就墙
+- 代码宠物 Byte（纯 CSS，无图片）
+- 进度、代码保存在浏览器 `localStorage`
+
+## 本地运行
+
+网页需要 HTTP 服务，不能直接双击 `index.html` 打开。
+
+```bash
+cd web
+npx http-server -p 8080
+```
+
+打开 `http://localhost:8080`。  
+Java 执行使用内置的 JavaWasm（浏览器内 javac + TeaVM），不再请求 CheerpJ CDN；首次编译会加载本地 `vendor/java-wasm` 资源，可能需要几秒钟。
+
+## 部署到 GitHub Pages
+
+仓库已包含 `.github/workflows/pages.yml`：
+
+1. 把仓库推到 GitHub。
+2. Settings → Pages → Build and deployment → Source 选择 **GitHub Actions**。
+3. push 到 `main` 后，工作流会把 `web/` 发布为 Pages。
+
+网页不依赖后端；Java 代码在浏览器内通过本地 `vendor/java-wasm` 执行，不访问 CheerpJ CDN。  
+课程数据同时提供 `data.js` 和 `data/*.json`：页面优先使用内嵌的 `data.js`，这样 GitHub Pages 不会因为 JSON 路径 404 把 HTML 当成 JSON。
+
+## 重新生成执行 JAR / 数据
+
+当 Java 运行时或课程数据变化时：
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File .\web\build-web.ps1
+```
+
+它会：
+
+- 编译 `app/src/.../runtime`、`app/src/.../data` 和 `web/java/.../WebApi.java`
+- 生成 `web/javaquest-runtime.jar`（保留作旧版备用，不再是网页执行主路径）
+- 把三份 JSON 复制到 `web/data/`
+- 生成 `web/data.js`：页面直接加载的数据包，不依赖 JSON fetch
+
+## 技术说明
+
+- 编辑器：CodeMirror 5（CDN；加载失败时回退到原生 textarea）
+- Java 执行：本地 `vendor/java-wasm`，浏览器内 javac + TeaVM，不需要 CheerpJ CDN
+- JavaWasm/TeaVM/OpenJDK 的许可证文件在 `vendor/java-wasm/` 内
+
+## 已知限制
+
+- 浏览器端 Java 运行时首次加载较慢。
+- 教学子集不是完整 Java SE；真实网络、JDBC、真实多线程仍然不支持。
+- 课程内容、题目执行与 Android 版共用同一套 JSON 和教学运行时。

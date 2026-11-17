@@ -1,0 +1,3272 @@
+{
+  "id": "java8-main",
+  "title": "Java 8 主线 · 星火协议",
+  "subtitle": "八十四枚记忆碎片，一条故事线，一个好结局",
+  "prologue": [
+    {
+      "speaker": "旁白",
+      "text": "JVM 星核碎裂的那天，所有 Java 8 程序同时停在了第一行。十三座知识塔熄灭了十二座，最后一座只剩一行 Hello, World!。",
+      "portrait": "narrator"
+    },
+    {
+      "speaker": "阿灯",
+      "text": "我是阿灯，星核的导航员。这位是铁砧，负责把碎掉的程序重新焊起来。",
+      "portrait": "companion"
+    },
+    {
+      "speaker": "铁砧",
+      "text": "别把我写得那么粗鲁。我只是不喜欢半途而废的代码。",
+      "portrait": "companion2"
+    },
+    {
+      "speaker": "你",
+      "text": "我是谁？",
+      "portrait": "hero"
+    },
+    {
+      "speaker": "阿灯",
+      "text": "你是最后一个还记得 Hello, World! 的人。走吧，从第一枚碎片开始。",
+      "portrait": "companion"
+    }
+  ],
+  "ending": {
+    "title": "星核重启",
+    "outcome": "good",
+    "text": "最后一枚碎片归位。JVM 星核重新亮起，十三座知识塔同时发出低鸣。空指针风暴散去，Java 8 的主线世界恢复了运行。",
+    "lines": [
+      {
+        "speaker": "旁白",
+        "text": "八十四枚记忆碎片全部归位。星核的第一次心跳，从 Hello, World! 开始。",
+        "portrait": "narrator"
+      },
+      {
+        "speaker": "阿灯",
+        "text": "我们做到了。不是靠奇迹，是靠一行一行代码。",
+        "portrait": "companion"
+      },
+      {
+        "speaker": "铁砧",
+        "text": "塔都亮了。连数据库区的地图也接回了主网。",
+        "portrait": "companion2"
+      },
+      {
+        "speaker": "你",
+        "text": "Java 8 的主线，从现在开始继续运行。",
+        "portrait": "hero"
+      },
+      {
+        "speaker": "旁白",
+        "text": "星核重启成功。这是一个好结局，也是唯一的结局。",
+        "portrait": "narrator"
+      }
+    ]
+  },
+  "stages": [
+    {
+      "id": "hello",
+      "lesson": "hello",
+      "number": 1,
+      "chapterNo": 1,
+      "chapter": "Java 初体验",
+      "title": "Hello, World!",
+      "reading": false,
+      "task": "让程序在控制台输出一行：Hello, World!（注意大小写、逗号和感叹号；逗号后的空格不影响判定）。",
+      "prompt": "修复「Hello, World!」这枚记忆碎片：让程序在控制台输出一行：Hello, World!（注意大小写、逗号和感叹号；逗号后的空格不影响判定）。",
+      "starter": "public class Main {\n    public static void main(String[] args) {\n        // TODO: 用 System.out.println 输出 Hello, World!\n\n    }\n}",
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Hello, World!\");\n    }\n}\n",
+      "mode": "output",
+      "expected": "Hello, World!",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "旁白",
+          "text": "第1章 · Java 初体验。从第一行输出开始，建立写程序的手感",
+          "portrait": "narrator"
+        },
+        {
+          "speaker": "阿灯",
+          "text": "记忆塔的这一层是「Java 初体验」。把里面的程序接上，塔就会亮一层。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「Hello, World!」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "print",
+      "lesson": "print",
+      "number": 2,
+      "chapterNo": 1,
+      "chapter": "Java 初体验",
+      "title": "print 与 println",
+      "reading": false,
+      "task": "用一条 print 和一条 println，让控制台先输出 Java，再在下一行输出 Quest。",
+      "prompt": "修复「print 与 println」这枚记忆碎片：用一条 print 和一条 println，让控制台先输出 Java，再在下一行输出 Quest。",
+      "starter": "public class Main {\n    public static void main(String[] args) {\n        // TODO: 第一行输出 Java，第二行输出 Quest\n\n    }\n}",
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        System.out.print(\"Java\");\n        System.out.println();\n        System.out.println(\"Quest\");\n    }\n}\n",
+      "mode": "output",
+      "expected": "Java\nQuest",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「print 与 println」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "comments",
+      "lesson": "comments",
+      "number": 3,
+      "chapterNo": 1,
+      "chapter": "Java 初体验",
+      "title": "注释：写给人类看的说明",
+      "reading": false,
+      "task": "保留代码中的注释，让程序只输出一行：注释不会运行。",
+      "prompt": "修复「注释：写给人类看的说明」这枚记忆碎片：保留代码中的注释，让程序只输出一行：注释不会运行。",
+      "starter": "public class Main {\n    public static void main(String[] args) {\n        // 这是一条单行注释\n        /* 这是一段\n           多行注释 */\n        // TODO: 输出 注释不会运行\n\n    }\n}",
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        // 这是一条单行注释\n        /* 这是一段\n           多行注释 */\n        System.out.println(\"注释不会运行\");\n    }\n}\n",
+      "mode": "output",
+      "expected": "注释不会运行",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「注释：写给人类看的说明」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "variables",
+      "lesson": "variables",
+      "number": 4,
+      "chapterNo": 1,
+      "chapter": "Java 初体验",
+      "title": "变量：给数据起名字",
+      "reading": false,
+      "task": "声明名字和年龄两个变量，把年龄加 1，然后输出：小明 19。",
+      "prompt": "修复「变量：给数据起名字」这枚记忆碎片：声明名字和年龄两个变量，把年龄加 1，然后输出：小明 19。",
+      "starter": "public class Main {\n    public static void main(String[] args) {\n        String name = \"小明\";\n        int age = 18;\n        // TODO: 让 age 变成 19，然后输出 name + 空格 + age\n\n    }\n}",
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        String name = \"小明\";\n        int age = 18;\n        age = age + 1;\n        System.out.println(name + \" \" + age);\n    }\n}\n",
+      "mode": "output",
+      "expected": "小明 19",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「变量：给数据起名字」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        },
+        {
+          "speaker": "铁砧",
+          "text": "别只顾着跑通。问问自己：这段代码为什么这样写？",
+          "portrait": "companion2"
+        }
+      ]
+    },
+    {
+      "id": "types",
+      "lesson": "types",
+      "number": 5,
+      "chapterNo": 1,
+      "chapter": "Java 初体验",
+      "title": "八种基本数据类型",
+      "reading": false,
+      "task": "分别声明 byte、short、int、long、float、double、char、boolean 各一个变量，按示例格式输出。",
+      "prompt": "修复「八种基本数据类型」这枚记忆碎片：分别声明 byte、short、int、long、float、double、char、boolean 各一个变量，按示例格式输出。",
+      "starter": "public class Main {\n    public static void main(String[] args) {\n        // TODO: 声明 8 种基本类型并输出\n\n    }\n}",
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        byte b = 1;\n        short s = 2;\n        int i = 3;\n        long l = 4L;\n        float f = 1.5f;\n        double d = 2.5;\n        char c = 'A';\n        boolean ok = true;\n        System.out.println(b + \" \" + s + \" \" + i + \" \" + l);\n        System.out.println(f + \" \" + d + \" \" + c + \" \" + ok);\n    }\n}\n",
+      "mode": "output",
+      "expected": "1 2 3 4\n1.5 2.5 A true",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「八种基本数据类型」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "casting",
+      "lesson": "casting",
+      "number": 6,
+      "chapterNo": 1,
+      "chapter": "Java 初体验",
+      "title": "类型转换",
+      "reading": false,
+      "task": "把 int 转成 double，把 3.9 强转成 int，把字符 'A' 转成整数编码，输出：7.0 3 65。",
+      "prompt": "修复「类型转换」这枚记忆碎片：把 int 转成 double，把 3.9 强转成 int，把字符 'A' 转成整数编码，输出：7.0 3 65。",
+      "starter": "public class Main {\n    public static void main(String[] args) {\n        int a = 7;\n        // TODO: 转成 double；把 3.9 强转成 int；把 'A' 转成 int\n\n    }\n}",
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        int a = 7;\n        double d = a;\n        int b = (int) 3.9;\n        char c = 'A';\n        int code = c;\n        System.out.println(d + \" \" + b + \" \" + code);\n    }\n}\n",
+      "mode": "output",
+      "expected": "7.0 3 65",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「类型转换」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "constants",
+      "lesson": "constants",
+      "number": 7,
+      "chapterNo": 1,
+      "chapter": "Java 初体验",
+      "title": "常量与命名规范",
+      "reading": false,
+      "task": "声明常量 PI = 3.14 和 MAX_SCORE = 100，输出：3.14 100。",
+      "prompt": "修复「常量与命名规范」这枚记忆碎片：声明常量 PI = 3.14 和 MAX_SCORE = 100，输出：3.14 100。",
+      "starter": "public class Main {\n    public static void main(String[] args) {\n        // TODO: 声明两个 final 常量并输出\n\n    }\n}",
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        final double PI = 3.14;\n        final int MAX_SCORE = 100;\n        System.out.println(PI + \" \" + MAX_SCORE);\n    }\n}\n",
+      "mode": "output",
+      "expected": "3.14 100",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「常量与命名规范」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "arithmetic",
+      "lesson": "arithmetic",
+      "number": 8,
+      "chapterNo": 2,
+      "chapter": "运算符与输入",
+      "title": "算术运算符",
+      "reading": false,
+      "task": "已知 a = 10、b = 3，依次输出它们的和、差、积、商、余数，用空格分隔。",
+      "prompt": "修复「算术运算符」这枚记忆碎片：已知 a = 10、b = 3，依次输出它们的和、差、积、商、余数，用空格分隔。",
+      "starter": "public class Main {\n    public static void main(String[] args) {\n        int a = 10, b = 3;\n        // TODO: 输出 和 差 积 商 余数\n\n    }\n}",
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        int a = 10, b = 3;\n        System.out.println((a + b) + \" \" + (a - b) + \" \" + (a * b) + \" \" + (a / b) + \" \" + (a % b));\n    }\n}\n",
+      "mode": "output",
+      "expected": "13 7 30 3 1",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "旁白",
+          "text": "第2章 · 运算符与输入。让程序会算、会比、会听你说话",
+          "portrait": "narrator"
+        },
+        {
+          "speaker": "阿灯",
+          "text": "记忆塔的这一层是「运算符与输入」。把里面的程序接上，塔就会亮一层。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「算术运算符」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        },
+        {
+          "speaker": "铁砧",
+          "text": "别只顾着跑通。问问自己：这段代码为什么这样写？",
+          "portrait": "companion2"
+        }
+      ]
+    },
+    {
+      "id": "increment",
+      "lesson": "increment",
+      "number": 9,
+      "chapterNo": 2,
+      "chapter": "运算符与输入",
+      "title": "自增与自减",
+      "reading": false,
+      "task": "阅读并补全程序，输出 a、b、i 的值：5 7 7。",
+      "prompt": "修复「自增与自减」这枚记忆碎片：阅读并补全程序，输出 a、b、i 的值：5 7 7。",
+      "starter": "public class Main {\n    public static void main(String[] args) {\n        int i = 5;\n        int a = i++;   // 先赋值再自增\n        int b = ++i;   // 先自增再赋值\n        // TODO: 输出 a、b、i\n\n    }\n}",
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        int i = 5;\n        int a = i++;\n        int b = ++i;\n        System.out.println(a + \" \" + b + \" \" + i);\n    }\n}\n",
+      "mode": "output",
+      "expected": "5 7 7",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「自增与自减」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "assignment",
+      "lesson": "assignment",
+      "number": 10,
+      "chapterNo": 2,
+      "chapter": "运算符与输入",
+      "title": "赋值与复合赋值",
+      "reading": false,
+      "task": "从 x = 10 开始，依次执行 +=5、*=2、-=3、/=2，输出最终的 x。",
+      "prompt": "修复「赋值与复合赋值」这枚记忆碎片：从 x = 10 开始，依次执行 +=5、*=2、-=3、/=2，输出最终的 x。",
+      "starter": "public class Main {\n    public static void main(String[] args) {\n        int x = 10;\n        // TODO: 依次 +=5、*=2、-=3、/=2\n\n        System.out.println(x);\n    }\n}",
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        int x = 10;\n        x += 5;\n        x *= 2;\n        x -= 3;\n        x /= 2;\n        System.out.println(x);\n    }\n}\n",
+      "mode": "output",
+      "expected": "13",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「赋值与复合赋值」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "logic",
+      "lesson": "logic",
+      "number": 11,
+      "chapterNo": 2,
+      "chapter": "运算符与输入",
+      "title": "比较与逻辑运算",
+      "reading": false,
+      "task": "age = 20、hasTicket = true。输出三个结果：能进场（age>=18 且 hasTicket）、有优惠（age<18 或 hasTicket）、没票（!hasTicket）。",
+      "prompt": "修复「比较与逻辑运算」这枚记忆碎片：age = 20、hasTicket = true。输出三个结果：能进场（age>=18 且 hasTicket）、有优惠（age<18 或 hasTicket）、没票（!hasTicket）。",
+      "starter": "public class Main {\n    public static void main(String[] args) {\n        int age = 20;\n        boolean hasTicket = true;\n        // TODO: 输出三个布尔结果\n\n    }\n}",
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        int age = 20;\n        boolean hasTicket = true;\n        System.out.println(age >= 18 && hasTicket);\n        System.out.println(age < 18 || hasTicket);\n        System.out.println(!hasTicket);\n    }\n}\n",
+      "mode": "output",
+      "expected": "true\ntrue\nfalse",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「比较与逻辑运算」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "bitwise",
+      "lesson": "bitwise",
+      "number": 12,
+      "chapterNo": 2,
+      "chapter": "运算符与输入",
+      "title": "位运算",
+      "reading": false,
+      "task": "计算 5 & 3、5 | 3、5 ^ 3、~5、5 << 1、5 >> 1，用空格输出。",
+      "prompt": "修复「位运算」这枚记忆碎片：计算 5 & 3、5 | 3、5 ^ 3、~5、5 << 1、5 >> 1，用空格输出。",
+      "starter": "public class Main {\n    public static void main(String[] args) {\n        int a = 5;\n        // TODO: 输出 6 个位运算结果\n\n    }\n}",
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        int a = 5;\n        System.out.println((a & 3) + \" \" + (a | 3) + \" \" + (a ^ 3) + \" \" + (~a) + \" \" + (a << 1) + \" \" + (a >> 1));\n    }\n}\n",
+      "mode": "output",
+      "expected": "1 7 6 -6 10 2",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「位运算」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        },
+        {
+          "speaker": "铁砧",
+          "text": "别只顾着跑通。问问自己：这段代码为什么这样写？",
+          "portrait": "companion2"
+        }
+      ]
+    },
+    {
+      "id": "ternary",
+      "lesson": "ternary",
+      "number": 13,
+      "chapterNo": 2,
+      "chapter": "运算符与输入",
+      "title": "三元运算符",
+      "reading": false,
+      "task": "实现 check(int n)：偶数返回“偶数”，奇数返回“奇数”。测试会调用 check(4) 和 check(7)。",
+      "prompt": "修复「三元运算符」这枚记忆碎片：实现 check(int n)：偶数返回“偶数”，奇数返回“奇数”。测试会调用 check(4) 和 check(7)。",
+      "starter": "public class Main {\n    static String check(int n) {\n        // TODO: 用三元运算符返回 偶数 或 奇数\n        return \"\";\n    }\n}",
+      "solution": "public class Main {\n    static String check(int n) {\n        return n % 2 == 0 ? \"偶数\" : \"奇数\";\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "check",
+          "invoke": "check(4)",
+          "expect": "偶数"
+        },
+        {
+          "name": "check",
+          "invoke": "check(7)",
+          "expect": "奇数"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「三元运算符」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "scanner",
+      "lesson": "scanner",
+      "number": 14,
+      "chapterNo": 2,
+      "chapter": "运算符与输入",
+      "title": "控制台输入 Scanner",
+      "reading": false,
+      "task": "读取一行中的姓名和年龄（用空格分隔），输出：你好, 小明! 明年你 19 岁。",
+      "prompt": "修复「控制台输入 Scanner」这枚记忆碎片：读取一行中的姓名和年龄（用空格分隔），输出：你好, 小明! 明年你 19 岁。",
+      "starter": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // TODO: 读取姓名和年龄，按格式输出\n\n        sc.close();\n    }\n}",
+      "solution": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        String name = sc.next();\n        int age = sc.nextInt();\n        System.out.println(\"你好, \" + name + \"! 明年你 \" + (age + 1) + \" 岁。\");\n        sc.close();\n    }\n}",
+      "mode": "output",
+      "expected": "你好, 小明! 明年你 19 岁。",
+      "stdin": "小明 18",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「控制台输入 Scanner」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "if",
+      "lesson": "if",
+      "number": 15,
+      "chapterNo": 3,
+      "chapter": "流程控制",
+      "title": "if 与 else",
+      "reading": false,
+      "task": "实现 max(int a, int b)，返回较大的那个数。测试会调用 max(3,7) 和 max(9,2)。",
+      "prompt": "修复「if 与 else」这枚记忆碎片：实现 max(int a, int b)，返回较大的那个数。测试会调用 max(3,7) 和 max(9,2)。",
+      "starter": "public class Main {\n    static int max(int a, int b) {\n        // TODO: 返回较大的数\n        return 0;\n    }\n}",
+      "solution": "public class Main {\n    static int max(int a, int b) {\n        if (a > b) {\n            return a;\n        } else {\n            return b;\n        }\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "max",
+          "invoke": "max(3,7)",
+          "expect": "7"
+        },
+        {
+          "name": "max",
+          "invoke": "max(9,2)",
+          "expect": "9"
+        },
+        {
+          "name": "max",
+          "invoke": "max(5,5)",
+          "expect": "5"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "旁白",
+          "text": "第3章 · 流程控制。让程序学会选择、重复和跳出",
+          "portrait": "narrator"
+        },
+        {
+          "speaker": "阿灯",
+          "text": "记忆塔的这一层是「流程控制」。把里面的程序接上，塔就会亮一层。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「if 与 else」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "else-if",
+      "lesson": "else-if",
+      "number": 16,
+      "chapterNo": 3,
+      "chapter": "流程控制",
+      "title": "else if 多分支",
+      "reading": false,
+      "task": "实现 grade(int score)：90 分及以上返回 A，80 分及以上返回 B，60 分及以上返回 C，其余返回 D。",
+      "prompt": "修复「else if 多分支」这枚记忆碎片：实现 grade(int score)：90 分及以上返回 A，80 分及以上返回 B，60 分及以上返回 C，其余返回 D。",
+      "starter": "public class Main {\n    static String grade(int score) {\n        // TODO: 按分数返回 A/B/C/D\n        return \"\";\n    }\n}",
+      "solution": "public class Main {\n    static String grade(int score) {\n        if (score >= 90) return \"A\";\n        else if (score >= 80) return \"B\";\n        else if (score >= 60) return \"C\";\n        else return \"D\";\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "grade",
+          "invoke": "grade(95)",
+          "expect": "A"
+        },
+        {
+          "name": "grade",
+          "invoke": "grade(90)",
+          "expect": "A"
+        },
+        {
+          "name": "grade",
+          "invoke": "grade(85)",
+          "expect": "B"
+        },
+        {
+          "name": "grade",
+          "invoke": "grade(60)",
+          "expect": "C"
+        },
+        {
+          "name": "grade",
+          "invoke": "grade(59)",
+          "expect": "D"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「else if 多分支」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        },
+        {
+          "speaker": "铁砧",
+          "text": "别只顾着跑通。问问自己：这段代码为什么这样写？",
+          "portrait": "companion2"
+        }
+      ]
+    },
+    {
+      "id": "switch",
+      "lesson": "switch",
+      "number": 17,
+      "chapterNo": 3,
+      "chapter": "流程控制",
+      "title": "switch 多路分支",
+      "reading": false,
+      "task": "实现 dayName(int day)：1 返回“周一”，2 返回“周二”，3 返回“周三”，其他返回“未知”。",
+      "prompt": "修复「switch 多路分支」这枚记忆碎片：实现 dayName(int day)：1 返回“周一”，2 返回“周二”，3 返回“周三”，其他返回“未知”。",
+      "starter": "public class Main {\n    static String dayName(int day) {\n        // TODO: 用 switch 返回对应星期\n        return \"\";\n    }\n}",
+      "solution": "public class Main {\n    static String dayName(int day) {\n        switch (day) {\n            case 1: return \"周一\";\n            case 2: return \"周二\";\n            case 3: return \"周三\";\n            default: return \"未知\";\n        }\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "dayName",
+          "invoke": "dayName(1)",
+          "expect": "周一"
+        },
+        {
+          "name": "dayName",
+          "invoke": "dayName(3)",
+          "expect": "周三"
+        },
+        {
+          "name": "dayName",
+          "invoke": "dayName(9)",
+          "expect": "未知"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「switch 多路分支」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "for",
+      "lesson": "for",
+      "number": 18,
+      "chapterNo": 3,
+      "chapter": "流程控制",
+      "title": "for 循环",
+      "reading": false,
+      "task": "用 for 循环计算 1 到 100 的和，并输出结果。",
+      "prompt": "修复「for 循环」这枚记忆碎片：用 for 循环计算 1 到 100 的和，并输出结果。",
+      "starter": "public class Main {\n    public static void main(String[] args) {\n        int sum = 0;\n        // TODO: 用 for 累加 1 到 100\n\n        System.out.println(sum);\n    }\n}",
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        int sum = 0;\n        for (int i = 1; i <= 100; i++) {\n            sum += i;\n        }\n        System.out.println(sum);\n    }\n}\n",
+      "mode": "output",
+      "expected": "5050",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「for 循环」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "while",
+      "lesson": "while",
+      "number": 19,
+      "chapterNo": 3,
+      "chapter": "流程控制",
+      "title": "while 循环",
+      "reading": false,
+      "task": "用 while 统计整数 12345 有多少位，输出 5。",
+      "prompt": "修复「while 循环」这枚记忆碎片：用 while 统计整数 12345 有多少位，输出 5。",
+      "starter": "public class Main {\n    public static void main(String[] args) {\n        int n = 12345;\n        int count = 0;\n        // TODO: 用 while 数位数\n\n        System.out.println(count);\n    }\n}",
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        int n = 12345;\n        int count = 0;\n        while (n > 0) {\n            count++;\n            n /= 10;\n        }\n        System.out.println(count);\n    }\n}\n",
+      "mode": "output",
+      "expected": "5",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「while 循环」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "do-while",
+      "lesson": "do-while",
+      "number": 20,
+      "chapterNo": 3,
+      "chapter": "流程控制",
+      "title": "do-while 循环",
+      "reading": false,
+      "task": "n 从 0 开始，用 do-while 让 n 至少加 1 次；即使条件是 n < 0，最后输出 1。",
+      "prompt": "修复「do-while 循环」这枚记忆碎片：n 从 0 开始，用 do-while 让 n 至少加 1 次；即使条件是 n < 0，最后输出 1。",
+      "starter": "public class Main {\n    public static void main(String[] args) {\n        int n = 0;\n        // TODO: 用 do-while 让 n 至少加一次\n\n        System.out.println(n);\n    }\n}",
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        int n = 0;\n        do {\n            n++;\n        } while (n < 0);\n        System.out.println(n);\n    }\n}\n",
+      "mode": "output",
+      "expected": "1",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「do-while 循环」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        },
+        {
+          "speaker": "铁砧",
+          "text": "别只顾着跑通。问问自己：这段代码为什么这样写？",
+          "portrait": "companion2"
+        }
+      ]
+    },
+    {
+      "id": "break-continue",
+      "lesson": "break-continue",
+      "number": 21,
+      "chapterNo": 3,
+      "chapter": "流程控制",
+      "title": "break 与 continue",
+      "reading": false,
+      "task": "累加 1 到 10 中的偶数，但遇到 8 就停止。输出结果 20（2+4+6+8）。",
+      "prompt": "修复「break 与 continue」这枚记忆碎片：累加 1 到 10 中的偶数，但遇到 8 就停止。输出结果 20（2+4+6+8）。",
+      "starter": "public class Main {\n    public static void main(String[] args) {\n        int sum = 0;\n        // TODO: 跳过奇数，超过 8 就 break\n\n        System.out.println(sum);\n    }\n}",
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        int sum = 0;\n        for (int i = 1; i <= 10; i++) {\n            if (i % 2 != 0) continue;\n            if (i > 8) break;\n            sum += i;\n        }\n        System.out.println(sum);\n    }\n}\n",
+      "mode": "output",
+      "expected": "20",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「break 与 continue」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "nested-loops",
+      "lesson": "nested-loops",
+      "number": 22,
+      "chapterNo": 3,
+      "chapter": "流程控制",
+      "title": "嵌套循环",
+      "reading": false,
+      "task": "用嵌套循环输出三行星星：第一行 1 个 *，第二行 2 个，第三行 3 个。",
+      "prompt": "修复「嵌套循环」这枚记忆碎片：用嵌套循环输出三行星星：第一行 1 个 *，第二行 2 个，第三行 3 个。",
+      "starter": "public class Main {\n    public static void main(String[] args) {\n        // TODO: 用嵌套循环打印三行星星\n\n    }\n}",
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        for (int i = 1; i <= 3; i++) {\n            for (int j = 1; j <= i; j++) {\n                System.out.print(\"*\");\n            }\n            System.out.println();\n        }\n    }\n}\n",
+      "mode": "output",
+      "expected": "*\n**\n***",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「嵌套循环」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "multiplication-table",
+      "lesson": "multiplication-table",
+      "number": 23,
+      "chapterNo": 3,
+      "chapter": "流程控制",
+      "title": "综合：九九乘法表",
+      "reading": false,
+      "task": "输出 1 到 5 的乘法表，每行一个换行，算式之间用一个空格分隔。",
+      "prompt": "修复「综合：九九乘法表」这枚记忆碎片：输出 1 到 5 的乘法表，每行一个换行，算式之间用一个空格分隔。",
+      "starter": "public class Main {\n    public static void main(String[] args) {\n        // TODO: 输出 1~5 的乘法表\n\n    }\n}",
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        for (int i = 1; i <= 5; i++) {\n            for (int j = 1; j <= i; j++) {\n                System.out.print(j + \"*\" + i + \"=\" + (i * j) + \" \");\n            }\n            System.out.println();\n        }\n    }\n}\n",
+      "mode": "output",
+      "expected": "1*1=1\n1*2=2 2*2=4\n1*3=3 2*3=6 3*3=9\n1*4=4 2*4=8 3*4=12 4*4=16\n1*5=5 2*5=10 3*5=15 4*5=20 5*5=25",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「综合：九九乘法表」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "arrays",
+      "lesson": "arrays",
+      "number": 24,
+      "chapterNo": 4,
+      "chapter": "数组",
+      "title": "一维数组",
+      "reading": false,
+      "task": "创建数组 {5, 2, 9}，输出长度 3、第一个元素 5、最后一个元素 9。",
+      "prompt": "修复「一维数组」这枚记忆碎片：创建数组 {5, 2, 9}，输出长度 3、第一个元素 5、最后一个元素 9。",
+      "starter": "public class Main {\n    public static void main(String[] args) {\n        int[] a = {5, 2, 9};\n        // TODO: 输出 长度 第一个 最后一个\n\n    }\n}",
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        int[] a = {5, 2, 9};\n        System.out.println(a.length + \" \" + a[0] + \" \" + a[a.length - 1]);\n    }\n}\n",
+      "mode": "output",
+      "expected": "3 5 9",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "旁白",
+          "text": "第4章 · 数组。把一串同类型数据排排坐",
+          "portrait": "narrator"
+        },
+        {
+          "speaker": "阿灯",
+          "text": "记忆塔的这一层是「数组」。把里面的程序接上，塔就会亮一层。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「一维数组」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        },
+        {
+          "speaker": "铁砧",
+          "text": "别只顾着跑通。问问自己：这段代码为什么这样写？",
+          "portrait": "companion2"
+        }
+      ]
+    },
+    {
+      "id": "array-loop",
+      "lesson": "array-loop",
+      "number": 25,
+      "chapterNo": 4,
+      "chapter": "数组",
+      "title": "遍历数组与求最值",
+      "reading": false,
+      "task": "实现 sum(int[] arr) 和 max(int[] arr)，分别返回数组元素之和与最大值。",
+      "prompt": "修复「遍历数组与求最值」这枚记忆碎片：实现 sum(int[] arr) 和 max(int[] arr)，分别返回数组元素之和与最大值。",
+      "starter": "public class Main {\n    static int sum(int[] arr) {\n        // TODO\n        return 0;\n    }\n    static int max(int[] arr) {\n        // TODO\n        return 0;\n    }\n}",
+      "solution": "public class Main {\n    static int sum(int[] arr) {\n        int s = 0;\n        for (int x : arr) s += x;\n        return s;\n    }\n    static int max(int[] arr) {\n        int m = arr[0];\n        for (int x : arr) if (x > m) m = x;\n        return m;\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "sum",
+          "invoke": "sum(new int[]{1,2,3})",
+          "expect": "6"
+        },
+        {
+          "name": "sum",
+          "invoke": "sum(new int[]{10,-2,5})",
+          "expect": "13"
+        },
+        {
+          "name": "max",
+          "invoke": "max(new int[]{3,9,2})",
+          "expect": "9"
+        },
+        {
+          "name": "max",
+          "invoke": "max(new int[]{-5,-1,-9})",
+          "expect": "-1"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「遍历数组与求最值」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "array-2d",
+      "lesson": "array-2d",
+      "number": 26,
+      "chapterNo": 4,
+      "chapter": "数组",
+      "title": "二维数组",
+      "reading": false,
+      "task": "已知 scores = {{90,85},{88,92}}，输出所有元素之和 355，以及 scores[1][0] 的值 88。",
+      "prompt": "修复「二维数组」这枚记忆碎片：已知 scores = {{90,85},{88,92}}，输出所有元素之和 355，以及 scores[1][0] 的值 88。",
+      "starter": "public class Main {\n    public static void main(String[] args) {\n        int[][] scores = {{90, 85}, {88, 92}};\n        // TODO: 求和并输出\n\n    }\n}",
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        int[][] scores = {{90, 85}, {88, 92}};\n        int sum = 0;\n        for (int[] row : scores) {\n            for (int x : row) sum += x;\n        }\n        System.out.println(sum + \" \" + scores[1][0]);\n    }\n}\n",
+      "mode": "output",
+      "expected": "355 88",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「二维数组」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "arrays-tools",
+      "lesson": "arrays-tools",
+      "number": 27,
+      "chapterNo": 4,
+      "chapter": "数组",
+      "title": "Arrays 工具类",
+      "reading": false,
+      "task": "对 {3,1,2} 排序，输出排序后的内容和 2 的下标（1）。",
+      "prompt": "修复「Arrays 工具类」这枚记忆碎片：对 {3,1,2} 排序，输出排序后的内容和 2 的下标（1）。",
+      "starter": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        int[] a = {3, 1, 2};\n        // TODO: 排序并输出\n\n    }\n}",
+      "solution": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        int[] a = {3, 1, 2};\n        Arrays.sort(a);\n        System.out.println(Arrays.toString(a) + \" \" + Arrays.binarySearch(a, 2));\n    }\n}",
+      "mode": "output",
+      "expected": "[1, 2, 3] 1",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「Arrays 工具类」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "varargs",
+      "lesson": "varargs",
+      "number": 28,
+      "chapterNo": 4,
+      "chapter": "数组",
+      "title": "可变参数",
+      "reading": false,
+      "task": "实现 sum(int... nums)，返回所有参数的和。测试会调用 sum(1,2,3,4) 和 sum()。",
+      "prompt": "修复「可变参数」这枚记忆碎片：实现 sum(int... nums)，返回所有参数的和。测试会调用 sum(1,2,3,4) 和 sum()。",
+      "starter": "public class Main {\n    static int sum(int... nums) {\n        // TODO\n        return 0;\n    }\n}",
+      "solution": "public class Main {\n    static int sum(int... nums) {\n        int s = 0;\n        for (int n : nums) s += n;\n        return s;\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "sum",
+          "invoke": "sum(1,2,3,4)",
+          "expect": "10"
+        },
+        {
+          "name": "sum",
+          "invoke": "sum()",
+          "expect": "0"
+        },
+        {
+          "name": "sum",
+          "invoke": "sum(7)",
+          "expect": "7"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「可变参数」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        },
+        {
+          "speaker": "铁砧",
+          "text": "别只顾着跑通。问问自己：这段代码为什么这样写？",
+          "portrait": "companion2"
+        }
+      ]
+    },
+    {
+      "id": "score-stats",
+      "lesson": "score-stats",
+      "number": 29,
+      "chapterNo": 4,
+      "chapter": "数组",
+      "title": "综合：成绩统计",
+      "reading": false,
+      "task": "实现 stats(int[] scores)，返回格式：最高:90 最低:60 平均:75.0。测试数组为 {60,80,90,70}。",
+      "prompt": "修复「综合：成绩统计」这枚记忆碎片：实现 stats(int[] scores)，返回格式：最高:90 最低:60 平均:75.0。测试数组为 {60,80,90,70}。",
+      "starter": "public class Main {\n    static String stats(int[] scores) {\n        // TODO\n        return \"\";\n    }\n}",
+      "solution": "public class Main {\n    static String stats(int[] scores) {\n        int sum = 0, max = scores[0], min = scores[0];\n        for (int x : scores) {\n            sum += x;\n            if (x > max) max = x;\n            if (x < min) min = x;\n        }\n        double avg = (double) sum / scores.length;\n        return \"最高:\" + max + \" 最低:\" + min + \" 平均:\" + avg;\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "stats",
+          "invoke": "stats(new int[]{60,80,90,70})",
+          "expect": "最高:90 最低:60 平均:75.0"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「综合：成绩统计」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "methods",
+      "lesson": "methods",
+      "number": 30,
+      "chapterNo": 5,
+      "chapter": "方法",
+      "title": "方法定义与调用",
+      "reading": false,
+      "task": "实现 square(int n)，返回 n 的平方。测试会调用 square(5) 和 square(-3)。",
+      "prompt": "修复「方法定义与调用」这枚记忆碎片：实现 square(int n)，返回 n 的平方。测试会调用 square(5) 和 square(-3)。",
+      "starter": "public class Main {\n    static int square(int n) {\n        // TODO\n        return 0;\n    }\n}",
+      "solution": "public class Main {\n    static int square(int n) {\n        return n * n;\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "square",
+          "invoke": "square(5)",
+          "expect": "25"
+        },
+        {
+          "name": "square",
+          "invoke": "square(-3)",
+          "expect": "9"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "旁白",
+          "text": "第5章 · 方法。把代码拆成可复用的小积木",
+          "portrait": "narrator"
+        },
+        {
+          "speaker": "阿灯",
+          "text": "记忆塔的这一层是「方法」。把里面的程序接上，塔就会亮一层。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「方法定义与调用」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "params-return",
+      "lesson": "params-return",
+      "number": 31,
+      "chapterNo": 5,
+      "chapter": "方法",
+      "title": "参数与返回值",
+      "reading": false,
+      "task": "实现 area(double r)，用 3.14 作为圆周率，返回圆面积。测试 r=2 时返回 12.56。",
+      "prompt": "修复「参数与返回值」这枚记忆碎片：实现 area(double r)，用 3.14 作为圆周率，返回圆面积。测试 r=2 时返回 12.56。",
+      "starter": "public class Main {\n    static double area(double r) {\n        // TODO\n        return 0;\n    }\n}",
+      "solution": "public class Main {\n    static double area(double r) {\n        return 3.14 * r * r;\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "area",
+          "invoke": "area(2)",
+          "expect": "12.56"
+        },
+        {
+          "name": "area",
+          "invoke": "area(1)",
+          "expect": "3.14"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「参数与返回值」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "overload",
+      "lesson": "overload",
+      "number": 32,
+      "chapterNo": 5,
+      "chapter": "方法",
+      "title": "方法重载",
+      "reading": false,
+      "task": "实现三个 add 重载：两个 int、三个 int、两个 double。测试会分别调用。",
+      "prompt": "修复「方法重载」这枚记忆碎片：实现三个 add 重载：两个 int、三个 int、两个 double。测试会分别调用。",
+      "starter": "public class Main {\n    static int add(int a, int b) {\n        return 0;\n    }\n    static int add(int a, int b, int c) {\n        return 0;\n    }\n    static double add(double a, double b) {\n        return 0;\n    }\n}",
+      "solution": "public class Main {\n    static int add(int a, int b) {\n        return a + b;\n    }\n    static int add(int a, int b, int c) {\n        return a + b + c;\n    }\n    static double add(double a, double b) {\n        return a + b;\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "add2",
+          "invoke": "add(2,3)",
+          "expect": "5"
+        },
+        {
+          "name": "add3",
+          "invoke": "add(1,2,3)",
+          "expect": "6"
+        },
+        {
+          "name": "addd",
+          "invoke": "add(1.5,2.5)",
+          "expect": "4.0"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「方法重载」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        },
+        {
+          "speaker": "铁砧",
+          "text": "别只顾着跑通。问问自己：这段代码为什么这样写？",
+          "portrait": "companion2"
+        }
+      ]
+    },
+    {
+      "id": "recursion",
+      "lesson": "recursion",
+      "number": 33,
+      "chapterNo": 5,
+      "chapter": "方法",
+      "title": "递归",
+      "reading": false,
+      "task": "实现 factorial(int n) 和 fib(int n)，分别返回阶乘和斐波那契数列第 n 项。",
+      "prompt": "修复「递归」这枚记忆碎片：实现 factorial(int n) 和 fib(int n)，分别返回阶乘和斐波那契数列第 n 项。",
+      "starter": "public class Main {\n    static int factorial(int n) {\n        // TODO\n        return 0;\n    }\n    static int fib(int n) {\n        // TODO\n        return 0;\n    }\n}",
+      "solution": "public class Main {\n    static int factorial(int n) {\n        if (n <= 1) return 1;\n        return n * factorial(n - 1);\n    }\n    static int fib(int n) {\n        if (n <= 1) return n;\n        return fib(n - 1) + fib(n - 2);\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "factorial",
+          "invoke": "factorial(5)",
+          "expect": "120"
+        },
+        {
+          "name": "factorial",
+          "invoke": "factorial(0)",
+          "expect": "1"
+        },
+        {
+          "name": "fib",
+          "invoke": "fib(6)",
+          "expect": "8"
+        },
+        {
+          "name": "fib",
+          "invoke": "fib(10)",
+          "expect": "55"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「递归」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "prime",
+      "lesson": "prime",
+      "number": 34,
+      "chapterNo": 5,
+      "chapter": "方法",
+      "title": "方法练习：素数判断",
+      "reading": false,
+      "task": "实现 isPrime(int n)。测试会检查 2、9、13、1。",
+      "prompt": "修复「方法练习：素数判断」这枚记忆碎片：实现 isPrime(int n)。测试会检查 2、9、13、1。",
+      "starter": "public class Main {\n    static boolean isPrime(int n) {\n        // TODO\n        return false;\n    }\n}",
+      "solution": "public class Main {\n    static boolean isPrime(int n) {\n        if (n < 2) return false;\n        for (int i = 2; i * i <= n; i++) {\n            if (n % i == 0) return false;\n        }\n        return true;\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "prime2",
+          "invoke": "isPrime(2)",
+          "expect": "true"
+        },
+        {
+          "name": "prime9",
+          "invoke": "isPrime(9)",
+          "expect": "false"
+        },
+        {
+          "name": "prime13",
+          "invoke": "isPrime(13)",
+          "expect": "true"
+        },
+        {
+          "name": "prime1",
+          "invoke": "isPrime(1)",
+          "expect": "false"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「方法练习：素数判断」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "calculator",
+      "lesson": "calculator",
+      "number": 35,
+      "chapterNo": 5,
+      "chapter": "方法",
+      "title": "综合：简易计算器",
+      "reading": false,
+      "task": "实现 calc(int a, String op, int b)：支持 +、-、*、/；除数为 0 返回 0；未知运算符返回 -1。",
+      "prompt": "修复「综合：简易计算器」这枚记忆碎片：实现 calc(int a, String op, int b)：支持 +、-、*、/；除数为 0 返回 0；未知运算符返回 -1。",
+      "starter": "public class Main {\n    static int calc(int a, String op, int b) {\n        // TODO\n        return 0;\n    }\n}",
+      "solution": "public class Main {\n    static int calc(int a, String op, int b) {\n        if (op.equals(\"+\")) return a + b;\n        if (op.equals(\"-\")) return a - b;\n        if (op.equals(\"*\")) return a * b;\n        if (op.equals(\"/\")) return b == 0 ? 0 : a / b;\n        return -1;\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "calc+",
+          "invoke": "calc(6,\"+\",3)",
+          "expect": "9"
+        },
+        {
+          "name": "calc-",
+          "invoke": "calc(6,\"-\",3)",
+          "expect": "3"
+        },
+        {
+          "name": "calc*",
+          "invoke": "calc(6,\"*\",3)",
+          "expect": "18"
+        },
+        {
+          "name": "calc/",
+          "invoke": "calc(6,\"/\",3)",
+          "expect": "2"
+        },
+        {
+          "name": "calc0",
+          "invoke": "calc(6,\"/\",0)",
+          "expect": "0"
+        },
+        {
+          "name": "calc?",
+          "invoke": "calc(6,\"?\",3)",
+          "expect": "-1"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「综合：简易计算器」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "class-object",
+      "lesson": "class-object",
+      "number": 36,
+      "chapterNo": 6,
+      "chapter": "面向对象基础",
+      "title": "类与对象",
+      "reading": false,
+      "task": "定义 Person 类：字段 name、age，构造方法给它们赋值，introduce() 返回“小明 18”。测试会用 new Person(\"小明\",18)。",
+      "prompt": "修复「类与对象」这枚记忆碎片：定义 Person 类：字段 name、age，构造方法给它们赋值，introduce() 返回“小明 18”。测试会用 new Person(\"小明\",18)。",
+      "starter": "public class Main {\n}\n\nclass Person {\n    // TODO: 字段、构造方法、introduce()\n}",
+      "solution": "public class Main {\n}\n\nclass Person {\n    String name;\n    int age;\n    Person(String name, int age) {\n        this.name = name;\n        this.age = age;\n    }\n    String introduce() {\n        return name + \" \" + age;\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "introduce",
+          "invoke": "new Person(\"小明\",18).introduce()",
+          "expect": "小明 18"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "旁白",
+          "text": "第6章 · 面向对象基础。用类和对象描述真实世界",
+          "portrait": "narrator"
+        },
+        {
+          "speaker": "阿灯",
+          "text": "记忆塔的这一层是「面向对象基础」。把里面的程序接上，塔就会亮一层。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「类与对象」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        },
+        {
+          "speaker": "铁砧",
+          "text": "别只顾着跑通。问问自己：这段代码为什么这样写？",
+          "portrait": "companion2"
+        }
+      ]
+    },
+    {
+      "id": "encapsulation",
+      "lesson": "encapsulation",
+      "number": 37,
+      "chapterNo": 6,
+      "chapter": "面向对象基础",
+      "title": "封装与 private",
+      "reading": false,
+      "task": "实现 Account：private balance；deposit(int) 只接受正数并返回余额；withdraw(int) 余额不足时返回当前余额；getBalance()。",
+      "prompt": "修复「封装与 private」这枚记忆碎片：实现 Account：private balance；deposit(int) 只接受正数并返回余额；withdraw(int) 余额不足时返回当前余额；getBalance()。",
+      "starter": "public class Main {\n}\n\nclass Account {\n    private int balance;\n    int deposit(int n) {\n        // TODO\n        return balance;\n    }\n    int withdraw(int n) {\n        // TODO\n        return balance;\n    }\n    int getBalance() {\n        return balance;\n    }\n}",
+      "solution": "public class Main {\n}\n\nclass Account {\n    private int balance;\n    int deposit(int n) {\n        if (n > 0) balance += n;\n        return balance;\n    }\n    int withdraw(int n) {\n        if (n > 0 && n <= balance) balance -= n;\n        return balance;\n    }\n    int getBalance() {\n        return balance;\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "deposit",
+          "invoke": "new Account().deposit(100)",
+          "expect": "100"
+        },
+        {
+          "name": "deposit-neg",
+          "invoke": "new Account().deposit(-5)",
+          "expect": "0"
+        },
+        {
+          "name": "withdraw",
+          "invoke": "new Account().withdraw(50)",
+          "expect": "0"
+        },
+        {
+          "name": "balance",
+          "invoke": "new Account().getBalance()",
+          "expect": "0"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「封装与 private」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "constructor",
+      "lesson": "constructor",
+      "number": 38,
+      "chapterNo": 6,
+      "chapter": "面向对象基础",
+      "title": "构造方法",
+      "reading": false,
+      "task": "实现 Point：无参构造调用 this(0,0)，有参构造保存 x、y，show() 返回“x,y”。",
+      "prompt": "修复「构造方法」这枚记忆碎片：实现 Point：无参构造调用 this(0,0)，有参构造保存 x、y，show() 返回“x,y”。",
+      "starter": "public class Main {\n}\n\nclass Point {\n    int x, y;\n    Point() {\n        // TODO: this(0,0)\n    }\n    Point(int x, int y) {\n        // TODO\n    }\n    String show() {\n        return x + \",\" + y;\n    }\n}",
+      "solution": "public class Main {\n}\n\nclass Point {\n    int x, y;\n    Point() {\n        this(0, 0);\n    }\n    Point(int x, int y) {\n        this.x = x;\n        this.y = y;\n    }\n    String show() {\n        return x + \",\" + y;\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "default",
+          "invoke": "new Point().show()",
+          "expect": "0,0"
+        },
+        {
+          "name": "args",
+          "invoke": "new Point(2,3).show()",
+          "expect": "2,3"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「构造方法」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "this",
+      "lesson": "this",
+      "number": 39,
+      "chapterNo": 6,
+      "chapter": "面向对象基础",
+      "title": "this 关键字",
+      "reading": false,
+      "task": "实现 Student：字段 name、score；betterThan(Student other) 用 this.score 和 other.score 比较。",
+      "prompt": "修复「this 关键字」这枚记忆碎片：实现 Student：字段 name、score；betterThan(Student other) 用 this.score 和 other.score 比较。",
+      "starter": "public class Main {\n}\n\nclass Student {\n    String name;\n    int score;\n    Student(String name, int score) {\n        // TODO: 用 this 赋值\n    }\n    boolean betterThan(Student other) {\n        // TODO\n        return false;\n    }\n}",
+      "solution": "public class Main {\n}\n\nclass Student {\n    String name;\n    int score;\n    Student(String name, int score) {\n        this.name = name;\n        this.score = score;\n    }\n    boolean betterThan(Student other) {\n        return this.score > other.score;\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "better",
+          "invoke": "new Student(\"a\",90).betterThan(new Student(\"b\",80))",
+          "expect": "true"
+        },
+        {
+          "name": "worse",
+          "invoke": "new Student(\"a\",70).betterThan(new Student(\"b\",80))",
+          "expect": "false"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「this 关键字」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "static",
+      "lesson": "static",
+      "number": 40,
+      "chapterNo": 6,
+      "chapter": "面向对象基础",
+      "title": "static 静态成员",
+      "reading": false,
+      "task": "实现 Counter：static count；每 new 一个对象 count 加 1；static getCount() 返回总数。main 里创建两个对象后输出 2。",
+      "prompt": "修复「static 静态成员」这枚记忆碎片：实现 Counter：static count；每 new 一个对象 count 加 1；static getCount() 返回总数。main 里创建两个对象后输出 2。",
+      "starter": "public class Main {\n    public static void main(String[] args) {\n        new Counter();\n        new Counter();\n        // TODO: 输出 Counter.getCount()\n\n    }\n}\n\nclass Counter {\n    static int count;\n    Counter() {\n        // TODO: count++\n    }\n    static int getCount() {\n        return count;\n    }\n}",
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        new Counter();\n        new Counter();\n        System.out.println(Counter.getCount());\n    }\n}\n\nclass Counter {\n    static int count;\n    Counter() {\n        count++;\n    }\n    static int getCount() {\n        return count;\n    }\n}",
+      "mode": "output",
+      "expected": "2",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「static 静态成员」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        },
+        {
+          "speaker": "铁砧",
+          "text": "别只顾着跑通。问问自己：这段代码为什么这样写？",
+          "portrait": "companion2"
+        }
+      ]
+    },
+    {
+      "id": "inheritance",
+      "lesson": "inheritance",
+      "number": 41,
+      "chapterNo": 6,
+      "chapter": "面向对象基础",
+      "title": "继承",
+      "reading": false,
+      "task": "定义 Animal(name, sound()) 和 Dog extends Animal，Dog 构造时用 super(name)，sound() 返回“Woof”。",
+      "prompt": "修复「继承」这枚记忆碎片：定义 Animal(name, sound()) 和 Dog extends Animal，Dog 构造时用 super(name)，sound() 返回“Woof”。",
+      "starter": "public class Main {\n}\n\nclass Animal {\n    String name;\n    Animal(String name) {\n        this.name = name;\n    }\n    String sound() {\n        return \"...\";\n    }\n}\n\nclass Dog extends Animal {\n    Dog(String name) {\n        // TODO: super(name)\n    }\n    String sound() {\n        // TODO\n        return \"\";\n    }\n}",
+      "solution": "public class Main {\n}\n\nclass Animal {\n    String name;\n    Animal(String name) {\n        this.name = name;\n    }\n    String sound() {\n        return \"...\";\n    }\n}\n\nclass Dog extends Animal {\n    Dog(String name) {\n        super(name);\n    }\n    String sound() {\n        return \"Woof\";\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "sound",
+          "invoke": "new Dog(\"d\").sound()",
+          "expect": "Woof"
+        },
+        {
+          "name": "name",
+          "invoke": "new Dog(\"d\").name",
+          "expect": "d"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「继承」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "override",
+      "lesson": "override",
+      "number": 42,
+      "chapterNo": 6,
+      "chapter": "面向对象基础",
+      "title": "方法重写",
+      "reading": false,
+      "task": "Shape.area() 返回 0，describe() 返回“Shape ”+area()；Circle 重写 area() 返回 3.14*r*r。测试 Circle(2).describe()。",
+      "prompt": "修复「方法重写」这枚记忆碎片：Shape.area() 返回 0，describe() 返回“Shape ”+area()；Circle 重写 area() 返回 3.14*r*r。测试 Circle(2).describe()。",
+      "starter": "public class Main {\n}\n\nclass Shape {\n    double area() {\n        return 0;\n    }\n    String describe() {\n        return \"Shape \" + area();\n    }\n}\n\nclass Circle extends Shape {\n    double r;\n    Circle(double r) {\n        this.r = r;\n    }\n    // TODO: 重写 area()\n}",
+      "solution": "public class Main {\n}\n\nclass Shape {\n    double area() {\n        return 0;\n    }\n    String describe() {\n        return \"Shape \" + area();\n    }\n}\n\nclass Circle extends Shape {\n    double r;\n    Circle(double r) {\n        this.r = r;\n    }\n    @Override\n    double area() {\n        return 3.14 * r * r;\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "describe",
+          "invoke": "new Circle(2).describe()",
+          "expect": "Shape 12.56"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「方法重写」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "polymorphism",
+      "lesson": "polymorphism",
+      "number": 43,
+      "chapterNo": 6,
+      "chapter": "面向对象基础",
+      "title": "多态",
+      "reading": false,
+      "task": "定义 Animal、Dog、Cat；用 Animal[] 存放一只狗和一只猫，循环输出它们的 sound()。",
+      "prompt": "修复「多态」这枚记忆碎片：定义 Animal、Dog、Cat；用 Animal[] 存放一只狗和一只猫，循环输出它们的 sound()。",
+      "starter": "public class Main {\n    public static void main(String[] args) {\n        Animal[] zoo = { new Dog(), new Cat() };\n        // TODO: 循环输出 sound()\n\n    }\n}\n\nclass Animal {\n    String sound() { return \"...\"; }\n}\nclass Dog extends Animal {\n    String sound() { return \"Woof\"; }\n}\nclass Cat extends Animal {\n    String sound() { return \"Meow\"; }\n}",
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        Animal[] zoo = { new Dog(), new Cat() };\n        for (Animal a : zoo) {\n            System.out.print(a.sound());\n        }\n    }\n}\n\nclass Animal {\n    String sound() { return \"...\"; }\n}\nclass Dog extends Animal {\n    String sound() { return \"Woof\"; }\n}\nclass Cat extends Animal {\n    String sound() { return \"Meow\"; }\n}",
+      "mode": "output",
+      "expected": "WoofMeow",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「多态」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "library",
+      "lesson": "library",
+      "number": 44,
+      "chapterNo": 6,
+      "chapter": "面向对象基础",
+      "title": "综合：迷你图书管理",
+      "reading": false,
+      "task": "实现 Book(title, price)、Library.add(Book)、Library.find(String)、Library.count()；main 添加两本书并输出数量与 Java 书价格。",
+      "prompt": "修复「综合：迷你图书管理」这枚记忆碎片：实现 Book(title, price)、Library.add(Book)、Library.find(String)、Library.count()；main 添加两本书并输出数量与 Java 书价格。",
+      "starter": "public class Main {\n    public static void main(String[] args) {\n        Library lib = new Library();\n        lib.add(new Book(\"Java\", 59));\n        lib.add(new Book(\"Python\", 49));\n        // TODO: 输出 2 59\n\n    }\n}\n\nclass Book {\n    String title;\n    int price;\n    Book(String title, int price) {\n        this.title = title;\n        this.price = price;\n    }\n}\n\nclass Library {\n    Book[] books = new Book[10];\n    int count;\n    void add(Book b) {\n        // TODO\n    }\n    Book find(String title) {\n        // TODO\n        return null;\n    }\n    int count() {\n        return count;\n    }\n}",
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        Library lib = new Library();\n        lib.add(new Book(\"Java\", 59));\n        lib.add(new Book(\"Python\", 49));\n        System.out.println(lib.count() + \" \" + lib.find(\"Java\").price);\n    }\n}\n\nclass Book {\n    String title;\n    int price;\n    Book(String title, int price) {\n        this.title = title;\n        this.price = price;\n    }\n}\n\nclass Library {\n    Book[] books = new Book[10];\n    int count;\n    void add(Book b) {\n        books[count] = b;\n        count++;\n    }\n    Book find(String title) {\n        for (int i = 0; i < count; i++) {\n            if (books[i].title.equals(title)) return books[i];\n        }\n        return null;\n    }\n    int count() {\n        return count;\n    }\n}",
+      "mode": "output",
+      "expected": "2 59",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「综合：迷你图书管理」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        },
+        {
+          "speaker": "铁砧",
+          "text": "别只顾着跑通。问问自己：这段代码为什么这样写？",
+          "portrait": "companion2"
+        }
+      ]
+    },
+    {
+      "id": "abstract",
+      "lesson": "abstract",
+      "number": 45,
+      "chapterNo": 7,
+      "chapter": "面向对象进阶",
+      "title": "抽象类",
+      "reading": false,
+      "task": "抽象类 Shape 有抽象方法 area() 和普通方法 describe()；Square 继承并实现 area()。测试 Square(2).describe() 返回“面积:4.0”。",
+      "prompt": "修复「抽象类」这枚记忆碎片：抽象类 Shape 有抽象方法 area() 和普通方法 describe()；Square 继承并实现 area()。测试 Square(2).describe() 返回“面积:4.0”。",
+      "starter": "public class Main {\n}\n\nabstract class Shape {\n    abstract double area();\n    String describe() {\n        return \"面积:\" + area();\n    }\n}\n\nclass Square extends Shape {\n    double side;\n    Square(double side) {\n        this.side = side;\n    }\n    // TODO: 实现 area()\n}",
+      "solution": "public class Main {\n}\n\nabstract class Shape {\n    abstract double area();\n    String describe() {\n        return \"面积:\" + area();\n    }\n}\n\nclass Square extends Shape {\n    double side;\n    Square(double side) {\n        this.side = side;\n    }\n    double area() {\n        return side * side;\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "describe",
+          "invoke": "new Square(2).describe()",
+          "expect": "面积:4.0"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "旁白",
+          "text": "第7章 · 面向对象进阶。抽象、接口、枚举与记录类",
+          "portrait": "narrator"
+        },
+        {
+          "speaker": "阿灯",
+          "text": "记忆塔的这一层是「面向对象进阶」。把里面的程序接上，塔就会亮一层。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「抽象类」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "interface",
+      "lesson": "interface",
+      "number": 46,
+      "chapterNo": 7,
+      "chapter": "面向对象进阶",
+      "title": "接口",
+      "reading": false,
+      "task": "定义 Greeter 接口和 ChineseGreeter 实现类，greet(name) 返回“你好, name”。测试 greet(\"Java\")。",
+      "prompt": "修复「接口」这枚记忆碎片：定义 Greeter 接口和 ChineseGreeter 实现类，greet(name) 返回“你好, name”。测试 greet(\"Java\")。",
+      "starter": "public class Main {\n}\n\ninterface Greeter {\n    String greet(String name);\n}\n\nclass ChineseGreeter implements Greeter {\n    // TODO: 实现 greet\n}",
+      "solution": "public class Main {\n}\n\ninterface Greeter {\n    String greet(String name);\n}\n\nclass ChineseGreeter implements Greeter {\n    public String greet(String name) {\n        return \"你好, \" + name;\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "greet",
+          "invoke": "new ChineseGreeter().greet(\"Java\")",
+          "expect": "你好, Java"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「接口」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "default-method",
+      "lesson": "default-method",
+      "number": 47,
+      "chapterNo": 7,
+      "chapter": "面向对象进阶",
+      "title": "接口默认方法",
+      "reading": false,
+      "task": "接口 Animal 有 name() 和 default hello()；Cat 实现 name() 返回“Cat”。测试 new Cat().hello() 返回“I am Cat”。",
+      "prompt": "修复「接口默认方法」这枚记忆碎片：接口 Animal 有 name() 和 default hello()；Cat 实现 name() 返回“Cat”。测试 new Cat().hello() 返回“I am Cat”。",
+      "starter": "public class Main {\n}\n\ninterface Animal {\n    String name();\n    default String hello() {\n        // TODO: 返回 I am + name()\n        return \"\";\n    }\n}\n\nclass Cat implements Animal {\n    public String name() {\n        return \"Cat\";\n    }\n}",
+      "solution": "public class Main {\n}\n\ninterface Animal {\n    String name();\n    default String hello() {\n        return \"I am \" + name();\n    }\n}\n\nclass Cat implements Animal {\n    public String name() {\n        return \"Cat\";\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "hello",
+          "invoke": "new Cat().hello()",
+          "expect": "I am Cat"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「接口默认方法」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "anonymous",
+      "lesson": "anonymous",
+      "number": 48,
+      "chapterNo": 7,
+      "chapter": "面向对象进阶",
+      "title": "匿名内部类",
+      "reading": false,
+      "task": "用匿名内部类实现 Greeter，让 greet(\"Java\") 返回“Hi Java”，并输出它。",
+      "prompt": "修复「匿名内部类」这枚记忆碎片：用匿名内部类实现 Greeter，让 greet(\"Java\") 返回“Hi Java”，并输出它。",
+      "starter": "public class Main {\n    public static void main(String[] args) {\n        Greeter g = new Greeter() {\n            // TODO: 实现 greet\n        };\n        System.out.println(g.greet(\"Java\"));\n    }\n}\n\ninterface Greeter {\n    String greet(String name);\n}",
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        Greeter g = new Greeter() {\n            public String greet(String name) {\n                return \"Hi \" + name;\n            }\n        };\n        System.out.println(g.greet(\"Java\"));\n    }\n}\n\ninterface Greeter {\n    String greet(String name);\n}",
+      "mode": "output",
+      "expected": "Hi Java",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「匿名内部类」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        },
+        {
+          "speaker": "铁砧",
+          "text": "别只顾着跑通。问问自己：这段代码为什么这样写？",
+          "portrait": "companion2"
+        }
+      ]
+    },
+    {
+      "id": "enum",
+      "lesson": "enum",
+      "number": 49,
+      "chapterNo": 7,
+      "chapter": "面向对象进阶",
+      "title": "枚举",
+      "reading": false,
+      "task": "定义 Color { RED, GREEN, BLUE }，测试 name()、ordinal() 和 values().length。",
+      "prompt": "修复「枚举」这枚记忆碎片：定义 Color { RED, GREEN, BLUE }，测试 name()、ordinal() 和 values().length。",
+      "starter": "public class Main {\n}\n\nenum Color {\n    RED\n    // TODO: 再补上 GREEN 和 BLUE，注意逗号\n}",
+      "solution": "public class Main {\n}\n\nenum Color {\n    RED, GREEN, BLUE\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "name",
+          "invoke": "Color.RED.name()",
+          "expect": "RED"
+        },
+        {
+          "name": "ordinal",
+          "invoke": "Color.GREEN.ordinal()",
+          "expect": "1"
+        },
+        {
+          "name": "values",
+          "invoke": "Color.values().length",
+          "expect": "3"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「枚举」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "payment",
+      "lesson": "payment",
+      "number": 50,
+      "chapterNo": 7,
+      "chapter": "面向对象进阶",
+      "title": "综合：支付系统",
+      "reading": false,
+      "task": "定义 PayMethod 接口、Alipay 和 WeChat 实现；main 中用接口数组依次输出“支付宝:100”和“微信:100”。",
+      "prompt": "修复「综合：支付系统」这枚记忆碎片：定义 PayMethod 接口、Alipay 和 WeChat 实现；main 中用接口数组依次输出“支付宝:100”和“微信:100”。",
+      "starter": "public class Main {\n    public static void main(String[] args) {\n        PayMethod[] methods = { new Alipay(), new WeChat() };\n        // TODO: 循环输出 pay(100)\n\n    }\n}\n\ninterface PayMethod {\n    String pay(int amount);\n}\n\nclass Alipay implements PayMethod {\n    public String pay(int amount) {\n        // TODO\n        return \"\";\n    }\n}\n\nclass WeChat implements PayMethod {\n    public String pay(int amount) {\n        // TODO\n        return \"\";\n    }\n}",
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        PayMethod[] methods = { new Alipay(), new WeChat() };\n        for (PayMethod m : methods) {\n            System.out.print(m.pay(100) + \" \");\n        }\n    }\n}\n\ninterface PayMethod {\n    String pay(int amount);\n}\n\nclass Alipay implements PayMethod {\n    public String pay(int amount) {\n        return \"支付宝:\" + amount;\n    }\n}\n\nclass WeChat implements PayMethod {\n    public String pay(int amount) {\n        return \"微信:\" + amount;\n    }\n}",
+      "mode": "output",
+      "expected": "支付宝:100 微信:100 ",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「综合：支付系统」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "string",
+      "lesson": "string",
+      "number": 51,
+      "chapterNo": 8,
+      "chapter": "核心类库",
+      "title": "String 常用方法",
+      "reading": false,
+      "task": "实现 shout(String s)：去掉首尾空格、转大写，并在末尾加感叹号。测试 shout(\"  hello  \")。",
+      "prompt": "修复「String 常用方法」这枚记忆碎片：实现 shout(String s)：去掉首尾空格、转大写，并在末尾加感叹号。测试 shout(\"  hello  \")。",
+      "starter": "public class Main {\n    static String shout(String s) {\n        // TODO\n        return \"\";\n    }\n}",
+      "solution": "public class Main {\n    static String shout(String s) {\n        return s.trim().toUpperCase() + \"!\";\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "shout",
+          "invoke": "shout(\"  hello  \")",
+          "expect": "HELLO!"
+        },
+        {
+          "name": "shout2",
+          "invoke": "shout(\"Java\")",
+          "expect": "JAVA!"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "旁白",
+          "text": "第8章 · 核心类库。String、集合、工具类，日常开发的主力",
+          "portrait": "narrator"
+        },
+        {
+          "speaker": "阿灯",
+          "text": "记忆塔的这一层是「核心类库」。把里面的程序接上，塔就会亮一层。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「String 常用方法」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "stringbuilder",
+      "lesson": "stringbuilder",
+      "number": 52,
+      "chapterNo": 8,
+      "chapter": "核心类库",
+      "title": "StringBuilder",
+      "reading": false,
+      "task": "实现 join(String[] words)：用 StringBuilder 把单词用“-”连接起来。测试 {\"a\",\"b\",\"c\"}。",
+      "prompt": "修复「StringBuilder」这枚记忆碎片：实现 join(String[] words)：用 StringBuilder 把单词用“-”连接起来。测试 {\"a\",\"b\",\"c\"}。",
+      "starter": "public class Main {\n    static String join(String[] words) {\n        StringBuilder sb = new StringBuilder();\n        // TODO\n        return sb.toString();\n    }\n}",
+      "solution": "public class Main {\n    static String join(String[] words) {\n        StringBuilder sb = new StringBuilder();\n        for (int i = 0; i < words.length; i++) {\n            if (i > 0) sb.append(\"-\");\n            sb.append(words[i]);\n        }\n        return sb.toString();\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "join",
+          "invoke": "join(new String[]{\"a\",\"b\",\"c\"})",
+          "expect": "a-b-c"
+        },
+        {
+          "name": "one",
+          "invoke": "join(new String[]{\"x\"})",
+          "expect": "x"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「StringBuilder」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        },
+        {
+          "speaker": "铁砧",
+          "text": "别只顾着跑通。问问自己：这段代码为什么这样写？",
+          "portrait": "companion2"
+        }
+      ]
+    },
+    {
+      "id": "math",
+      "lesson": "math",
+      "number": 53,
+      "chapterNo": 8,
+      "chapter": "核心类库",
+      "title": "Math 工具类",
+      "reading": false,
+      "task": "实现 hypotenuse(double a, double b)，返回直角三角形斜边，使用 Math.sqrt。测试 3、4 返回 5.0。",
+      "prompt": "修复「Math 工具类」这枚记忆碎片：实现 hypotenuse(double a, double b)，返回直角三角形斜边，使用 Math.sqrt。测试 3、4 返回 5.0。",
+      "starter": "public class Main {\n    static double hypotenuse(double a, double b) {\n        // TODO\n        return 0;\n    }\n}",
+      "solution": "public class Main {\n    static double hypotenuse(double a, double b) {\n        return Math.sqrt(a * a + b * b);\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "3-4",
+          "invoke": "hypotenuse(3,4)",
+          "expect": "5.0"
+        },
+        {
+          "name": "6-8",
+          "invoke": "hypotenuse(6,8)",
+          "expect": "10.0"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「Math 工具类」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "wrapper",
+      "lesson": "wrapper",
+      "number": 54,
+      "chapterNo": 8,
+      "chapter": "核心类库",
+      "title": "包装类与自动装箱",
+      "reading": false,
+      "task": "实现 parseAdd(String a, String b)，把两个字符串转成 int 后相加。测试 \"12\" 和 \"30\"。",
+      "prompt": "修复「包装类与自动装箱」这枚记忆碎片：实现 parseAdd(String a, String b)，把两个字符串转成 int 后相加。测试 \"12\" 和 \"30\"。",
+      "starter": "public class Main {\n    static int parseAdd(String a, String b) {\n        // TODO\n        return 0;\n    }\n}",
+      "solution": "public class Main {\n    static int parseAdd(String a, String b) {\n        return Integer.parseInt(a) + Integer.parseInt(b);\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "12+30",
+          "invoke": "parseAdd(\"12\",\"30\")",
+          "expect": "42"
+        },
+        {
+          "name": "1+2",
+          "invoke": "parseAdd(\"1\",\"2\")",
+          "expect": "3"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「包装类与自动装箱」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "object-equals",
+      "lesson": "object-equals",
+      "number": 55,
+      "chapterNo": 8,
+      "chapter": "核心类库",
+      "title": "Object 与 equals/hashCode",
+      "reading": false,
+      "task": "实现 Person.equals：姓名和年龄都相同返回 true；并重写 hashCode、toString。测试两个内容相同的 Person。",
+      "prompt": "修复「Object 与 equals/hashCode」这枚记忆碎片：实现 Person.equals：姓名和年龄都相同返回 true；并重写 hashCode、toString。测试两个内容相同的 Person。",
+      "starter": "public class Main {\n}\n\nclass Person {\n    String name;\n    int age;\n    Person(String name, int age) {\n        this.name = name;\n        this.age = age;\n    }\n    // TODO: equals、hashCode、toString\n}",
+      "solution": "public class Main {\n}\n\nclass Person {\n    String name;\n    int age;\n    Person(String name, int age) {\n        this.name = name;\n        this.age = age;\n    }\n    public boolean equals(Object o) {\n        if (!(o instanceof Person)) return false;\n        Person p = (Person) o;\n        return name.equals(p.name) && age == p.age;\n    }\n    public int hashCode() {\n        return name.hashCode() * 31 + age;\n    }\n    public String toString() {\n        return name + \":\" + age;\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "equals",
+          "invoke": "new Person(\"a\",18).equals(new Person(\"a\",18))",
+          "expect": "true"
+        },
+        {
+          "name": "not-equals",
+          "invoke": "new Person(\"a\",18).equals(new Person(\"a\",19))",
+          "expect": "false"
+        },
+        {
+          "name": "toString",
+          "invoke": "new Person(\"a\",18).toString()",
+          "expect": "a:18"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「Object 与 equals/hashCode」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "arraylist",
+      "lesson": "arraylist",
+      "number": 56,
+      "chapterNo": 8,
+      "chapter": "核心类库",
+      "title": "ArrayList 动态数组",
+      "reading": false,
+      "task": "实现 evens(List<Integer> nums)，返回其中所有偶数组成的新 List。测试 [1,2,3,4]。",
+      "prompt": "修复「ArrayList 动态数组」这枚记忆碎片：实现 evens(List<Integer> nums)，返回其中所有偶数组成的新 List。测试 [1,2,3,4]。",
+      "starter": "import java.util.*;\n\npublic class Main {\n    static List<Integer> evens(List<Integer> nums) {\n        // TODO\n        return new ArrayList<>();\n    }\n}",
+      "solution": "import java.util.*;\n\npublic class Main {\n    static List<Integer> evens(List<Integer> nums) {\n        List<Integer> out = new ArrayList<>();\n        for (int n : nums) {\n            if (n % 2 == 0) out.add(n);\n        }\n        return out;\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "evens",
+          "invoke": "evens(Arrays.asList(1,2,3,4))",
+          "expect": "[2, 4]"
+        },
+        {
+          "name": "none",
+          "invoke": "evens(Arrays.asList(1,3))",
+          "expect": "[]"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「ArrayList 动态数组」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        },
+        {
+          "speaker": "铁砧",
+          "text": "别只顾着跑通。问问自己：这段代码为什么这样写？",
+          "portrait": "companion2"
+        }
+      ]
+    },
+    {
+      "id": "hashmap",
+      "lesson": "hashmap",
+      "number": 57,
+      "chapterNo": 8,
+      "chapter": "核心类库",
+      "title": "HashMap 键值对",
+      "reading": false,
+      "task": "实现 count(String[] words)，统计每个单词出现次数并返回 Map。测试 {\"a\",\"b\",\"a\"}。",
+      "prompt": "修复「HashMap 键值对」这枚记忆碎片：实现 count(String[] words)，统计每个单词出现次数并返回 Map。测试 {\"a\",\"b\",\"a\"}。",
+      "starter": "import java.util.*;\n\npublic class Main {\n    static Map<String,Integer> count(String[] words) {\n        // TODO\n        return new HashMap<>();\n    }\n}",
+      "solution": "import java.util.*;\n\npublic class Main {\n    static Map<String,Integer> count(String[] words) {\n        Map<String,Integer> map = new HashMap<>();\n        for (String w : words) {\n            map.put(w, map.getOrDefault(w, 0) + 1);\n        }\n        return map;\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "count",
+          "invoke": "count(new String[]{\"a\",\"b\",\"a\"})",
+          "expect": "{a=2, b=1}"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「HashMap 键值对」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "hashset",
+      "lesson": "hashset",
+      "number": 58,
+      "chapterNo": 8,
+      "chapter": "核心类库",
+      "title": "HashSet 去重集合",
+      "reading": false,
+      "task": "实现 unique(String[] words)，返回去重后的 Set。测试 {\"a\",\"b\",\"a\"}。",
+      "prompt": "修复「HashSet 去重集合」这枚记忆碎片：实现 unique(String[] words)，返回去重后的 Set。测试 {\"a\",\"b\",\"a\"}。",
+      "starter": "import java.util.*;\n\npublic class Main {\n    static Set<String> unique(String[] words) {\n        // TODO\n        return new HashSet<>();\n    }\n}",
+      "solution": "import java.util.*;\n\npublic class Main {\n    static Set<String> unique(String[] words) {\n        Set<String> set = new HashSet<>();\n        for (String w : words) set.add(w);\n        return set;\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "unique",
+          "invoke": "unique(new String[]{\"a\",\"b\",\"a\"})",
+          "expect": "[a, b]"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「HashSet 去重集合」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "collections",
+      "lesson": "collections",
+      "number": 59,
+      "chapterNo": 8,
+      "chapter": "核心类库",
+      "title": "Collections 工具类",
+      "reading": false,
+      "task": "实现 desc(List<Integer> nums)：先升序排序，再反转，返回降序列表。测试 [3,9,2]。",
+      "prompt": "修复「Collections 工具类」这枚记忆碎片：实现 desc(List<Integer> nums)：先升序排序，再反转，返回降序列表。测试 [3,9,2]。",
+      "starter": "import java.util.*;\n\npublic class Main {\n    static List<Integer> desc(List<Integer> nums) {\n        // TODO\n        return nums;\n    }\n}",
+      "solution": "import java.util.*;\n\npublic class Main {\n    static List<Integer> desc(List<Integer> nums) {\n        Collections.sort(nums);\n        Collections.reverse(nums);\n        return nums;\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "desc",
+          "invoke": "desc(new ArrayList<>(Arrays.asList(3,9,2)))",
+          "expect": "[9, 3, 2]"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「Collections 工具类」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "comparator",
+      "lesson": "comparator",
+      "number": 60,
+      "chapterNo": 8,
+      "chapter": "核心类库",
+      "title": "Comparator 自定义排序",
+      "reading": false,
+      "task": "实现 byAge(List<Person> ps)，按年龄升序排序并返回。Person 的 toString 返回“name:age”。",
+      "prompt": "修复「Comparator 自定义排序」这枚记忆碎片：实现 byAge(List<Person> ps)，按年龄升序排序并返回。Person 的 toString 返回“name:age”。",
+      "starter": "import java.util.*;\n\npublic class Main {\n    static List<Person> byAge(List<Person> ps) {\n        // TODO\n        return ps;\n    }\n}\n\nclass Person {\n    String name;\n    int age;\n    Person(String name, int age) {\n        this.name = name;\n        this.age = age;\n    }\n    public String toString() {\n        return name + \":\" + age;\n    }\n}",
+      "solution": "import java.util.*;\n\npublic class Main {\n    static List<Person> byAge(List<Person> ps) {\n        ps.sort(Comparator.comparingInt(p -> p.age));\n        return ps;\n    }\n}\n\nclass Person {\n    String name;\n    int age;\n    Person(String name, int age) {\n        this.name = name;\n        this.age = age;\n    }\n    public String toString() {\n        return name + \":\" + age;\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "byAge",
+          "invoke": "byAge(new ArrayList<>(Arrays.asList(new Person(\"a\",30), new Person(\"b\",20))))",
+          "expect": "[b:20, a:30]"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「Comparator 自定义排序」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        },
+        {
+          "speaker": "铁砧",
+          "text": "别只顾着跑通。问问自己：这段代码为什么这样写？",
+          "portrait": "companion2"
+        }
+      ]
+    },
+    {
+      "id": "datetime",
+      "lesson": "datetime",
+      "number": 61,
+      "chapterNo": 8,
+      "chapter": "核心类库",
+      "title": "日期时间 API",
+      "reading": false,
+      "task": "实现 addDays(String date, int n)：解析 yyyy-MM-dd，加 n 天，返回 yyyy-MM-dd 字符串。测试 2024-02-28 加 2 天。",
+      "prompt": "修复「日期时间 API」这枚记忆碎片：实现 addDays(String date, int n)：解析 yyyy-MM-dd，加 n 天，返回 yyyy-MM-dd 字符串。测试 2024-02-28 加 2 天。",
+      "starter": "import java.time.*;\n\npublic class Main {\n    static String addDays(String date, int n) {\n        // TODO\n        return \"\";\n    }\n}",
+      "solution": "import java.time.*;\n\npublic class Main {\n    static String addDays(String date, int n) {\n        LocalDate d = LocalDate.parse(date);\n        return d.plusDays(n).toString();\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "leap",
+          "invoke": "addDays(\"2024-02-28\",2)",
+          "expect": "2024-03-01"
+        },
+        {
+          "name": "month",
+          "invoke": "addDays(\"2024-01-31\",1)",
+          "expect": "2024-02-01"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「日期时间 API」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "generics-class",
+      "lesson": "generics-class",
+      "number": 62,
+      "chapterNo": 9,
+      "chapter": "泛型与函数式",
+      "title": "泛型类",
+      "reading": false,
+      "task": "实现泛型类 Box<T>：字段 value，set(T) 保存，get() 返回。测试 Box<String>。",
+      "prompt": "修复「泛型类」这枚记忆碎片：实现泛型类 Box<T>：字段 value，set(T) 保存，get() 返回。测试 Box<String>。",
+      "starter": "public class Main {\n    static String boxed() {\n        Box<String> b = new Box<String>();\n        b.set(\"x\");\n        return b.get();\n    }\n    static int boxedInt() {\n        Box<Integer> b = new Box<Integer>();\n        b.set(7);\n        return b.get();\n    }\n}\n\nclass Box<T> {\n    T value;\n    void set(T v) {\n        // TODO\n    }\n    T get() {\n        // TODO\n        return null;\n    }\n}",
+      "solution": "public class Main {\n    static String boxed() {\n        Box<String> b = new Box<String>();\n        b.set(\"x\");\n        return b.get();\n    }\n    static int boxedInt() {\n        Box<Integer> b = new Box<Integer>();\n        b.set(7);\n        return b.get();\n    }\n}\n\nclass Box<T> {\n    T value;\n    void set(T v) {\n        value = v;\n    }\n    T get() {\n        return value;\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "box",
+          "invoke": "boxed()",
+          "expect": "x"
+        },
+        {
+          "name": "boxInt",
+          "invoke": "boxedInt()",
+          "expect": "7"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "旁白",
+          "text": "第9章 · 泛型与函数式。写出更通用、更简洁的 Java",
+          "portrait": "narrator"
+        },
+        {
+          "speaker": "阿灯",
+          "text": "记忆塔的这一层是「泛型与函数式」。把里面的程序接上，塔就会亮一层。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「泛型类」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "generics-method",
+      "lesson": "generics-method",
+      "number": 63,
+      "chapterNo": 9,
+      "chapter": "泛型与函数式",
+      "title": "泛型方法",
+      "reading": false,
+      "task": "实现 static <T> T first(List<T> list)，返回第一个元素。测试 List<String> 和 List<Integer>。",
+      "prompt": "修复「泛型方法」这枚记忆碎片：实现 static <T> T first(List<T> list)，返回第一个元素。测试 List<String> 和 List<Integer>。",
+      "starter": "import java.util.*;\n\npublic class Main {\n    static <T> T first(List<T> list) {\n        // TODO\n        return null;\n    }\n}",
+      "solution": "import java.util.*;\n\npublic class Main {\n    static <T> T first(List<T> list) {\n        return list.get(0);\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "str",
+          "invoke": "first(Arrays.asList(\"a\",\"b\"))",
+          "expect": "a"
+        },
+        {
+          "name": "int",
+          "invoke": "first(Arrays.asList(7,8))",
+          "expect": "7"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「泛型方法」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "lambda",
+      "lesson": "lambda",
+      "number": 64,
+      "chapterNo": 9,
+      "chapter": "泛型与函数式",
+      "title": "Lambda 表达式",
+      "reading": false,
+      "task": "实现 applyOp(Operation op, int a, int b)，调用 op.apply(a,b)。测试传入 (a,b)->a+b 和 (a,b)->a*b。",
+      "prompt": "修复「Lambda 表达式」这枚记忆碎片：实现 applyOp(Operation op, int a, int b)，调用 op.apply(a,b)。测试传入 (a,b)->a+b 和 (a,b)->a*b。",
+      "starter": "public class Main {\n    interface Operation {\n        int apply(int a, int b);\n    }\n    static int applyOp(Operation op, int a, int b) {\n        // TODO\n        return 0;\n    }\n}",
+      "solution": "public class Main {\n    interface Operation {\n        int apply(int a, int b);\n    }\n    static int applyOp(Operation op, int a, int b) {\n        return op.apply(a, b);\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "add",
+          "invoke": "applyOp((a,b)->a+b, 2, 3)",
+          "expect": "5"
+        },
+        {
+          "name": "mul",
+          "invoke": "applyOp((a,b)->a*b, 2, 3)",
+          "expect": "6"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「Lambda 表达式」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        },
+        {
+          "speaker": "铁砧",
+          "text": "别只顾着跑通。问问自己：这段代码为什么这样写？",
+          "portrait": "companion2"
+        }
+      ]
+    },
+    {
+      "id": "functional",
+      "lesson": "functional",
+      "number": 65,
+      "chapterNo": 9,
+      "chapter": "泛型与函数式",
+      "title": "函数式接口",
+      "reading": false,
+      "task": "实现 filter(List<Integer> nums, Predicate<Integer> p)，返回满足条件的元素。测试保留偶数。",
+      "prompt": "修复「函数式接口」这枚记忆碎片：实现 filter(List<Integer> nums, Predicate<Integer> p)，返回满足条件的元素。测试保留偶数。",
+      "starter": "import java.util.*;\nimport java.util.function.*;\n\npublic class Main {\n    static List<Integer> filter(List<Integer> nums, Predicate<Integer> p) {\n        // TODO\n        return new ArrayList<>();\n    }\n}",
+      "solution": "import java.util.*;\nimport java.util.function.*;\n\npublic class Main {\n    static List<Integer> filter(List<Integer> nums, Predicate<Integer> p) {\n        List<Integer> out = new ArrayList<>();\n        for (int n : nums) {\n            if (p.test(n)) out.add(n);\n        }\n        return out;\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "even",
+          "invoke": "filter(Arrays.asList(1,2,3,4), n -> n % 2 == 0)",
+          "expect": "[2, 4]"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「函数式接口」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "method-ref",
+      "lesson": "method-ref",
+      "number": 66,
+      "chapterNo": 9,
+      "chapter": "泛型与函数式",
+      "title": "方法引用",
+      "reading": false,
+      "task": "实现 transform(String s, Function<String,Integer> f)，返回 f.apply(s)。测试传入 String::length。",
+      "prompt": "修复「方法引用」这枚记忆碎片：实现 transform(String s, Function<String,Integer> f)，返回 f.apply(s)。测试传入 String::length。",
+      "starter": "import java.util.function.*;\n\npublic class Main {\n    static int transform(String s, Function<String,Integer> f) {\n        // TODO\n        return 0;\n    }\n}",
+      "solution": "import java.util.function.*;\n\npublic class Main {\n    static int transform(String s, Function<String,Integer> f) {\n        return f.apply(s);\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "length",
+          "invoke": "transform(\"java\", String::length)",
+          "expect": "4"
+        },
+        {
+          "name": "parse",
+          "invoke": "transform(\"42\", Integer::parseInt)",
+          "expect": "42"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「方法引用」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "stream",
+      "lesson": "stream",
+      "number": 67,
+      "chapterNo": 9,
+      "chapter": "泛型与函数式",
+      "title": "Stream 入门",
+      "reading": false,
+      "task": "实现 squares(List<Integer> nums)：保留偶数，平方，收集成 List。测试 [1,2,3,4] 返回 [4, 16]。",
+      "prompt": "修复「Stream 入门」这枚记忆碎片：实现 squares(List<Integer> nums)：保留偶数，平方，收集成 List。测试 [1,2,3,4] 返回 [4, 16]。",
+      "starter": "import java.util.*;\nimport java.util.stream.*;\n\npublic class Main {\n    static List<Integer> squares(List<Integer> nums) {\n        // TODO\n        return new ArrayList<>();\n    }\n}",
+      "solution": "import java.util.*;\nimport java.util.stream.*;\n\npublic class Main {\n    static List<Integer> squares(List<Integer> nums) {\n        return nums.stream()\n                .filter(n -> n % 2 == 0)\n                .map(n -> n * n)\n                .collect(Collectors.toList());\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "squares",
+          "invoke": "squares(Arrays.asList(1,2,3,4))",
+          "expect": "[4, 16]"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「Stream 入门」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "optional",
+      "lesson": "optional",
+      "number": 68,
+      "chapterNo": 9,
+      "chapter": "泛型与函数式",
+      "title": "Optional 空值容器",
+      "reading": false,
+      "task": "实现 nameOrUnknown(Optional<String> o)：有值返回该值，否则返回“未知”。测试 of(\"Java\") 和 empty()。",
+      "prompt": "修复「Optional 空值容器」这枚记忆碎片：实现 nameOrUnknown(Optional<String> o)：有值返回该值，否则返回“未知”。测试 of(\"Java\") 和 empty()。",
+      "starter": "import java.util.*;\n\npublic class Main {\n    static String nameOrUnknown(Optional<String> o) {\n        // TODO\n        return \"\";\n    }\n}",
+      "solution": "import java.util.*;\n\npublic class Main {\n    static String nameOrUnknown(Optional<String> o) {\n        return o.orElse(\"未知\");\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "present",
+          "invoke": "nameOrUnknown(Optional.of(\"Java\"))",
+          "expect": "Java"
+        },
+        {
+          "name": "empty",
+          "invoke": "nameOrUnknown(Optional.empty())",
+          "expect": "未知"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「Optional 空值容器」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        },
+        {
+          "speaker": "铁砧",
+          "text": "别只顾着跑通。问问自己：这段代码为什么这样写？",
+          "portrait": "companion2"
+        }
+      ]
+    },
+    {
+      "id": "try-catch",
+      "lesson": "try-catch",
+      "number": 69,
+      "chapterNo": 10,
+      "chapter": "异常处理",
+      "title": "try-catch",
+      "reading": false,
+      "task": "用 try-catch 捕获整数除零异常，输出“不能除以0”，程序不要崩溃。",
+      "prompt": "修复「try-catch」这枚记忆碎片：用 try-catch 捕获整数除零异常，输出“不能除以0”，程序不要崩溃。",
+      "starter": "public class Main {\n    public static void main(String[] args) {\n        // TODO: 用 try-catch 捕获 10 / 0\n\n    }\n}",
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        try {\n            int x = 10 / 0;\n            System.out.println(x);\n        } catch (ArithmeticException e) {\n            System.out.println(\"不能除以0\");\n        }\n    }\n}\n",
+      "mode": "output",
+      "expected": "不能除以0",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "旁白",
+          "text": "第10章 · 异常处理。程序出错时，别让整个应用崩掉",
+          "portrait": "narrator"
+        },
+        {
+          "speaker": "阿灯",
+          "text": "记忆塔的这一层是「异常处理」。把里面的程序接上，塔就会亮一层。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「try-catch」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "finally",
+      "lesson": "finally",
+      "number": 70,
+      "chapterNo": 10,
+      "chapter": "异常处理",
+      "title": "finally",
+      "reading": false,
+      "task": "在 try 中输出“try”，在 finally 中输出“finally”，观察执行顺序。",
+      "prompt": "修复「finally」这枚记忆碎片：在 try 中输出“try”，在 finally 中输出“finally”，观察执行顺序。",
+      "starter": "public class Main {\n    public static void main(String[] args) {\n        // TODO: try 输出 try，finally 输出 finally\n\n    }\n}",
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        try {\n            System.out.println(\"try\");\n        } finally {\n            System.out.println(\"finally\");\n        }\n    }\n}\n",
+      "mode": "output",
+      "expected": "try\nfinally",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「finally」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "throw-custom",
+      "lesson": "throw-custom",
+      "number": 71,
+      "chapterNo": 10,
+      "chapter": "异常处理",
+      "title": "throw 与自定义异常",
+      "reading": false,
+      "task": "实现 safeDivide(int a,int b)：b 为 0 时返回 -1，否则返回 a/b；可自行用异常实现。",
+      "prompt": "修复「throw 与自定义异常」这枚记忆碎片：实现 safeDivide(int a,int b)：b 为 0 时返回 -1，否则返回 a/b；可自行用异常实现。",
+      "starter": "public class Main {\n    static int safeDivide(int a, int b) {\n        // TODO\n        return 0;\n    }\n}",
+      "solution": "public class Main {\n    static int safeDivide(int a, int b) {\n        if (b == 0) return -1;\n        return a / b;\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "ok",
+          "invoke": "safeDivide(6,3)",
+          "expect": "2"
+        },
+        {
+          "name": "zero",
+          "invoke": "safeDivide(6,0)",
+          "expect": "-1"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「throw 与自定义异常」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "try-resources",
+      "lesson": "try-resources",
+      "number": 72,
+      "chapterNo": 10,
+      "chapter": "异常处理",
+      "title": "try-with-resources",
+      "reading": false,
+      "task": "用 try-with-resources 创建 Scanner 读取 42 并输出，让 Scanner 自动关闭。",
+      "prompt": "修复「try-with-resources」这枚记忆碎片：用 try-with-resources 创建 Scanner 读取 42 并输出，让 Scanner 自动关闭。",
+      "starter": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        // TODO: try-with-resources 读取 42\n\n    }\n}",
+      "solution": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        try (Scanner sc = new Scanner(\"42\")) {\n            System.out.println(sc.nextInt());\n        }\n    }\n}",
+      "mode": "output",
+      "expected": "42",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「try-with-resources」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        },
+        {
+          "speaker": "铁砧",
+          "text": "别只顾着跑通。问问自己：这段代码为什么这样写？",
+          "portrait": "companion2"
+        }
+      ]
+    },
+    {
+      "id": "exception-practice",
+      "lesson": "exception-practice",
+      "number": 73,
+      "chapterNo": 10,
+      "chapter": "异常处理",
+      "title": "综合：异常处理实战",
+      "reading": false,
+      "task": "分别捕获 ArrayIndexOutOfBoundsException 和 NumberFormatException，输出对应的提示。",
+      "prompt": "修复「综合：异常处理实战」这枚记忆碎片：分别捕获 ArrayIndexOutOfBoundsException 和 NumberFormatException，输出对应的提示。",
+      "starter": "public class Main {\n    public static void main(String[] args) {\n        // TODO: 捕获数组越界，输出 数组越界\n\n    }\n}",
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        try {\n            int[] a = new int[2];\n            a[3] = 1;\n        } catch (ArrayIndexOutOfBoundsException e) {\n            System.out.println(\"数组越界\");\n        }\n    }\n}\n",
+      "mode": "output",
+      "expected": "数组越界",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「综合：异常处理实战」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "thread",
+      "lesson": "thread",
+      "number": 74,
+      "chapterNo": 11,
+      "chapter": "并发、IO 与拓展",
+      "title": "线程基础",
+      "reading": false,
+      "task": "创建线程输出 child，主线程 join 后输出 main。",
+      "prompt": "修复「线程基础」这枚记忆碎片：创建线程输出 child，主线程 join 后输出 main。",
+      "starter": "public class Main {\n    public static void main(String[] args) {\n        // TODO: 创建线程输出 child，join 后输出 main\n\n    }\n}",
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        Thread t = new Thread(() -> System.out.println(\"child\"));\n        t.start();\n        t.join();\n        System.out.println(\"main\");\n    }\n}\n",
+      "mode": "output",
+      "expected": "child\nmain",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "旁白",
+          "text": "第11章 · 并发、IO 与拓展。让程序同时做事、读写文件、连接世界",
+          "portrait": "narrator"
+        },
+        {
+          "speaker": "阿灯",
+          "text": "记忆塔的这一层是「并发、IO 与拓展」。把里面的程序接上，塔就会亮一层。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「线程基础」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "sync",
+      "lesson": "sync",
+      "number": 75,
+      "chapterNo": 11,
+      "chapter": "并发、IO 与拓展",
+      "title": "线程同步",
+      "reading": false,
+      "task": "用 synchronized 方法让两个线程各加 1000 次，输出 count=2000。",
+      "prompt": "修复「线程同步」这枚记忆碎片：用 synchronized 方法让两个线程各加 1000 次，输出 count=2000。",
+      "starter": "public class Main {\n    public static void main(String[] args) {\n        Counter c = new Counter();\n        Thread t1 = new Thread(() -> { for (int i = 0; i < 1000; i++) c.inc(); });\n        Thread t2 = new Thread(() -> { for (int i = 0; i < 1000; i++) c.inc(); });\n        // TODO: start、join，然后输出 count\n\n    }\n}\n\nclass Counter {\n    int count;\n    // TODO: 给 inc 加 synchronized\n    void inc() {\n        count++;\n    }\n}",
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        Counter c = new Counter();\n        Thread t1 = new Thread(() -> { for (int i = 0; i < 1000; i++) c.inc(); });\n        Thread t2 = new Thread(() -> { for (int i = 0; i < 1000; i++) c.inc(); });\n        t1.start();\n        t2.start();\n        t1.join();\n        t2.join();\n        System.out.println(\"count=\" + c.count);\n    }\n}\n\nclass Counter {\n    int count;\n    synchronized void inc() {\n        count++;\n    }\n}",
+      "mode": "output",
+      "expected": "count=2000",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「线程同步」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "regex",
+      "lesson": "regex",
+      "number": 76,
+      "chapterNo": 11,
+      "chapter": "并发、IO 与拓展",
+      "title": "正则表达式",
+      "reading": false,
+      "task": "实现 findAll(String text, String regex)，返回所有匹配到的子串 List。测试 a12b345 和 \\\\d+ 返回 [12, 345]。",
+      "prompt": "修复「正则表达式」这枚记忆碎片：实现 findAll(String text, String regex)，返回所有匹配到的子串 List。测试 a12b345 和 \\\\d+ 返回 [12, 345]。",
+      "starter": "import java.util.*;\nimport java.util.regex.*;\n\npublic class Main {\n    static List<String> findAll(String text, String regex) {\n        // TODO\n        return new ArrayList<>();\n    }\n}",
+      "solution": "import java.util.*;\nimport java.util.regex.*;\n\npublic class Main {\n    static List<String> findAll(String text, String regex) {\n        List<String> out = new ArrayList<>();\n        Matcher m = Pattern.compile(regex).matcher(text);\n        while (m.find()) out.add(m.group());\n        return out;\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "nums",
+          "invoke": "findAll(\"a12b345\", \"\\\\d+\")",
+          "expect": "[12, 345]"
+        },
+        {
+          "name": "words",
+          "invoke": "findAll(\"a1b2\", \"[a-z]\")",
+          "expect": "[a, b]"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「正则表达式」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        },
+        {
+          "speaker": "铁砧",
+          "text": "别只顾着跑通。问问自己：这段代码为什么这样写？",
+          "portrait": "companion2"
+        }
+      ]
+    },
+    {
+      "id": "jdbc-reading",
+      "lesson": "jdbc-reading",
+      "number": 77,
+      "chapterNo": 11,
+      "chapter": "并发、IO 与拓展",
+      "title": "拓展阅读：JDBC 数据库地图",
+      "reading": true,
+      "task": "阅读本关，理解 Connection、PreparedStatement、ResultSet 和 SQL 注入防护。完成后点击“我读完了”。",
+      "prompt": "修复「拓展阅读：JDBC 数据库地图」这枚记忆碎片：阅读本关，理解 Connection、PreparedStatement、ResultSet 和 SQL 注入防护。完成后点击“我读完了”。",
+      "starter": "",
+      "solution": "",
+      "mode": "output",
+      "expected": "",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「拓展阅读：JDBC 数据库地图」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        },
+        {
+          "speaker": "阿灯",
+          "text": "这一枚不是代码碎片，是一张地图。读完它，我们才能穿过数据库区。",
+          "portrait": "companion"
+        }
+      ]
+    },
+    {
+      "id": "student-manager",
+      "lesson": "student-manager",
+      "number": 78,
+      "chapterNo": 12,
+      "chapter": "综合项目",
+      "title": "项目：学生成绩管理",
+      "reading": false,
+      "task": "实现 report(Student[] ss)：返回“平均:80.0 最高:小明”。测试学生：小明90、小红80、小刚70。",
+      "prompt": "修复「项目：学生成绩管理」这枚记忆碎片：实现 report(Student[] ss)：返回“平均:80.0 最高:小明”。测试学生：小明90、小红80、小刚70。",
+      "starter": "public class Main {\n    static String report(Student[] ss) {\n        // TODO\n        return \"\";\n    }\n}\n\nclass Student {\n    String name;\n    int score;\n    Student(String name, int score) {\n        this.name = name;\n        this.score = score;\n    }\n}",
+      "solution": "public class Main {\n    static String report(Student[] ss) {\n        int sum = 0;\n        Student top = ss[0];\n        for (Student s : ss) {\n            sum += s.score;\n            if (s.score > top.score) top = s;\n        }\n        double avg = (double) sum / ss.length;\n        return \"平均:\" + avg + \" 最高:\" + top.name;\n    }\n}\n\nclass Student {\n    String name;\n    int score;\n    Student(String name, int score) {\n        this.name = name;\n        this.score = score;\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "report",
+          "invoke": "report(new Student[]{new Student(\"小明\",90),new Student(\"小红\",80),new Student(\"小刚\",70)})",
+          "expect": "平均:80.0 最高:小明"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "旁白",
+          "text": "第12章 · 综合项目。把学过的知识组装成真正能用的小程序",
+          "portrait": "narrator"
+        },
+        {
+          "speaker": "阿灯",
+          "text": "记忆塔的这一层是「综合项目」。把里面的程序接上，塔就会亮一层。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「项目：学生成绩管理」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "guess-number",
+      "lesson": "guess-number",
+      "number": 79,
+      "chapterNo": 12,
+      "chapter": "综合项目",
+      "title": "项目：猜数字游戏",
+      "reading": false,
+      "task": "目标数固定为 42，读取输入直到猜中；大于 42 输出“大了”，小于输出“小了”，等于输出“猜对了”。测试输入 50 30 42。",
+      "prompt": "修复「项目：猜数字游戏」这枚记忆碎片：目标数固定为 42，读取输入直到猜中；大于 42 输出“大了”，小于输出“小了”，等于输出“猜对了”。测试输入 50 30 42。",
+      "starter": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        // TODO: 猜 42\n\n        sc.close();\n    }\n}",
+      "solution": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        while (true) {\n            int g = sc.nextInt();\n            if (g > 42) {\n                System.out.println(\"大了\");\n            } else if (g < 42) {\n                System.out.println(\"小了\");\n            } else {\n                System.out.println(\"猜对了\");\n                break;\n            }\n        }\n        sc.close();\n    }\n}",
+      "mode": "output",
+      "expected": "大了\n小了\n猜对了",
+      "stdin": "50 30 42",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「项目：猜数字游戏」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "word-frequency",
+      "lesson": "word-frequency",
+      "number": 80,
+      "chapterNo": 12,
+      "chapter": "综合项目",
+      "title": "项目：词频统计",
+      "reading": false,
+      "task": "实现 topWord(String[] words)，返回出现次数最多的词，格式“词:次数”。测试 {\"a\",\"b\",\"a\"}。",
+      "prompt": "修复「项目：词频统计」这枚记忆碎片：实现 topWord(String[] words)，返回出现次数最多的词，格式“词:次数”。测试 {\"a\",\"b\",\"a\"}。",
+      "starter": "import java.util.*;\n\npublic class Main {\n    static String topWord(String[] words) {\n        // TODO\n        return \"\";\n    }\n}",
+      "solution": "import java.util.*;\n\npublic class Main {\n    static String topWord(String[] words) {\n        Map<String,Integer> map = new HashMap<>();\n        for (String w : words) {\n            map.put(w, map.getOrDefault(w, 0) + 1);\n        }\n        String best = \"\";\n        int max = 0;\n        for (Map.Entry<String,Integer> e : map.entrySet()) {\n            if (e.getValue() > max) {\n                max = e.getValue();\n                best = e.getKey();\n            }\n        }\n        return best + \":\" + max;\n    }\n}",
+      "mode": "calls",
+      "expected": "",
+      "stdin": "",
+      "calls": [
+        {
+          "name": "top",
+          "invoke": "topWord(new String[]{\"a\",\"b\",\"a\"})",
+          "expect": "a:2"
+        }
+      ],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「项目：词频统计」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        },
+        {
+          "speaker": "铁砧",
+          "text": "别只顾着跑通。问问自己：这段代码为什么这样写？",
+          "portrait": "companion2"
+        }
+      ]
+    },
+    {
+      "id": "bank-system",
+      "lesson": "bank-system",
+      "number": 81,
+      "chapterNo": 12,
+      "chapter": "综合项目",
+      "title": "项目：银行账户系统",
+      "reading": false,
+      "task": "实现 Bank：open、deposit、transfer、balance。main 中 A 存 100、B 存 50、A 转 30 给 B，输出“70 80”。",
+      "prompt": "修复「项目：银行账户系统」这枚记忆碎片：实现 Bank：open、deposit、transfer、balance。main 中 A 存 100、B 存 50、A 转 30 给 B，输出“70 80”。",
+      "starter": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Bank b = new Bank();\n        b.open(\"A\", 100);\n        b.open(\"B\", 50);\n        b.transfer(\"A\", \"B\", 30);\n        // TODO: 输出 A、B 余额\n\n    }\n}\n\nclass Account {\n    String name;\n    int balance;\n    Account(String name, int balance) {\n        this.name = name;\n        this.balance = balance;\n    }\n}\n\nclass Bank {\n    List<Account> accounts = new ArrayList<>();\n    void open(String name, int money) {\n        // TODO\n    }\n    Account find(String name) {\n        // TODO\n        return null;\n    }\n    void deposit(String name, int money) {\n        // TODO\n    }\n    void transfer(String from, String to, int money) {\n        // TODO\n    }\n    int balance(String name) {\n        // TODO\n        return 0;\n    }\n}",
+      "solution": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Bank b = new Bank();\n        b.open(\"A\", 100);\n        b.open(\"B\", 50);\n        b.transfer(\"A\", \"B\", 30);\n        System.out.println(b.balance(\"A\") + \" \" + b.balance(\"B\"));\n    }\n}\n\nclass Account {\n    String name;\n    int balance;\n    Account(String name, int balance) {\n        this.name = name;\n        this.balance = balance;\n    }\n}\n\nclass Bank {\n    List<Account> accounts = new ArrayList<>();\n    void open(String name, int money) {\n        accounts.add(new Account(name, money));\n    }\n    Account find(String name) {\n        for (Account a : accounts) {\n            if (a.name.equals(name)) return a;\n        }\n        return null;\n    }\n    void deposit(String name, int money) {\n        Account a = find(name);\n        if (a != null && money > 0) a.balance += money;\n    }\n    void transfer(String from, String to, int money) {\n        Account a = find(from);\n        Account b = find(to);\n        if (a == null || b == null || money <= 0 || a.balance < money) return;\n        a.balance -= money;\n        b.balance += money;\n    }\n    int balance(String name) {\n        Account a = find(name);\n        return a == null ? 0 : a.balance;\n    }\n}",
+      "mode": "output",
+      "expected": "70 80",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「项目：银行账户系统」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "todo-list",
+      "lesson": "todo-list",
+      "number": 82,
+      "chapterNo": 12,
+      "chapter": "综合项目",
+      "title": "项目：待办清单",
+      "reading": false,
+      "task": "实现 TodoList：add、done、render；main 添加“学习Java”“写项目”，完成第一条，输出两行带 [x]/[ ] 的清单。",
+      "prompt": "修复「项目：待办清单」这枚记忆碎片：实现 TodoList：add、done、render；main 添加“学习Java”“写项目”，完成第一条，输出两行带 [x]/[ ] 的清单。",
+      "starter": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        TodoList t = new TodoList();\n        t.add(\"学习Java\");\n        t.add(\"写项目\");\n        t.done(0);\n        // TODO: 输出 t.render()\n\n    }\n}\n\nclass Task {\n    String title;\n    boolean done;\n    Task(String title) {\n        this.title = title;\n    }\n}\n\nclass TodoList {\n    List<Task> tasks = new ArrayList<>();\n    void add(String title) {\n        // TODO\n    }\n    void done(int index) {\n        // TODO\n    }\n    String render() {\n        // TODO\n        return \"\";\n    }\n}",
+      "solution": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        TodoList t = new TodoList();\n        t.add(\"学习Java\");\n        t.add(\"写项目\");\n        t.done(0);\n        System.out.println(t.render());\n    }\n}\n\nclass Task {\n    String title;\n    boolean done;\n    Task(String title) {\n        this.title = title;\n    }\n}\n\nclass TodoList {\n    List<Task> tasks = new ArrayList<>();\n    void add(String title) {\n        tasks.add(new Task(title));\n    }\n    void done(int index) {\n        tasks.get(index).done = true;\n    }\n    String render() {\n        StringBuilder sb = new StringBuilder();\n        for (int i = 0; i < tasks.size(); i++) {\n            if (i > 0) sb.append(\"\\n\");\n            Task t = tasks.get(i);\n            sb.append(t.done ? \"[x] \" : \"[ ] \").append(t.title);\n        }\n        return sb.toString();\n    }\n}",
+      "mode": "output",
+      "expected": "[x] 学习Java\n[ ] 写项目",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「项目：待办清单」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "mini-library",
+      "lesson": "mini-library",
+      "number": 83,
+      "chapterNo": 12,
+      "chapter": "综合项目",
+      "title": "项目：迷你图书管理系统",
+      "reading": false,
+      "task": "实现 Library 的 add、borrow、giveBack、availableCount；main 输出借书结果和可借数量。",
+      "prompt": "修复「项目：迷你图书管理系统」这枚记忆碎片：实现 Library 的 add、borrow、giveBack、availableCount；main 输出借书结果和可借数量。",
+      "starter": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Library lib = new Library();\n        lib.add(new Book(\"Java\", \"A\"));\n        lib.add(new Book(\"Python\", \"B\"));\n        // TODO: 借 Java，输出结果和可借数量\n\n    }\n}\n\nclass Book {\n    String title;\n    String author;\n    boolean borrowed;\n    Book(String title, String author) {\n        this.title = title;\n        this.author = author;\n    }\n}\n\nclass Library {\n    List<Book> books = new ArrayList<>();\n    void add(Book b) {\n        // TODO\n    }\n    Book find(String title) {\n        // TODO\n        return null;\n    }\n    String borrow(String title) {\n        // TODO\n        return \"\";\n    }\n    void giveBack(String title) {\n        // TODO\n    }\n    int availableCount() {\n        // TODO\n        return 0;\n    }\n}",
+      "solution": "import java.util.*;\n\npublic class Main {\n    public static void main(String[] args) {\n        Library lib = new Library();\n        lib.add(new Book(\"Java\", \"A\"));\n        lib.add(new Book(\"Python\", \"B\"));\n        System.out.println(lib.borrow(\"Java\"));\n        System.out.println(lib.availableCount());\n    }\n}\n\nclass Book {\n    String title;\n    String author;\n    boolean borrowed;\n    Book(String title, String author) {\n        this.title = title;\n        this.author = author;\n    }\n}\n\nclass Library {\n    List<Book> books = new ArrayList<>();\n    void add(Book b) {\n        books.add(b);\n    }\n    Book find(String title) {\n        for (Book b : books) {\n            if (b.title.equals(title)) return b;\n        }\n        return null;\n    }\n    String borrow(String title) {\n        Book b = find(title);\n        if (b == null) return \"没有:\" + title;\n        if (b.borrowed) return \"已借出:\" + title;\n        b.borrowed = true;\n        return \"借出:\" + title;\n    }\n    void giveBack(String title) {\n        Book b = find(title);\n        if (b != null) b.borrowed = false;\n    }\n    int availableCount() {\n        int n = 0;\n        for (Book b : books) if (!b.borrowed) n++;\n        return n;\n    }\n}",
+      "mode": "output",
+      "expected": "借出:Java\n1",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「项目：迷你图书管理系统」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        }
+      ]
+    },
+    {
+      "id": "multi-catch",
+      "lesson": "multi-catch",
+      "number": 84,
+      "chapterNo": 13,
+      "chapter": "现代 Java 语法",
+      "title": "multi-catch 多异常捕获",
+      "reading": false,
+      "task": "用 multi-catch 同时捕获 ArithmeticException 和 ArrayIndexOutOfBoundsException，触发除零并输出“算错了”。",
+      "prompt": "修复「multi-catch 多异常捕获」这枚记忆碎片：用 multi-catch 同时捕获 ArithmeticException 和 ArrayIndexOutOfBoundsException，触发除零并输出“算错了”。",
+      "starter": "public class Main {\n    public static void main(String[] args) {\n        // TODO: 用 multi-catch 捕获两种异常\n\n    }\n}",
+      "solution": "public class Main {\n    public static void main(String[] args) {\n        try {\n            int x = 10 / 0;\n        } catch (ArithmeticException | ArrayIndexOutOfBoundsException e) {\n            System.out.print(\"算错了\");\n        }\n    }\n}",
+      "mode": "output",
+      "expected": "算错了",
+      "stdin": "",
+      "calls": [],
+      "lines": [
+        {
+          "speaker": "旁白",
+          "text": "第13章 · 现代 Java 语法。文本块、switch 表达式、multi-catch、sealed 与模式匹配",
+          "portrait": "narrator"
+        },
+        {
+          "speaker": "阿灯",
+          "text": "记忆塔的这一层是「现代 Java 语法」。把里面的程序接上，塔就会亮一层。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "阿灯",
+          "text": "下一枚碎片是「multi-catch 多异常捕获」。你写，我盯住崩溃的边界。",
+          "portrait": "companion"
+        },
+        {
+          "speaker": "你",
+          "text": "把题目给我。",
+          "portrait": "hero"
+        },
+        {
+          "speaker": "铁砧",
+          "text": "别只顾着跑通。问问自己：这段代码为什么这样写？",
+          "portrait": "companion2"
+        }
+      ]
+    }
+  ]
+}
