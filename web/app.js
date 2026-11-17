@@ -196,13 +196,17 @@ function editorHTML(value, height) {
   </div>`;
 }
 
+function formatOutput(s) {
+  // Keep leading indentation visible even if a browser collapses it inside a div.
+  return esc(s ?? '').replace(/ /g, '&nbsp;').replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;');
+}
 function resultHTML(res) {
   if (!res) return `<div class="output">没有结果</div>`;
   if (res.compiled === false) {
     return `<div class="output error">${esc(res.compileMessage || '编译失败')}</div>`;
   }
   const cls = res.passed ? 'success' : 'error';
-  let html = `<div class="output ${cls}">${res.passed ? '✓ 通过' : '✕ 未通过'}${res.output ? '\n' + esc(res.output) : ''}${res.error ? '\n' + esc(res.error) : ''}</div>`;
+  let html = `<div class="output ${cls}">${res.passed ? '✓ 通过' : '✕ 未通过'}${res.output ? '\n' + formatOutput(res.output) : ''}${res.error ? '\n' + formatOutput(res.error) : ''}</div>`;
   if (res.tests && res.tests.length) {
     html += `<div class="test-list">` + res.tests.map(t => `<div class="test"><span class="${t.passed ? 'ok' : 'bad'}">${t.passed ? '✓' : '✕'}</span><span>${esc(t.name || '测试')}${t.passed ? '' : ` · 期望 ${esc(t.expected)} / 实际 ${esc(t.actual)}`}</span></div>`).join('') + `</div>`;
   }
