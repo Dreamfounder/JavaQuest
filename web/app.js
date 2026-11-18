@@ -197,13 +197,15 @@ function editorHTML(value, height) {
 }
 
 function consoleHTML(s) {
-  // Render one fixed-width cell per character. This keeps spaces and stars
-  // aligned even when the device has no usable monospace font.
+  // Render one fixed-width cell per character. Keep the grid inline so an old
+  // cached CSS file cannot collapse it into ordinary text.
+  const lineStyle = 'display:block;white-space:nowrap;min-height:1.65em';
+  const cellStyle = 'display:inline-block;width:.62em;min-width:.62em;text-align:center;white-space:pre';
   return String(s ?? '').split('\n').map(line => {
-    if (!line.length) return '<div class="console-line">&nbsp;</div>';
+    if (!line.length) return `<div style="${lineStyle}">&nbsp;</div>`;
     const cells = [...line].map(ch =>
-      `<span class="console-char">${ch === ' ' ? '&nbsp;' : esc(ch)}</span>`).join('');
-    return `<div class="console-line">${cells}</div>`;
+      `<span style="${cellStyle}">${ch === ' ' ? '&nbsp;' : esc(ch)}</span>`).join('');
+    return `<div style="${lineStyle}">${cells}</div>`;
   }).join('');
 }
 function resultHTML(res) {
