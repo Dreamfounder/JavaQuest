@@ -206,8 +206,8 @@ function resultHTML(res) {
     return `<div class="output error">${esc(res.compileMessage || '编译失败')}</div>`;
   }
   const cls = res.passed ? 'success' : 'error';
-  const mono = 'font-family:SFMono-Regular,Consolas,\'Liberation Mono\',monospace;white-space:pre-wrap;tab-size:4';
-  let html = `<div class="output ${cls}" style="${mono}">${res.passed ? '✓ 通过' : '✕ 未通过'}${res.output ? '\n' + formatOutput(res.output) : ''}${res.error ? '\n' + formatOutput(res.error) : ''}</div>`;
+  const mono = 'font-family:SFMono-Regular,Consolas,\'Liberation Mono\',monospace;white-space:pre-wrap;tab-size:4;text-align:left;margin:0';
+  let html = `<div class="output ${cls}" style="${mono}"><pre style="${mono}">${res.passed ? '✓ 通过' : '✕ 未通过'}${res.output ? '\n' + formatOutput(res.output) : ''}${res.error ? '\n' + formatOutput(res.error) : ''}</pre></div>`;
   if (res.tests && res.tests.length) {
     html += `<div class="test-list">` + res.tests.map(t => `<div class="test"><span class="${t.passed ? 'ok' : 'bad'}">${t.passed ? '✓' : '✕'}</span><span>${esc(t.name || '测试')}${t.passed ? '' : ` · 期望 ${esc(t.expected)} / 实际 ${esc(t.actual)}`}</span></div>`).join('') + `</div>`;
   }
