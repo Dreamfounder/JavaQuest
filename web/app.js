@@ -196,9 +196,15 @@ function editorHTML(value, height) {
   </div>`;
 }
 
-function formatOutput(s) {
-  // Keep leading indentation visible even if a browser collapses it inside a div.
-  return esc(s ?? '').replace(/ /g, '&nbsp;').replace(/\t/g, '&nbsp;&nbsp;&nbsp;&nbsp;');
+function consoleHTML(s) {
+  // Render one fixed-width cell per character. This keeps spaces and stars
+  // aligned even when the device has no usable monospace font.
+  return String(s ?? '').split('\n').map(line => {
+    if (!line.length) return '<div class="console-line">&nbsp;</div>';
+    const cells = [...line].map(ch =>
+      `<span class="console-char">${ch === ' ' ? '&nbsp;' : esc(ch)}</span>`).join('');
+    return `<div class="console-line">${cells}</div>`;
+  }).join('');
 }
 function resultHTML(res) {
   if (!res) return `<div class="output">没有结果</div>`;
@@ -207,7 +213,8 @@ function resultHTML(res) {
   }
   const cls = res.passed ? 'success' : 'error';
   const mono = 'font-family:SFMono-Regular,Consolas,\'Liberation Mono\',monospace;white-space:pre-wrap;tab-size:4;text-align:left;margin:0';
-  let html = `<div class="output ${cls}" style="${mono}"><pre style="${mono}">${res.passed ? '✓ 通过' : '✕ 未通过'}${res.output ? '\n' + formatOutput(res.output) : ''}${res.error ? '\n' + formatOutput(res.error) : ''}</pre></div>`;
+  const body = `${res.passed ? '✓ 通过' : '✕ 未通过'}${res.output ? '\n' + res.output : ''}${res.error ? '\n' + res.error : ''}`;
+  let html = `<div class="output ${cls}" style="${mono}"><div class="console">${consoleHTML(body)}</div></div>`;
   if (res.tests && res.tests.length) {
     html += `<div class="test-list">` + res.tests.map(t => `<div class="test"><span class="${t.passed ? 'ok' : 'bad'}">${t.passed ? '✓' : '✕'}</span><span>${esc(t.name || '测试')}${t.passed ? '' : ` · 期望 ${esc(t.expected)} / 实际 ${esc(t.actual)}`}</span></div>`).join('') + `</div>`;
   }

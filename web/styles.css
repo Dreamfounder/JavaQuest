@@ -198,6 +198,9 @@ textarea.editor {
 .output { margin-top: 10px; border-radius: 11px; border: 1px solid #26394a; background: #080f16; padding: 11px 12px; font: 11.5px/1.65 "SFMono-Regular", Consolas, "Liberation Mono", monospace; white-space: pre-wrap; tab-size: 4; color: #b9cbd9; min-height: 44px; }
 .output.error { border-color: #5a3038; color: #ffb7b7; }
 .output.success { border-color: #2f5d4a; color: #b8f1dc; }
+.console { display: block; line-height: 1.65; }
+.console-line { display: block; white-space: nowrap; min-height: 1.65em; }
+.console-char { display: inline-block; width: .62em; min-width: .62em; text-align: center; white-space: pre; }
 .test-list { display: flex; flex-direction: column; gap: 4px; margin-top: 8px; }
 .test { display: flex; gap: 8px; font-size: 11px; color: var(--muted); }
 .test .ok { color: var(--accent); }
